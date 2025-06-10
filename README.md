@@ -25,7 +25,7 @@ Below are the links to the project:
 
 Near Vision (by July 2025)
 
-Build a working prototype with:
+Build a working product with:
 
 * Sign-up/login
 * User profile creation and interest questionnaire
@@ -36,6 +36,7 @@ Build a working prototype with:
 * Present a polished, cohesive MVP at the final project showcase
 * Implement a basic match scoring algorithm
 * Add in-app messaging between matches
+* Host via AWS EC2 and S3
 
   
 Far-Term Vision (Stretch Goals, if time allows):
