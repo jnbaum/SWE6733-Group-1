@@ -13,7 +13,8 @@
 
 ## Project Overview
 
-The goal of this project is to build Rovaly, an outdoor app for adventure seekers. Whether they're into hiking, kayaking, rock climbing, or just exploring new trails, the app matches them with like-minded adventurers who share their passion for the great outdoors. The app goes beyond basic metrics to ensure people find a partner who truly gets their love for adventure. 
+The goal of this project is to build Rovaly, an outdoor app for adventure seekers. Whether they're into hiking, kayaking, rock climbing, or just exploring new trails, the app matches them with like-minded adventurers who share their passion for the great outdoors. By collecting various preferences such as budget, trip length, attitude, and skill level for different adventures, the app ensures people find a partner who truly gets their love for adventure. 
+This app is designed specifically to connect users within the Kennesaw, GA area.
 
 Below are the links to the project:
 
