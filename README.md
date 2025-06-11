@@ -47,6 +47,7 @@ Far-Term Vision (Stretch Goals, if time allows):
 * Refactor the codebase for clarity, scalability, and portfolio use
 * Updating user profiles and additional photo storage
 
+---
 
 ## Project Backlog Ordering Rationale
 
