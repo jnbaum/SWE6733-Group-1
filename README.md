@@ -47,6 +47,14 @@ Far-Term Vision (Stretch Goals, if time allows):
 * Refactor the codebase for clarity, scalability, and portfolio use
 * Updating user profiles and additional photo storage
 
+---
+
+## Project Backlog Ordering Rationale
+
+Our team ordered the project backlog with a focus on logical workflow progression and intuitive development flow. We began by grouping related features and tasks according to the typical user journey and core functionality dependencies. This ensures foundational components were prioritized before non-required features. Next, we ordered user stories based on what we perceived as the most natural and efficient route to implementation. We took into account task complexity, team capacity, and cross-feature dependencies. This approach allowed us to maintain flexibility while ensuring that the overall development process remained coherent and streamlined.
+
+---
+
 
 
 
