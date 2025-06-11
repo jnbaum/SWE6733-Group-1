@@ -1,7 +1,30 @@
 <?php
-public class DataAccess {
-    
+//https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/index.html
+require_once('../Packages/vendor/autoload.php');
+require_once('../Models/QueryType.php');
+class DataAccess {
+    public function GetConnection() {
+            $connectionParams = [
+        'dbname' => 'rovalydb',
+        'user' => 'root',
+        'password' => '',
+        'host' => '127.0.0.1:3308', // change this to 3306
+        'driver' => 'pdo_mysql',
+    ];
+    return DriverManager::GetConnection($connectionParams);
 
+    }
+
+    public function ExecuteQuery(string $query, QueryType $queryType) {
+        $conn = GetConnection();
+        $conn->ExecuteQuery($query);
+        // Return the key of the record that was inserted if doing an INSERT query
+        if($queryType == QueryType::INSERT) {
+            $lastInsertedId = $conn->lastInsertId;
+            return $lastInsertId;
+        }
+        $conn->close();
+    }
 
 }
 ?>

@@ -16,91 +16,14 @@
     rel="stylesheet"
     />
 
-    <style>
-        .flex-centered {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-         
-        }
-
-        .main {
-            height: 100vh; /* main container must have 100vh if using flex to center vertically */
-        }
-
-        .chatContainer {
-            min-height: 80vh;
-            width: 80%;
-            /* https://www.w3schools.com/css/css3_shadows_box.asp */
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            position: relative;
-            
-        }
-
-        .sendMessageForm {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            display: flex;
-            flex-direction: row;
-            width: 90%;
-            margin-top: auto; /* equivalent to floating to bottom when direct parent is a flex container (flex-centered chatContainer) */
-        }
-        
-        .sendMessageInput {
-           min-width: 0; /* override because inputs have default width */
-           width: 100%;
-           border: white;
-        }
-        .sendMessageButton {
-            float: right;
-            width: 100px;
-        }
-
-
-        .messagesSection {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto; /* todo: test this */
-            padding: 1%;
-            margin-bottom: 1%;
-        }
-
-        .bubble {
-            width: 46%;
-            display: inline-block;
-            border-radius: 10px;
-            padding: 1rem;
-            box-shadow: rgb(0 0 0 / 25%) 0px 2px 5px 2px;  /* shadow taken from https://www.scaler.com/topics/chat-interface-project-css/ */
-            margin-top: 1%;
-            padding: 5px 10px 5px 12px;
-        }
-
-        .left {
-            margin-right: auto; /* equivalent to float left when inside a flex container */
-        }
-
-        .right {
-            margin-left: auto;
-        }
-
-        .gray {
-            /* color taken from https://www.scaler.com/topics/chat-interface-project-css/ */
-            background: #efefef none repeat scroll 0 0;
-            color: #646464;
-            
-        }
-        .gradient {
-            /* background-image: linear-gradient(45deg,rgb(44, 153, 97) 0%,rgb(42, 221, 75) 100%); */
-            background-image: linear-gradient(45deg,rgb(30, 105, 219) 0%,rgb(95, 155, 246) 100%);
-            color: #fff;
-        }
-    </style>
+   
+   <link rel="stylesheet" href="../Assets/styles/ChatRoom.css">
+   
 </head>
 
 <?php 
     require_once("../Models/Message.php"); // TODO: eventually, we will create a PROJECT ROOT path to use because relative paths in PHP get complicated
+    require_once("../BusinessLogic/AllServices.php");
 ?>
 <body class="main flex-centered">
     <h1>Chat with User</h1>
@@ -111,6 +34,9 @@
         $currentUserKey = 1;
         $chatRoomKey = 1;
         // Get messages for the chat room key - make the query order by sentTime DESC, and union messages sent by current user + other user
+        $messageService = $allServices->GetMessageService();
+        echo $messageService->ping(); // Replace with GetMessages
+
         $message1 = new Message(1, 2, $chatRoomKey, "Hello", "6-7-2025 17:04:00"); // This timeStamp follows MySQL date format conventions
         $message2 = new Message(2, 1, $chatRoomKey, "Hey!", "6-7-2025 17:04:00");
         $message3 = new Message(1, 2, $chatRoomKey, "How was your day?", "6-7-2025 17:05:00");
@@ -120,7 +46,7 @@
 
         foreach($messages as $message) {
             if($message->GetSendingUserKey() == $currentUserKey) {
-                echo '<div class="gradient right bubble"><p>' . $message->GetContent() . '</p></div>';
+                echo '<div class="gradient right bubble"><p>' . $message->GetContent() . '</p></div>';  
             }
             else {
                 echo '<div class="gray left bubble"><p>' . $message->GetContent() . '</p></div>';
