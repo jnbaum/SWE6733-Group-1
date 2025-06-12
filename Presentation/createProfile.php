@@ -3,10 +3,103 @@ $bodyClass = 'create-profile';
 include("head.php");
 include("header.php");
 ?>
-<main class="container mt-5">
-    <div class="row">
-        
-    </div>
-</main>
+
+<html>
+<head>
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@9.0.0/css/mdb.min.css"
+    rel="stylesheet"
+    />
+   <link rel="stylesheet" href="../Assets/styles/ChatRoom.css">
+</head>
+
+<!---------------------------------------- TESTING --------------------------------------------------->
+<main class="profile-container">
+        <div class="profile-row">
+            <!-- Left Column: Profile Picture and Delete Button -->
+            <div class="profile-left-column">
+                 <!-- header 4: "Edit/Create Profile -->
+                <h4 class="profile-heading">Edit/Create Profile</h4>
+                <div class="profile-card">
+                    <div class="profile-picture-section">
+                        <div class="profile-picture-placeholder">
+                             <!-- Profile icon -->
+                            <svg class="profile-picture-icon" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                         <!-- Upload profile picture -->
+                        <label for="profile-picture" class="profile-upload-button">
+                            Upload Picture
+                            <input type="file" id="profile-picture" class="hidden-input">
+                        </label>
+                        <button class="profile-delete-button">Delete Profile</button>          
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Profile Details & Adventure Preferences -->
+            <div class="profile-right-column">
+                <div class="profile-card">
+                    <form class="profile-form">
+                        <!-- Name Fields -->
+                        <div class="form-group name-form-group">
+                            <label for="first-name" class="form-label" style="color: black;">Name</label>
+                            <div class="name-fields form-field-wrapper">
+                                <input type="text" class="form-input" id="first-name" placeholder="First" style="margin-right: 1rem;">
+                                <input type="text" class="form-input" id="last-name" placeholder="Last">
+                            </div>
+                        </div>
+
+                        <!-- Instagram Field -->
+                        <div class="form-group instagram-form-group">
+                            <label for="instagram" class="form-label" style="color: black;">Instagram</label>
+                            <input type="url" class="form-input form-field-wrapper" id="instagram" placeholder="URL">
+                        </div>
+
+                        <!-- Location Field -->
+                        <div class="form-group location-form-group">
+                            <label for="location" class="form-label" style="color: black;">Location</label>
+                            <input type="text" class="form-input form-field-wrapper" id="location" value="Kennesaw Georgia" style="text-align: left; border: none;">
+                        </div>
+
+                        <!-- Match Range Field -->
+                        <div class="form-group match-form-group">
+                            <label for="match-range" class="form-label" style="color: black;">Match Range</label>
+                            <div class="match-range-group form-field-wrapper">
+                                <input type="number" class="form-input-short" id="match-range" placeholder="Number">
+                                <span class="ml-2">Miles</span>
+                            </div>
+                        </div>
+
+                        <!-- Adventure Types -->
+                        <div class="form-group">
+                            <label for="adventure-types" class="form-label" style="color: black;">Adventure Types</label>
+                            <a href="#" class="link-text form-field-wrapper">+ <span class="underline-me">Click to add</span></a>
+                        </div>
+
+                        <!-- Biography -->
+                        <div class="form-group bio-form-group">
+                            <label for="bio" class="form-label" style="color: black;">Bio</label>
+                            <textarea class="form-textarea form-field-wrapper" id="bio" rows="5"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+<!------------------------------------------------------ TESTING ----------------------------------------------------------------------------------->
+
 </body>
 </html>

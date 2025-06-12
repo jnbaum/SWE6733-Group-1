@@ -182,3 +182,329 @@
     text-decoration: underline;
     font-size: 2.2rem;
   }
+
+/*************************************** TESTING  ***************************************/
+
+  /* General Body and Container Styles */
+  .body {
+      font-family: 'Norwester', sans-serif; /* font */
+      background-color: #FFFFFF; /* white background */
+      margin: 0; /* general margin */
+      padding: 0; /* general padding */
+      min-height: 100vh; /* minimum body full viewport height for alignment */
+      display: flex; /* use flexbox for body and align main content */
+      flex-direction: column; /* stack content vertically (header to main) */
+  }
+
+  .main {
+      flex-grow: 1; /* allow main content to take available vertical space */
+      padding: 0; /* remove padding from main and allow container to control its margin */
+      display: flex; /* main flex container */
+      flex-direction: column; /* stack vertically inside main */
+  }
+
+  .profile-container {
+      max-width: 1100px; /* limit total width of content area */
+      width: calc(100% - 4rem); /* adjust width for left & right margin */
+      margin-top: 2rem; /* margin from top edge */
+      margin-left: 2rem; /* margin from left edge */
+      margin-bottom: 2rem; /* margin from bottom edge */
+      padding: 0; /* no internal padding for container itself, cards handle their own */
+      box-sizing: border-box; /* add padding and border for w,h */
+      flex-grow: 1; /* allow the container for vertically growth within main */
+      display: flex; /* make flex container for its rows */
+      flex-direction: column; /* stack rows vertically */
+  }
+
+  .profile-row {
+      display: flex;
+      flex-wrap: wrap; /* allows columns to wrap smaller screens */
+      gap: 1.5rem; /* space between columns */
+      width: 100%; /* ensure row have full width of its container */
+      flex-grow: 1; /* allow row to grow vertically inside the container */
+  }
+
+  .profile-left-column {
+      flex-shrink: .5; /* shrink flex item in available space */
+      min-width: 350px; /* adjust minimum width */
+      display: flex; /* make column a flex container */
+      flex-direction: column; /* stack contents vertically */
+  }
+
+  .profile-right-column {
+      flex: 2; /* increased flex proportion to allow more space */
+      min-width: 500px; /* adjust min-width to allow more flexibility while maintaining a usable size */
+      display: flex; /* make column flex container */
+      flex-direction: column; /* stack contents vertically */
+  }
+
+  .profile-card {
+      background-color: white; /* white color */
+      padding: 1.5rem; /* add 1.5 rem of padding */
+      border-radius: 0.75rem; /* rounded corners */
+      /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); to see column separation */
+      height: 100%; /* ensure cards fill the column height */
+      box-sizing: border-box; /* include padding for element's total width and height */
+      display: flex; /* allow profile card display to flex */
+      flex-direction: column; /* stack contents vertically */
+      width: 100%; /* ensure card fills column width */
+      flex-grow: 1; /* allow cards to grow vertically inside columns */
+  }
+
+  .profile-heading {
+      font-family: 'Norwester', sans-serif; /* font */
+      font-size: 3rem; /* font size */
+      font-weight: bold; /* bold the text */
+      color: #333; /* dark shade gray */
+      margin-bottom: 1rem; /* adds margin from bottom */
+      text-align: center; /* center the heading */
+      text-decoration: underline; /* add underline */
+  }
+
+  .profile-picture-section {
+      display: flex; /* section display flex */
+      flex-direction: column; /* stack content vertically */
+      align-items: center; /* center alignment */
+      margin-bottom: 1.5rem; /* restore margin-bottom for proper spacing */
+  }
+
+  .profile-picture-placeholder {
+      width: 10rem; /* set width to 10rem */
+      height: 10rem;  /* set height to 10 rem */
+      background-color: #e2e8f0; /* bg-gray-200 */
+      display: flex; /* flex display */
+      align-items: center; /* center alignment */
+      justify-content: center; /* center content */
+      overflow: hidden; /* prevent element passing w, h boundary */
+      margin-bottom: 0.5rem; /* margin bottom to 0.5 rem */
+  }
+
+  .profile-picture-icon {
+      width: 9.5rem; /* set width to 9.5 rem size */
+      height: 9.5rem;  /* set height to 9.5 rem size */
+      color: #a0aec0; /* text-gray-400 */
+      border: 5px solid white; /* 3px thick, solid dark grey border */
+  }
+
+
+  .profile-upload-button {
+      background-color: #ffffff; /* set background to white */
+      color: black; /* equivalent to btn-outline-primary blue */
+      border: none; /* remove the border */
+      padding: 0.75rem 2rem; /*
+      border-radius: 9999px; /* Made more curvy/pill-shaped */
+      cursor: pointer;
+      font-weight: 400;
+      transition: background-color 0.2s, color 0.2s;
+      text-decoration: underline; /* Added underline */
+  }
+
+  .hidden-input {
+      display: none; /* Hide the default file input */
+  }
+
+  /* Buttons */
+  .profile-delete-button {
+      background-color: var(--green-light); /* Changed to a medium green */
+      color: black; /* set text color to black */
+      font-weight: bold; /* bold the text */
+      padding: 0.75rem 2rem; /* .75rem top & bottom, 2rem right & left */ 
+      border-radius: 9999px; /* made more curvy/pill-shaped */
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+      border: none; /* no border */
+      cursor: pointer; /* set cursor pointer */
+      transition: background-color 0.2s ease-in-out; /* background transition */
+      margin-top: 1rem; /* adjust margin to provide space */
+      text-decoration: underline; /* added underline */
+      font-weight: 400; /* font weight */
+  }
+
+  .profile-delete-button:hover {
+      background-color: var(--green-dark); /* darker green on hover */
+  }
+
+  .profile-form {
+      display: flex; /* set display to flex */
+      flex-direction: column; /* stack contents vertically */
+      gap: 1rem; /* space between form groups */
+      width: 100%; /* ensure form takes full width within parent to align properly */
+      flex-grow: 1; /* allow the form to grow vertically */
+  }
+
+  .profile-form .form-group:first-of-type {
+      margin-top: 4rem; /* pushes name down */
+  }
+
+  .form-group {
+      display: flex; /* make it a flex container */
+      align-items: center; /* vertically align items in the middle */
+      margin-bottom: 0.75rem; /* .75 rem from margin bottom */
+      width: 100%; /* ensure group full width */
+  }
+
+  .form-group.name-form-group .form-label {
+      width: auto; /* override fixed width */
+      margin-right: 1.5rem; /* small margin to separate from input */
+  }
+
+          
+  .form-group.location-form-group .form-label {
+      width: auto; /* override fixed width */
+      margin-right: 1.5rem; /* Small margin to separate from input */
+      /* text-align: right; /* align text within label to the right */
+  }
+
+  .form-group.instagram-form-group .form-label {
+      width: auto; /* override fixed width */
+      margin-right: 1.5rem; /* small margin to separate from input */
+      /* text-align: right; /* align text within label to the right */
+  }
+
+  .instagram-form-group .form-input {
+      width: 250px; /* adjust this value to fixed width */
+      flex-grow: 0; /* prevent from growing */
+      flex-shrink: 0; /* prevent from shrinking */
+  }
+
+  .form-group.match-form-group .form-label {
+      width: auto; /* override fixed width */
+      margin-right: 1.5rem; /* small margin to separate from input */
+      /* text-align: right; /* align text within label to the right */
+  }
+
+  .form-group.bio-form-group {
+      align-items: flex-start; /* align label to the top */
+  }
+
+  .form-group.bio-form-group .form-label {
+      width: auto; /* override fixed width */
+      margin-right: 1.5rem; /* small margin to separate from input */
+      /* text-align: right; /* align text within label to the right */
+  }
+
+  .form-label {
+      display: block; /* block display */
+      width: 140px; /* increased width accommodate "Adventure Types" on one line */
+      text-align: left; /* align label text to the left */
+      margin-right: 1rem; /* space between label and input */
+      flex-shrink: 0; /* prevent label from shrinking */
+  }
+
+  .form-field-wrapper {
+      flex: 1; /* make all wrappers take equal remaining space */
+      display: flex; /* necessary for its children to respect flex properties */
+      align-items: center; /* align children vertically within the wrapper */
+      gap: 0.5rem; /* default gap for children if they are flex items */
+  }
+
+  .form-field-wrapper .form-input,
+  .form-field-wrapper .form-textarea {
+      width: 100%; /* set width 100% */
+      flex: 1; /* set flex to flex-grow, flex-shrink, flex-basis */
+  }
+
+  .form-input {
+      text-align: center; /* center text for general inputs */
+      padding: 0.5rem 0.75rem; /* slightly reduced padding */
+      font-size: 1rem; /* slightly smaller font */
+      border: 1px solid black; /* border-gray-300 */
+      border-radius: 0.5rem; /* rounded-lg */
+      box-sizing: border-box; /* changes size of box */
+  }
+
+  .match-range-group {
+      display: flex; /* set display flex */
+      align-items: center; /* aligns item to center */
+      gap: 0.5rem; /* space between number input and "Miles" */
+  }
+
+  .match-range-group .form-input-short {
+      width: 10rem; /* stretched width for 'Number' input */
+      flex-shrink: 0; /* prevent it from growing too much */
+      border: 1px solid black; /* border-gray-300 */
+      padding: 0.5rem 0.75rem; /* slightly reduced padding */
+      border-radius: 0.5rem; /* rounded-lg */
+      box-sizing: border-box; /* changes size of box */
+      text-align: center; /* centered text for the number input */
+      font-size: 1rem; /* slightly smaller font */
+  }
+
+  .location-input-field {
+      text-align: left; /* ensure text-align is left for location */
+      border: none; /* no border for location */
+  }
+
+  .link-text {
+      color: black; /* text-blue-600 */
+      flex-grow: 0; /* prevent it from stretching if not needed */
+      white-space: nowrap; /* keep text on one line */
+      text-decoration: none; /* remove underline from the anchor tag itself */
+  }
+
+  .link-text .underline-me {
+      text-decoration: underline; /* apply underline only to the span */
+  }
+
+  .form-field-wrapper .form-textarea {
+      align-self: stretch; /* allows textarea to take full height if its container has one */
+      padding: 0.5rem 0.75rem; /* slightly reduced padding */
+      font-size: 1rem; /* slightly smaller font */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+      .profile-container {
+          padding: 1rem; /* adjust padding for smaller screens */
+          margin: 1rem; /* adjust margin for smaller screens */
+      }
+      .profile-row {
+          flex-direction: column; /* stack columns on small screens */
+          gap: 1rem; /* gap size of 1rem */
+      }
+
+      .profile-left-column,
+      .profile-middle-column { /* these two columns exist now */
+          min-width: unset; /* remove min-width restriction */
+          max-width: 100%; /* full width */
+      }
+
+      .profile-card {
+          padding: 1rem; /* reduce padding on small screens */
+      }
+
+      .form-group {
+          flex-direction: column; /* stack label and input vertically */
+          align-items: flex-start; /* align label to the start */
+      }
+
+      .form-label {
+          text-align: left; /* align label text to the left */
+          margin-right: 0; /* remove right margin */
+          margin-bottom: 0.25rem; /* add bottom margin for spacing */
+          width: auto; /* allow width to be auto on small screens */
+      }
+
+      .form-field-wrapper {
+          width: 100%; /* ensure wrapper takes full width on small screens */
+      }
+
+      .name-fields {
+          flex-direction: column; /* stack first and last name inputs */
+          gap: 0.5rem; /* gap size of 0.5 rem */
+          width: 100%; /* full width */
+      }
+
+      .form-input,
+      .form-textarea {
+          width: 100%; /* ensure inputs take full width on small screens */
+      }
+
+      .match-range-group .form-input-short { /* specific adjustment for match range input on small screens */
+          width: 100%; /* also for match range input */
+      }
+
+      .form-group.flex-items-center { /* specific adjustment for match range */
+          flex-direction: row; /* keep match range label and input inline */
+          align-items: center; /* align items to center */
+      }
+  }
