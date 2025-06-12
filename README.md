@@ -56,7 +56,18 @@ Our team ordered the project backlog with a focus on logical workflow progressio
 
 ---
 
+## Definition of Ready
 
+* The user story has a clear and descriptive title
+* The description of each user story has the user story in the "As a __ I want to __ so that __" format.
+* Acceptance criteria are in the description
+* Dependencies are identified and addressed
+* Story points are assigned for each item in the backlog
+* UX/UI mockup is complete and approved by the team
+* All sprint one items and their required time can fit in the allotted timeframe of the sprint
+* The team has reviewed and approved the user stories, backlog order, and sprint plan
+
+---
 
 
 
