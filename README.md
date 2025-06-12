@@ -19,6 +19,7 @@ This app is designed specifically to connect users within the Kennesaw, GA area.
 Below are the links to the project:
 
 * [Jira & Confluence](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiZWFmYzIwZWMyZWFiNGMyNGEwNTEzYzVhY2U5MGZmNTQiLCJwIjoiaiJ9)
+* [Canva Mockup](https://www.canva.com/design/DAGpbGsNqio/VnFCNnJ8-qeXsxw6DBTfpQ/view?utm_content=DAGpbGsNqio&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hf5885327b1)
 
 ---
 
