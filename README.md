@@ -48,6 +48,13 @@ Far-Term Vision (Stretch Goals, if time allows):
 * Refactor the codebase for clarity, scalability, and portfolio use
 * Updating user profiles and additional photo storage
 
+
+Stakeholders:
+
+* <ins>Outdoor Lovers & Adventurers</ins> - These are the individuals who are searching for partners who share a common interest in adventuring. As the primary user demographic and beneficiaries, their satisfaction will be the key factor in determing the application's success.
+* <ins>Outdoor Organization & Guides</ins> - A third party may be interested in using Rovaly application to find and connect with potential participants. This can include local community groups, organization operatiors, and professional guides.
+* <ins>Investors</ins> - This party provides the funding and resources for the Rovaly team to carry out the application's development. The profit and growth to be gained will be contingent upon this product's success.
+
 ---
 
 ## Project Backlog Ordering Rationale
