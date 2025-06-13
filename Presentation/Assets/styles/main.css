@@ -418,17 +418,6 @@
       gap: 0.5rem; /* space between number input and "Miles" */
   }
 
-  .match-range-group .form-input-short {
-      width: 10rem; /* stretched width for 'Number' input */
-      flex-shrink: 0; /* prevent it from growing too much */
-      border: 1px solid black; /* border-gray-300 */
-      padding: 0.5rem 0.75rem; /* slightly reduced padding */
-      border-radius: 0.5rem; /* rounded-lg */
-      box-sizing: border-box; /* changes size of box */
-      text-align: center; /* centered text for the number input */
-      font-size: 1rem; /* slightly smaller font */
-  }
-
   .location-input-field {
       text-align: left; /* ensure text-align is left for location */
       border: none; /* no border for location */
@@ -451,6 +440,73 @@
       font-size: 1rem; /* slightly smaller font */
   }
 
+
+  /************************************ dropdown options ***********************************************/
+  .dropdown-container {
+    position: relative; /* positioning relative */ 
+    width: 100%; /* 100% width on small screens */
+    max-width: 200px; /* max width screens */
+    margin-right: 1.5rem; /* margin from right .8rem */
+  }
+
+  select {
+      -webkit-appearance: none; /* remove default browser styling - Safari/Chrome */
+      -moz-appearance: none; /* remove default browser styling - Firefox */
+      appearance: none; /* remove default browser styling */
+      background-color: #ffffff; /* white background */
+      border: 1.5px solid black; /* black border */
+      border-radius: 0.5rem; /* rounded corners */
+      font-size: 1rem; /* font size */
+      color: gray; /* text color */
+      text-align: center; /* align text to center */
+      width: 100%; /* width set 100% */
+      cursor: pointer; /* indicate clickable */
+      outline: none; /* remove outline on focus */
+      transition: all 0.2s ease-in-out; /* smooth transition for hover/focus */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+      text-align: center; /* align text to center */
+  }
+
+  select:hover {
+      border-color: #94a3b8; /* darker border on hover */
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* slightly larger shadow on hover */
+  }
+
+  select:focus {
+      border-color: black; /* blue border on focus */
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* focus ring */
+  }
+
+  .dropdown-container::after {
+      content: '▼'; /* down arrow character */
+      position: absolute;
+      right: 15px; /* position from the right */
+      top: 50%; /* arrow positioning */
+      transform: translateY(-50%); /* center vertically */
+      pointer-events: none; /* arrow doesn't block clicks */
+      color: #64748b; /* arrow color */
+      font-size: 0.8rem; /* set font size to 0.8rem */
+      transition: color 0.2s ease-in-out; /* color change within 0.2s */
+  }
+
+  .dropdown-container:hover::after {
+      color: #334155; /* darker arrow on hover */
+  }
+
+  option {
+      padding: 0.5rem 1rem; /* padding for options */
+      background-color: #ffffff; /* background color to white */
+      color: gray; /* color set to gray */
+  }
+
+  option:checked {
+      background-color: #e0f2fe; /* light blue background for selected option */
+      color: #1e40af; /* darker blue text for selected option */
+  }
+
+  /********************************** dropdown options ********************************************/
+
+  
   /* Responsive adjustments */
   @media (max-width: 768px) {
       .profile-container {

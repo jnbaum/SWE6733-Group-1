@@ -77,10 +77,20 @@ include("header.php");
                         <!-- Match Range Field -->
                         <div class="form-group match-form-group">
                             <label for="match-range" class="form-label" style="color: black;">Match Range</label>
-                            <div class="match-range-group form-field-wrapper">
-                                <input type="number" class="form-input-short" id="match-range" placeholder="Number">
-                                <span class="ml-2">Miles</span>
+                            <!-------------------------- dropdown option ------------------------------------------>
+                            <div class="dropdown-container">
+                                <label for="myDropdown" class="sr-only">Choose an option</label>
+                                <select id="myDropdown" name="myDropdown">
+                                    <option value="disabled-option" disabled selected>Number</option>
+                                    <option value="option1">5</option>
+                                    <option value="option2">10</option>
+                                    <option value="option3">15</option>
+                                    <option value="option4">20</option>
+                                    <option value="option5">25</option>
+                                </select>
                             </div>
+                            <span class="ml-2">Miles</span>
+                            <!-------------------------- dropdown option ------------------------------------------>
                         </div>
 
                         <!-- Adventure Types -->
