@@ -1,7 +1,9 @@
 <?php
 //https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/index.html
-require_once('../Packages/vendor/autoload.php');
-require_once('../Models/QueryType.php');
+require_once(__DIR__ . '/../Packages/vendor/autoload.php');
+require_once(__DIR__ . '/../Models/QueryType.php');
+use Doctrine\DBAL\DriverManager;
+
 class DataAccess {
     public function GetConnection() {
             $connectionParams = [
@@ -9,21 +11,24 @@ class DataAccess {
         'user' => 'root',
         'password' => '',
         'host' => '127.0.0.1:3308', // change this to 3306
-        'driver' => 'pdo_mysql',
+        'driver' => 'pdo_mysql'
     ];
     return DriverManager::GetConnection($connectionParams);
 
     }
 
     public function ExecuteQuery(string $query, QueryType $queryType) {
-        $conn = GetConnection();
-        $conn->ExecuteQuery($query);
+        $conn = $this->GetConnection();
+        $stmt = $conn->ExecuteQuery($query);
+        
         // Return the key of the record that was inserted if doing an INSERT query
         if($queryType == QueryType::INSERT) {
-            $lastInsertedId = $conn->lastInsertId;
-            return $lastInsertId;
+            $lastInsertedId = $conn->lastInsertId();
+            $conn->close();
+            return $lastInsertedId;
         }
         $conn->close();
+        return $stmt;
     }
 
 }

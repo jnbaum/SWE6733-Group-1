@@ -17,13 +17,13 @@
     />
 
    
-   <link rel="stylesheet" href="../Assets/styles/ChatRoom.css">
+   <link rel="stylesheet" href="../Presentation/Assets/styles/ChatRoom.css">
    
 </head>
 
 <?php 
-    require_once("../Models/Message.php"); // TODO: eventually, we will create a PROJECT ROOT path to use because relative paths in PHP get complicated
-    require_once("../BusinessLogic/AllServices.php");
+    require_once(__DIR__ . "/../Models/Message.php"); // TODO: eventually, we will create a PROJECT ROOT path to use because relative paths in PHP get complicated
+    require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
 ?>
 <body class="main flex-centered">
     <h1>Chat with User</h1>
