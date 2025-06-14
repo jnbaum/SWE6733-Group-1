@@ -45,7 +45,7 @@ Our MVP as part of this Near Vision would be a working product with:
 * Host via AWS EC2 and S3
 
 
-Far Vision: To create a national expansion of outdoor adventure, enriching people's lives with meaningful connections and memories.
+<b>Far Vision</b>: To create a national expansion of outdoor adventure, enriching people's lives with meaningful connections and memories.
 
 In the process of matching outdoor adventurers, we hope to catalyze the formation of adventure plans and to fill outdoor parks and recreational centers with flourishing activity. We hope that this app will be adapted to other cities as well to make the same impact across the U.S., facilitating 100K matched outings across 50 U.S. cities within 10 years. 
 As the user base expands and time progresses, we hope to implement AI into our matching algorithm to find smarter matches and to even suggest specific locations for adventures based on preferences, so that more of the workload of creating adventure opportunities is taken off of users.
