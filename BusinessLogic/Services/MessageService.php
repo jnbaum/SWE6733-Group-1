@@ -1,5 +1,5 @@
 <?php
-require_once("../DataAccess/DataAccess.php");
+require_once(__DIR__ . "/../../DataAccess/DataAccess.php");
 class MessageService {
     private DataAccess $da;
     public function __construct($da) {
