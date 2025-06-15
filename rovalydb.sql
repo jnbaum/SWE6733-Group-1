@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 14, 2025 at 03:34 AM
+-- Generation Time: Jun 16, 2025 at 01:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,7 +38,37 @@ CREATE TABLE `adventure` (
 --
 
 INSERT INTO `adventure` (`AdventureKey`, `AdventureTypeKey`, `UserKey`) VALUES
-(16, 1, 1);
+(16, 1, 1),
+(17, 1, 1),
+(18, 7, 1),
+(19, 1, 1),
+(20, 1, 1),
+(21, 1, 1),
+(22, 1, 1),
+(23, 1, 1),
+(24, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adventurepreference`
+--
+
+CREATE TABLE `adventurepreference` (
+  `AdventurePreferenceKey` int(11) NOT NULL,
+  `AdventureKey` int(11) DEFAULT NULL,
+  `PreferenceKey` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `adventurepreference`
+--
+
+INSERT INTO `adventurepreference` (`AdventurePreferenceKey`, `AdventureKey`, `PreferenceKey`) VALUES
+(1, 23, 1),
+(2, 23, 4),
+(3, 24, 2),
+(4, 24, 7);
 
 -- --------------------------------------------------------
 
@@ -117,6 +147,19 @@ CREATE TABLE `preference` (
   `Name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `preference`
+--
+
+INSERT INTO `preference` (`PreferenceKey`, `PreferenceTypeKey`, `Name`) VALUES
+(1, 1, 'Novice'),
+(2, 1, 'Intermediate'),
+(3, 1, 'Expert'),
+(4, 2, 'High Energy'),
+(5, 2, 'Casual'),
+(6, 2, 'Skill Builder'),
+(7, 2, 'Social Adventurer');
+
 -- --------------------------------------------------------
 
 --
@@ -127,6 +170,14 @@ CREATE TABLE `preferencetype` (
   `PreferenceTypeKey` int(11) NOT NULL,
   `Name` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `preferencetype`
+--
+
+INSERT INTO `preferencetype` (`PreferenceTypeKey`, `Name`) VALUES
+(1, 'Skill Level'),
+(2, 'Attitude');
 
 -- --------------------------------------------------------
 
@@ -184,6 +235,14 @@ ALTER TABLE `adventure`
   ADD PRIMARY KEY (`AdventureKey`),
   ADD KEY `AdventureTypeKey` (`AdventureTypeKey`),
   ADD KEY `UserKey` (`UserKey`);
+
+--
+-- Indexes for table `adventurepreference`
+--
+ALTER TABLE `adventurepreference`
+  ADD PRIMARY KEY (`AdventurePreferenceKey`),
+  ADD KEY `AdventureKey` (`AdventureKey`),
+  ADD KEY `PreferenceKey` (`PreferenceKey`);
 
 --
 -- Indexes for table `adventuretype`
@@ -255,7 +314,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `adventure`
 --
 ALTER TABLE `adventure`
-  MODIFY `AdventureKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `AdventureKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `adventurepreference`
+--
+ALTER TABLE `adventurepreference`
+  MODIFY `AdventurePreferenceKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `adventuretype`
@@ -273,13 +338,13 @@ ALTER TABLE `milerangetype`
 -- AUTO_INCREMENT for table `preference`
 --
 ALTER TABLE `preference`
-  MODIFY `PreferenceKey` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PreferenceKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `preferencetype`
 --
 ALTER TABLE `preferencetype`
-  MODIFY `PreferenceTypeKey` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PreferenceTypeKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `profilephoto`
@@ -309,6 +374,13 @@ ALTER TABLE `user`
 ALTER TABLE `adventure`
   ADD CONSTRAINT `adventure_ibfk_1` FOREIGN KEY (`AdventureTypeKey`) REFERENCES `adventuretype` (`AdventureTypeKey`),
   ADD CONSTRAINT `adventure_ibfk_2` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
+
+--
+-- Constraints for table `adventurepreference`
+--
+ALTER TABLE `adventurepreference`
+  ADD CONSTRAINT `adventurepreference_ibfk_1` FOREIGN KEY (`AdventureKey`) REFERENCES `adventure` (`AdventureKey`),
+  ADD CONSTRAINT `adventurepreference_ibfk_2` FOREIGN KEY (`PreferenceKey`) REFERENCES `preference` (`PreferenceKey`);
 
 --
 -- Constraints for table `chatroom`
