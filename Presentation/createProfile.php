@@ -23,8 +23,8 @@ include("header.php");
     />
    <link rel="stylesheet" href="../Assets/styles/ChatRoom.css">
 </head>
-
 <!---------------------------------------- TESTING --------------------------------------------------->
+<body>
 <main class="profile-container">
         <div class="profile-row">
             <!-- Left Column: Profile Picture and Delete Button -->
@@ -94,9 +94,12 @@ include("header.php");
                         </div>
 
                         <!-- Adventure Types -->
+                       <!-- Adventure Types -->
                         <div class="form-group">
                             <label for="adventure-types" class="form-label" style="color: black;">Adventure Types</label>
-                            <a href="#" class="link-text form-field-wrapper">+ <span class="underline-me">Click to add</span></a>
+                            <a href="javascript:void(0);" onclick="openModal()" class="link-text form-field-wrapper">
+                             + <span class="underline-me">Click to add</span>
+                            </a>
                         </div>
 
                         <!-- Biography -->
@@ -110,6 +113,45 @@ include("header.php");
         </div>
     </main>
 <!------------------------------------------------------ TESTING ----------------------------------------------------------------------------------->
+<!---------------------- Modal --------------------------------->
+                        <div id="customModal" class="modal">
+                            <div class="modal-content">
+                               <p>Choose your adventure type:</p>
+                                <div class="dropdown-container">
+                                    <select id="myDropdown2" name="myDropdown2">
+                                    <option disabled selected>Adventure</option>
+                                    <option>Hiking</option>
+                                    <option>Fishing</option>
+                                    <option>Rock climbing</option>
+                                    <option>Camping</option>
+                                    <option>Ziplining</option>
+                                    <option>Mountain biking</option>
+                                    <option>Snorkelling</option>
+                                    <option>Geocaching</option>
+                                    <option>Surfing</option>
+                                    <option>Boating</option>
+                                    </select>
+                                </div>
+
+                            <div class="dropdown-container">
+                                <select id="myDropdown3" name="myDropdown3">
+                                <option disabled selected>Skill Level</option>
+                                <option>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Expert</option>
+                                </select>
+                            </div>
+
+                            <div class="dropdown-container">
+                            <select id="myDropdown4" name="myDropdown4">
+                                <option disabled selected>Attitude</option>
+                                <option>Fun</option>
+                                <option>Casual</option>
+                                <option>Serious</option>
+                                <option>Competitive</option>
+                            </select>
+                        </div>
+            <button class = "adventurebutton" onclick="submitAdventure()">Add Adventures</button>
 
 </body>
 </html>
