@@ -9,7 +9,12 @@ $adventure = new Adventure((int)$_POST["adventureTypeKey"], $userKey); // $_POST
 
 // Add adventure to database
 $adventureKey = $adventureService->CreateAdventure($adventure);
-// Later on: add preferences to the newly inserted adventure using this adventureKey (lastInsertedId)
+
+// Add preferences to the newly inserted adventure using this adventureKey (lastInsertedId)
+$preferenceKeys = [];
+$preferenceKeys[] = (int)$_POST["skillLevelPreferenceKey"];
+$preferenceKeys[] = (int)$_POST["attitudePreferenceKey"];
+$adventureService->AddPreferencesToAdventure($adventureKey, $preferenceKeys);
 
 // Redirect back to original page where the form submission took place
 // Query string is one way to return data back to original page, but if it's sensitive info, use PHP SESSION variables instead
