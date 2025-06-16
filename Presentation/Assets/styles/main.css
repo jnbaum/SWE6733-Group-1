@@ -303,7 +303,7 @@
       display: none; /* Hide the default file input */
   }
 
-  /* Buttons */
+  /* profile delete button */
   .profile-delete-button {
       background-color: var(--green-light); /* Changed to a medium green */
       color: black; /* set text color to black */
@@ -320,6 +320,24 @@
   }
 
   .profile-delete-button:hover {
+      background-color: var(--green-dark); /* darker green on hover */
+  }
+
+    /* submit button */
+    .form-group.submit-form-group .submit-button {
+      background-color: var(--green-light); /* Changed to a medium green */
+      color: black; /* set text color to black */
+      font-weight: bold; /* bold the text */
+      padding: 0.5rem 1rem; /* .75rem top & bottom, 1rem right & left */ 
+      border-radius: 9999px; /* made more curvy/pill-shaped */
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+      border: none; /* no border */
+      cursor: pointer; /* set cursor pointer */
+      transition: background-color 0.2s ease-in-out; /* background transition */
+      font-weight: 400; /* font weight */
+  }
+
+  .form-group.submit-form-group .submit-button:hover {
       background-color: var(--green-dark); /* darker green on hover */
   }
 
@@ -478,7 +496,7 @@
   }
 
   .dropdown-container::after {
-      content: '▼'; /* down arrow character */
+      /* content: '▼'; /* down arrow character */
       position: absolute;
       right: 15px; /* position from the right */
       top: 50%; /* arrow positioning */
