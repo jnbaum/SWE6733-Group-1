@@ -17,9 +17,9 @@
   <div class="menu-content d-flex flex-column h-100">
     <ul class="flex-grow-1">
       <li><a href="profile.php">Profile</a></li>
-      <li><a href="#">Find a Rover</a></li>
-      <li><a href="#">Matches</a></li>
-      <li><a href="#">Chats</a></li>
+      <li><a href="rover.php">Find a Rover</a></li>
+      <li><a href="matches.php">Matches</a></li>
+      <li><a href="chats.php">Chats</a></li>
     </ul>
     <ul class="mb-4">
       <li><a href="#">Sign Out</a></li>

@@ -33,7 +33,7 @@ include("header.php");
             <!-- Right Column: Profile Details & Adventure Preferences -->
             <div class="profile-right-column">
                 <div class="profile-card">
-                    <form class="profile-form">
+                    <form class="profile-form" action="save-profile.php" method="POST" enctype="multipart/form-data">
                         <!-- Name Fields -->
                         <div class="form-group name-form-group">
                             <label for="first-name" class="form-label" style="color: black;">Name</label>
@@ -87,6 +87,10 @@ include("header.php");
                         <div class="form-group bio-form-group">
                             <label for="bio" class="form-label" style="color: black;">Bio</label>
                             <textarea class="form-textarea form-field-wrapper" id="bio" rows="5"></textarea>
+                        </div>
+
+                        <div class="form-group submit-form-group">
+                            <button type="submit" class="submit-button">Save Profile</button>
                         </div>
                     </form>
                 </div>

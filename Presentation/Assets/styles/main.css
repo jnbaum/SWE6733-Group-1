@@ -640,3 +640,122 @@ select {
     background-color: #375622;
     color: #000000;
   }
+
+
+
+  .section-heading {
+    font-family: 'Norwester', sans-serif; /* font */
+    font-size: 3rem; /* font size */
+    font-weight: bold; /* bold the text */
+    color: #333; /* dark shade gray */
+    margin-bottom: 1rem; /* adds margin from bottom */
+    text-align: left; 
+    text-decoration: underline; /* add underline */
+}
+
+  
+  .dashboard .subhead {
+    font-family: 'Norwester', sans-serif; /* font */
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  .dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  
+  .dashboard-left {
+    flex: 1 1 200px;
+  }
+  .dashboard-right {
+    flex: 1 1 400px;
+  }
+
+  .dashboard-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    justify-items: center;
+  }
+
+
+.dash-btn {
+  width: 150px;
+  height: 150px;
+  border: 2px solid #00aabb;
+  border-radius: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: white;
+  transition: 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.dash-btn img {
+  width: 36px;
+  height: 48px;
+  margin-bottom: 8px;
+}
+
+.dash-btn.wide img {
+  width: 68px;
+}
+
+.dash-btn span {
+  font-size: 1rem;
+  color: #222;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.profile-view-row {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.profile-photo .polaroid {
+  border: 10px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  transform: rotate(-2deg);
+  max-width: 250px;
+}
+
+.profile-photo img {
+  width: 100%;
+  display: block;
+}
+
+.profile-text h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.profile-text p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dashboard-left, .dashboard-right {
+    width: 100%;
+  }
+}
