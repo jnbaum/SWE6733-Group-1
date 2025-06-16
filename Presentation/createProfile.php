@@ -151,7 +151,7 @@ include("header.php");
                                 <option>Competitive</option>
                             </select>
                         </div>
-            <button class = "adventurebutton" onclick="submitAdventure()">Add Adventures</button>
+            <button class = "adventurebutton" onclick="submitAdventure()">Add Adventure</button>
 
 </body>
 </html>
