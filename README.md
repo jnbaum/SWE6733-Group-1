@@ -27,9 +27,9 @@ Below are the links to the project:
 
 <b>Near Vision (July 2025):</b> To serve the population of Kennesaw, GA by  creating social opportunity for outdoor adventurers that respects their preferences and interests. 
 
-Within Georgia, the city of Kennesaw has been known for its monumental outdoor attractions such as Kennesaw Mountain, Lake Acworth, and Lake Allatoona. Therefore, it holds much opportunity for outdoor adventurers to plan their own outings and enjoy all that Kennesaw has to offer.
+Within Georgia, the city of Kennesaw has been known for its monumental outdoor attractions such as Kennesaw Mountain, Lake Acworth, and Lake Allatoona. Therefore, it holds many opportunities for outdoor adventurers to plan their own outings and enjoy all that Kennesaw has to offer.
 
-Since COVID (March 2020), the number of new and returning outdoor participants in the U.S. has increased by 26%. Georgia in particular resides in the South Atlantic region, which has been called home by one of the largest percentages of outdoor recreation participants in the U.S. [1]. The near vision for Rovaly is to create social opportunity for those who call Kennesaw home by taking advantage of both the city's vast opportunities for outdoor adventures and its large, growing number of outdoor participants. Unlike most people matching apps, ours allows users to set preferences on a per-activity basis (i.e. mark themselves as a novice in camping but an expert in fishing), giving users the choice to find similar outdoor partners for a wide range of activities at the same time. Our matching algorithm also finds matches with more "picky" criteria if a user is not finding suggestions that they like, ensuring that users find the kind of people they're looking for.
+Since COVID (March 2020), the number of new and returning outdoor participants in the U.S. has increased by 26%. Georgia, in particular, resides in the South Atlantic region, which has been called home by one of the largest percentages of outdoor recreation participants in the U.S. [1]. The near vision for Rovaly is to create social opportunity for those who call Kennesaw home by taking advantage of both the city's vast opportunities for outdoor adventures and its large, growing number of outdoor participants. Unlike most people matching apps, ours allows users to set preferences on a per-activity basis (i.e., mark themselves as a novice in camping but an expert in fishing), giving users the choice to find similar outdoor partners for a wide range of activities at the same time. Our matching algorithm also finds matches with more "picky" criteria if a user is not finding suggestions that they like, ensuring that users find the kind of people they're looking for.
 [1] - https://outdoorindustry.org/wp-content/uploads/2015/03/2022-Outdoor-Participation-Trends-Report-1.pdf
 
 Our MVP as part of this Near Vision would be a working product with: 
@@ -60,8 +60,8 @@ This far vision can only be achieved by creating a polished, scalable version of
 
 Stakeholders:
 
-* <ins>Outdoor Lovers & Adventurers</ins> - These are the individuals who are searching for partners who share a common interest in adventuring. As the primary user demographic and beneficiaries, their satisfaction will be the key factor in determing the application's success.
-* <ins>Outdoor Organization & Guides</ins> - A third party may be interested in using Rovaly application to find and connect with potential participants. This can include local community groups, organization operatiors, and professional guides.
+* <ins>Outdoor Lovers & Adventurers</ins> - These are the individuals who are searching for partners who share a common interest in adventuring. As the primary user demographic and beneficiaries, their satisfaction will be the key factor in determining the application's success.
+* <ins>Outdoor Organization & Guides</ins> - A third party may be interested in using Rovaly application to find and connect with potential participants. This can include local community groups, organization operators, and professional guides.
 * <ins>Investors</ins> - This party provides the funding and resources for the Rovaly team to carry out the application's development. The profit and growth to be gained will be contingent upon this product's success.
 * <ins>Team Members</ins> - This includes us, the project managers and developers who are responsible for the development of the application. We want the project to succeed so that others can enjoy the benefits of our work.
 
@@ -69,7 +69,7 @@ Stakeholders:
 
 ## Project Backlog Ordering Rationale
 
-Our team ordered the project backlog with a focus on logical workflow progression and intuitive development flow. We began by grouping related features and tasks according to the typical user journey and core functionality dependencies. This ensures foundational components were prioritized before non-required features. Next, we ordered user stories based on what we perceived as the most natural and efficient route to implementation. We took into account task complexity, team capacity, and cross-feature dependencies. This approach allowed us to maintain flexibility while ensuring that the overall development process remained coherent and streamlined.
+Our team ordered the project backlog with a focus on logical workflow progression and intuitive development flow. We began by grouping related features and tasks according to the typical user journey and core functionality dependencies. This ensures foundational components were prioritized before non-required features. Next, we ordered user stories based on what we perceived as the most natural and efficient route to implementation, taking into account iterative building and feature dependencies. For example, we ordered saving user preferences before implementing the matching algorithm because the matching algorithm depends on the user being able to save their preferences. We took into account task complexity, team capacity, and cross-feature dependencies. This approach allowed us to maintain flexibility while ensuring that the overall development process remained coherent and streamlined.
 
 ---
 
