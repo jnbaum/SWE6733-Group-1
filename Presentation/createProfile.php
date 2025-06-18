@@ -51,8 +51,8 @@ include("header.php");
 
                         <!-- Location Field -->
                         <div class="form-group location-form-group">
-                            <label for="location" class="form-label" style="color: black;">Location</label>
-                            <input type="text" class="form-input form-field-wrapper" id="location" value="Kennesaw Georgia" style="text-align: left; border: none;">
+                            <label for="location" class="form-label" style="color: black;">Location &nbsp; &nbsp; &nbsp; &nbsp; Kennesaw, Georgia</label>
+                            <!--<input type="text" class="form-input form-field-wrapper" id="location" value="Kennesaw, Georgia" style="text-align: left; border: none;"> -->
                         </div>
 
                         <!-- Match Range Field -->
