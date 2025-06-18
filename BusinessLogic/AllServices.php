@@ -12,11 +12,12 @@ class AllServices {
         private MessageService $messageService;
         private AdventureService $adventureService;
         private ProfileService $profileService;
-        
+
         public function __construct() {
             $da = new DataAccess();
             $this->messageService = new MessageService($da);
             $this->adventureService = new AdventureService($da);
+            $this->profileService = new ProfileService($da);
         }
 
         public function GetMessageService() {
