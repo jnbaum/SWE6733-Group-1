@@ -89,19 +89,10 @@ class ProfileService{
         return $mileRangeTypes;
     }
 
-    //TODO; MISSING milerange table; 
+    //TESTING; ADDED milerange table; MAY STILL HAVE ISSUES
     //add mile range preference to user
     public function AddMileRangePreferencesToUser(int $userKey, int $mileRangeTypeKey){
         /*TESTING; created own milerange table from command below
-        CREATE TABLE milerange ( 
-            MileRangeKey int(11) NOT NULL AUTO_INCREMENT,  
-            MileRangeTypeKey int(11) DEFAULT NULL, 
-            UserKey int(11) DEFAULT NULL,  
-            PRIMARY KEY (MileRangeKey), 
-            FOREIGN KEY (MileRangeTypeKey) REFERENCES milerangetype(MileRangeTypeKey), 
-            FOREIGN KEY (UserKey) REFERENCES user(UserKey)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
             the query below works based on table creation, does NOT update mile range preference BUT adds a new preferences
         */
 
@@ -127,48 +118,4 @@ class ProfileService{
     }
 
 }
-
-
-
-//METHOD TESTING
-$da = new DataAccess();
-$profileService = new ProfileService($da);
-$testKey = 1;
-$testUrl = 'www.w3schools.com';
-$profileService->AddSocialMediaLink($testKey, $testUrl);
-echo "Socail Media Link: " . $profileService->GetSocialMediaLink($testKey);
-echo "\n";
-
-$testFullName = "Type type type Doe";
-$testBio= "Ttypew type tpyes";
-$profileService->UpdateUserInfo($testKey, $testFullName, $testBio);
-echo "UserDetail(s) Name: " .  $profileService->GetUserDetails($testKey)->GetFullName();
-echo "\n";
-echo "UserDetail(s) Bio: " .  $profileService->GetUserDetails($testKey)->GetBio();
-echo "\n";
-
-$testPhotoUrl = 'www.photourl.com';
-$profileService->AddProfilePictureToUser($testKey, $testPhotoUrl);
-echo "Profile Picture Url: " . $profileService->GetProfilePictureUrl($testKey);
-echo "\n";
-
-
-//requires records to exist in table
-$mileranges = $profileService->GetMileRangeTypes();
-echo "Mile Ranges: " . $mileranges[0]->GetMileRangeTypeKey() . "\n"; 
-echo "Mile Ranges: " . $mileranges[0]->GetDistanceMiles();
-echo "\n";
-foreach ($mileranges as $x => $mileRangeType){
-    echo "Mile Range Type " . $mileRangeType->GetMileRangeTypeKey() . " is: " . $mileRangeType->GetDistanceMiles() . "\n";
-}
-
-
-//requires milerange table to exist
-$testMileRangeKey = 2;
-$profileService->AddMileRangePreferencesToUser($testKey, $testMileRangeKey);
-
-$distanceMiles = $profileService->GetMileRangePreference($testKey);
-
-echo "Distance Miles from  User " . $testKey . " is: " . $distanceMiles;
-echo "\n";
 ?>
