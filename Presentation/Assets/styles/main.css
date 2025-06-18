@@ -466,7 +466,7 @@
     max-width: 200px; /* max width screens */
     margin-right: 1.5rem; /* margin from right .8rem */
   }
-
+  
   select {
       -webkit-appearance: none; /* remove default browser styling - Safari/Chrome */
       -moz-appearance: none; /* remove default browser styling - Firefox */
@@ -633,7 +633,8 @@ select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 1px solid black;
+    /* border: 1px solid #ccc; */
     border-radius: 4px;
     font-size: 16px;
     appearance: none; /* removes native style in some browsers */
@@ -642,6 +643,7 @@ select {
     background-position: right 10px center;
     background-size: 16px;
 }
+
 
 .adventurebutton {
     background-color: #789b45;
