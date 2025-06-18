@@ -1,5 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../DataAccess/DataAccess.php");
+require_once(__DIR__ . "/../../Models/UserDetails.php");
+require_once(__DIR__ . "/../../Models/MileRangeType.php");
 require_once(__DIR__ . "/../QueryHelper.php");
 
 
@@ -9,69 +11,164 @@ class ProfileService{
         $this->da = $da;
     }
 
-    // insert a new S3 url link for a user; this should be called inside logic to CreateProfile
-    public function AddProfilePictureToUser(int $userKey, string $photoUrl){
-        $this->da->ExcuteQuery("INSERT INTO ProfilePhoto (UserKey, ProfileUrl) VALUES"
-            . $userKey . "," . $photoUrl . ")", QueryType::INSERT);
-    }
-
+    /*
+        USER DETAILS
+    */
     // update a users full name and bio
     public function UpdateUserInfo(int $userKey, string $fullName, string $bio){
-        $this->da->ExecuteQuery("UPDATE User SET 
-            FullName=" .  $fullName . "," . 
-            "Bio=" . $bio . "," . 
-            "WHERE UserKey=" . $userkey . ")", QueryType::UPDATE);
-    }
-
-    // add a user's social media link to the SocialMediaLink Table
-    public function AddSocialMediaLink(int $userKey, string $url){
-         $this->da->ExcuteQuery("INSERT INTO SocialMediaLink (UserKey, SocialMediaLinkUrl) VALUES"
-            . $userKey . "," . $url . ")", QueryType::INSERT);
-    }
-
-    public function GetMileRangeTypes(): array{
-        //TODO; use a SELECT query and a list array of MileRangeTypeObjects
-    }
-
-    //add mile range preference to user
-    public function AddMileRangePreferencesToUser(int $userKey, int $mileRangeTypeKey){
-        $this->da->ExcuteQuery("INSERT INTO MileRange (MileRangeTypeKey, UserKey) VALUES"
-            . $mileRangeTypeKey . "," . $userKey . ")", QueryType::INSERT);
-    }
-
-
-    // TODO; may need to specify the WHERE Table.Key rather than just Key; test with DB
-    /* 
-    $url = $this->da->ExcuteQuery("SELECT SocialMediuaLinkUrl FROM SocialMediaLink WHERE UserKey=" . $userKey . ")", QueryType::SELECT);
-    OR 
-    $url = $this->da->ExcuteQuery("SELECT SocialMediuaLinkUrl FROM SocialMediaLink WHERE SoccialMediaLink.UserKey=" . $userKey . ")", QueryType::SELECT);
-    
-    LOOKS LIKE IT MAY RETURN THE SAME VALUE(s)
-    */
-    
-    public function GetSocialMediaLink(int $userKey): string{
-        //TODO; SELECT
-        $url = $this->da->ExcuteQuery("SELECT SocialMediuaLinkUrl FROM SocialMediaLink WHERE UserKey=" . $userKey . ")", QueryType::SELECT);
-        return $url;
+        //COMPLETE
+        $this->da->ExecuteQuery("UPDATE user SET FullName="
+            .  QueryHelper::SurroundWithQuotes($fullName) . ", " . 
+            "Bio=" . QueryHelper::SurroundWithQuotes($bio) . 
+            " WHERE UserKey=" . $userKey  , QueryType::UPDATE);
     }
 
     public function GetUserDetails(int $userKey){
-        //TODO; write a UserDetail object to call/store these values
-        $UserDetails->$fullName = $this->da->ExcuteQuery("SELECT FullName FROM User WHERE UserKey=" . $userKey . ")", QueryType::SELECT);
-        $UserDetails->$bio = $this->da->ExcuteQuery("SELECT Bio FROM User WHERE UserKey=" . $userKey . ")", QueryType::SELECT);
-        return $UserDetails;
+        //COMPLETE; write a UserDetail object to call/store these values; currently have each value stored as separate variable
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM user WHERE UserKey=" . $userKey , QueryType::SELECT);
+        while($row = $stmt->fetchAssociative()){
+            $userDetails = new UserDetails($row['FullName'], $row['Bio']);
+        }
+        return $userDetails;
+    }
+
+
+    /*
+        PROFILEPHOTO
+    */
+    // insert a new S3 url link for a user; this should be called inside logic to CreateProfile
+    public function AddProfilePictureToUser(int $userKey, string $photoUrl){
+        //COMPLETE
+        $this->da->ExecuteQuery("INSERT INTO profilephoto (UserKey, ProfilePhoto) VALUES ("
+            . $userKey . ", " . QueryHelper::SurroundWithQuotes($photoUrl) . ")", QueryType::INSERT);
     }
 
     public function GetProfilePictureUrl(int $userKey): string{
-        //TODO; SELECT; need to distinguish between table and row name 'ProfilePhoto'
-        $photoUrl = $this->da->ExcuteQuery("SELECT ProfilePhoto FROM ProfilePhoto WHERE UserKey=" . $userKey . ")", QueryType::SELECT);
+        //TODO; query is complete but DB needs to change the ProfilePhoto type from blob to varchar?
+        $stmt = $this->da->ExecuteQuery("SELECT ProfilePhoto  FROM profilephoto WHERE UserKey=" . $userKey, QueryType::SELECT);
+        while($row = $stmt->fetchAssociative()){
+            $photoUrl = (string)$row['ProfilePhoto'];
+        }
         return $photoUrl;
     }
 
-    public function GetMileRangePreference(int $userKey): int{
-        //TODO; SELECT
+    /*
+        SOCIAL MEDIA URL
+    */
+    // add a user's social media link to the SocialMediaLink Table
+    public function AddSocialMediaLink(int $userKey, string $url){
+        //COMPLETE
+         $this->da->ExecuteQuery("INSERT INTO socialmedialink (UserKey, SocialMediaLinkUrl) VALUES ("
+            . $userKey . "," . QueryHelper::SurroundWithQuotes($url) . ")", QueryType::INSERT);
+    }
 
+       public function GetSocialMediaLink(int $userKey): string{
+        //COMPLETE; SELECT
+        $stmt = $this->da->ExecuteQuery("SELECT SocialMediaLinkUrl FROM socialmedialink  WHERE UserKey=" . $userKey, QueryType::SELECT);
+        while($row = $stmt->fetchAssociative()){
+            $url = (string)$row['SocialMediaLinkUrl'];
+        }
+        return $url;
+    }
+
+
+     /*
+        MILE  RANGE
+    */
+    // get mile range types
+    public function GetMileRangeTypes(): array{
+        //COMPLETE; use a SELECT query and a list array of MileRangeTypeObjects; sourced and modified from AdventureService.php
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM milerangetype", QueryType::SELECT);
+        $mileRangeTypes = [];
+        //https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/reference/data-retrieval-and-manipulation.html
+        while($row = $stmt->fetchAssociative()) {
+            $mileRangeType = new MileRangeType($row['MileRangeTypeKey'], $row['DistanceMiles']);
+            #$mileRangeType->SetMileRangeTypeKey($row['MileRangeTypeKey']);
+            $mileRangeTypes[] = $mileRangeType;
+        }
+        return $mileRangeTypes;
+    }
+
+    //TODO; MISSING milerange table; 
+    //add mile range preference to user
+    public function AddMileRangePreferencesToUser(int $userKey, int $mileRangeTypeKey){
+        /*TESTING; created own milerange table from command below
+        CREATE TABLE milerange ( 
+            MileRangeKey int(11) NOT NULL AUTO_INCREMENT,  
+            MileRangeTypeKey int(11) DEFAULT NULL, 
+            UserKey int(11) DEFAULT NULL,  
+            PRIMARY KEY (MileRangeKey), 
+            FOREIGN KEY (MileRangeTypeKey) REFERENCES milerangetype(MileRangeTypeKey), 
+            FOREIGN KEY (UserKey) REFERENCES user(UserKey)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+            the query below works based on table creation, does NOT update mile range preference BUT adds a new preferences
+        */
+
+        $this->da->ExecuteQuery("INSERT INTO milerange (MileRangeTypeKey, UserKey) VALUES ("
+            . $mileRangeTypeKey . "," . $userKey . ")", QueryType::INSERT);
+    }
+
+    // get mile range preferences for user
+    public function GetMileRangePreference(int $userKey): int{
+        //COMPLETE;
+
+        $stmt = $this->da->ExecuteQuery("SELECT DistanceMiles 
+            FROM milerange INNER JOIN milerangetype ON 
+            milerange.MileRangeTypeKey = milerangetype.MileRangeTypeKey
+            WHERE milerange.UserKey =" . $userKey, QueryType::SELECT);
+        
+        $mileRangeTypes = [];
+        //https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/reference/data-retrieval-and-manipulation.html
+        while($row = $stmt->fetchAssociative()) {
+            $mileRangePreference = (int)($row['DistanceMiles']);
+        }
+        return $mileRangePreference;
     }
 
 }
+
+
+
+//METHOD TESTING
+$da = new DataAccess();
+$profileService = new ProfileService($da);
+$testKey = 1;
+$testUrl = 'www.w3schools.com';
+$profileService->AddSocialMediaLink($testKey, $testUrl);
+echo "Socail Media Link: " . $profileService->GetSocialMediaLink($testKey);
+echo "\n";
+
+$testFullName = "Type type type Doe";
+$testBio= "Ttypew type tpyes";
+$profileService->UpdateUserInfo($testKey, $testFullName, $testBio);
+echo "UserDetail(s) Name: " .  $profileService->GetUserDetails($testKey)->GetFullName();
+echo "\n";
+echo "UserDetail(s) Bio: " .  $profileService->GetUserDetails($testKey)->GetBio();
+echo "\n";
+
+$testPhotoUrl = 'www.photourl.com';
+$profileService->AddProfilePictureToUser($testKey, $testPhotoUrl);
+echo "Profile Picture Url: " . $profileService->GetProfilePictureUrl($testKey);
+echo "\n";
+
+
+//requires records to exist in table
+$mileranges = $profileService->GetMileRangeTypes();
+echo "Mile Ranges: " . $mileranges[0]->GetMileRangeTypeKey() . "\n"; 
+echo "Mile Ranges: " . $mileranges[0]->GetDistanceMiles();
+echo "\n";
+foreach ($mileranges as $x => $mileRangeType){
+    echo "Mile Range Type " . $mileRangeType->GetMileRangeTypeKey() . " is: " . $mileRangeType->GetDistanceMiles() . "\n";
+}
+
+
+//requires milerange table to exist
+$testMileRangeKey = 2;
+$profileService->AddMileRangePreferencesToUser($testKey, $testMileRangeKey);
+
+$distanceMiles = $profileService->GetMileRangePreference($testKey);
+
+echo "Distance Miles from  User " . $testKey . " is: " . $distanceMiles;
+echo "\n";
 ?>
