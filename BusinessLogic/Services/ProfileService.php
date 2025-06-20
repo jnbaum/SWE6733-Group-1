@@ -39,15 +39,15 @@ class ProfileService{
     // insert a new S3 url link for a user; this should be called inside logic to CreateProfile
     public function AddProfilePictureToUser(int $userKey, string $photoUrl){
         //COMPLETE
-        $this->da->ExecuteQuery("INSERT INTO profilephoto (UserKey, ProfilePhoto) VALUES ("
+        $this->da->ExecuteQuery("INSERT INTO photo (UserKey, PhotoUrl) VALUES ("
             . $userKey . ", " . QueryHelper::SurroundWithQuotes($photoUrl) . ")", QueryType::INSERT);
     }
 
     public function GetProfilePictureUrl(int $userKey): string{
         //TODO; query is complete but DB needs to change the ProfilePhoto type from blob to varchar?
-        $stmt = $this->da->ExecuteQuery("SELECT ProfilePhoto  FROM profilephoto WHERE UserKey=" . $userKey, QueryType::SELECT);
+        $stmt = $this->da->ExecuteQuery("SELECT PhotoUrl  FROM photo WHERE UserKey=" . $userKey, QueryType::SELECT);
         while($row = $stmt->fetchAssociative()){
-            $photoUrl = (string)$row['ProfilePhoto'];
+            $photoUrl = (string)$row['PhotoUrl'];
         }
         return $photoUrl;
     }
