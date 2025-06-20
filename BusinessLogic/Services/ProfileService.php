@@ -3,6 +3,7 @@ require_once(__DIR__ . "/../../DataAccess/DataAccess.php");
 require_once(__DIR__ . "/../../Models/UserDetails.php");
 require_once(__DIR__ . "/../../Models/MileRangeType.php");
 require_once(__DIR__ . "/../QueryHelper.php");
+require_once(__DIR__ . "/PhotoService.php");
 
 
 class ProfileService{
@@ -42,15 +43,18 @@ class ProfileService{
         $this->da->ExecuteQuery("INSERT INTO photo (UserKey, PhotoUrl) VALUES ("
             . $userKey . ", " . QueryHelper::SurroundWithQuotes($photoUrl) . ")", QueryType::INSERT);
     }
-
-    public function GetProfilePictureUrl(int $userKey): string{
-        //TODO; query is complete but DB needs to change the ProfilePhoto type from blob to varchar?
-        $stmt = $this->da->ExecuteQuery("SELECT PhotoUrl  FROM photo WHERE UserKey=" . $userKey, QueryType::SELECT);
-        while($row = $stmt->fetchAssociative()){
-            $photoUrl = (string)$row['PhotoUrl'];
+    public function GetProfilePictureUrl(int $userKey): ?string {
+        $photoKey = $this->da->GetPhoto($userKey);
+      
+        if ($photoKey) {
+            $photoService = new PhotoService();
+            return $photoService->GetPresignedPhotoUrl($photoKey);
+        } else {
+            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/DefaultPhoto.png'; 
         }
-        return $photoUrl;
-    }
+      }
+
+
 
     /*
         SOCIAL MEDIA URL
@@ -116,6 +120,8 @@ class ProfileService{
         }
         return $mileRangePreference;
     }
+
+    
 
 }
 ?>

@@ -25,10 +25,12 @@ $profileService = new ProfileService($da);
 $adventureService = new AdventureService($da);
 
 $userDetails = $profileService->GetUserDetails($userKey);
-$profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
 $socialMediaUrl = $profileService->GetSocialMediaLink($userKey);
 $mileRange = $profileService->GetMileRangePreference($userKey);
-$adventureDetailsArray = $adventureService->GetAdventureDetailsArray(1);
+$adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey);
+$profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
+
+
 
 ?>
 
