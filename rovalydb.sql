@@ -166,6 +166,36 @@ CREATE TABLE `milerangetype` (
   `DistanceMiles` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `milerangetype`
+--
+
+INSERT INTO `milerangetype` (`MileRangeTypeKey`, `DistanceMiles`) VALUES
+(1, 5),
+(2, 10),
+(3, 15),
+(4, 20),
+(5, 25);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `milerange`
+--
+
+CREATE TABLE `milerange` (
+    `MileRangeKey` int(11) NOT NULL,
+    `MileRangeTypeKey` int(11) DEFAULT NULL,
+    `UserKey` int(11) DEFAULT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `milerangetype`
+--
+
+INSERT INTO `milerange` (`MileRangeTypeKey`, `UserKey`) VALUES
+(3, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -373,6 +403,12 @@ ALTER TABLE `socialmedialink`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`UserKey`);
 
+  --
+-- Indexes for table `milerange`
+--
+ALTER TABLE `milerange`
+  ADD PRIMARY KEY (`MileRangeKey`);
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -444,6 +480,12 @@ ALTER TABLE `user`
   MODIFY `UserKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `milerange`
+--
+ALTER TABLE `milerange`
+  MODIFY `MileRangeKey` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -513,6 +555,13 @@ ALTER TABLE `profilephoto`
 --
 ALTER TABLE `socialmedialink`
   ADD CONSTRAINT `socialmedialink_ibfk_1` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
+
+--
+-- Constraints for table `milerange`
+--
+ALTER TABLE `milerange`
+  ADD CONSTRAINT `milerange_ibfk_1` FOREIGN KEY (`MileRangeTypeKey`) REFERENCES `milerangetype` (`MileRangeTypeKey`),
+  ADD CONSTRAINT `milerange_ibfk_2` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
