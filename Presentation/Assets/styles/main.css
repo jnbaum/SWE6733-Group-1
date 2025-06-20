@@ -466,7 +466,7 @@
     max-width: 200px; /* max width screens */
     margin-right: 1.5rem; /* margin from right .8rem */
   }
-  
+
   select {
       -webkit-appearance: none; /* remove default browser styling - Safari/Chrome */
       -moz-appearance: none; /* remove default browser styling - Firefox */
@@ -638,7 +638,7 @@ select {
     border-radius: 4px;
     font-size: 16px;
     appearance: none; /* removes native style in some browsers */
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); 
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 16px;
