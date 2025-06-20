@@ -21,7 +21,7 @@ include("header.php");
                             </svg>
                         </div>
                          <!-- Upload profile picture -->
-                        <form action="upload.php" method="POST" label for="profile-picture" class="profile-upload-button" enctype="multipart/form-data">
+                        <label for="profile-picture" class="profile-upload-button" form action="upload.php" method="post" enctype="multipart/form-data">
                             Upload Picture
                             <input type="file" id="profile-picture" class="hidden-input">
                         </label>
