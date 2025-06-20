@@ -19,6 +19,7 @@ This app is designed specifically to connect users within the Kennesaw, GA area.
 Below are the links to the project:
 
 * [Jira & Confluence](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiZWFmYzIwZWMyZWFiNGMyNGEwNTEzYzVhY2U5MGZmNTQiLCJwIjoiaiJ9)
+* [Canva Mockup](https://www.canva.com/design/DAGpbGsNqio/VnFCNnJ8-qeXsxw6DBTfpQ/view?utm_content=DAGpbGsNqio&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hf5885327b1)
 
 ---
 
@@ -49,13 +50,29 @@ Far-Term Vision (Stretch Goals, if time allows):
 
 ---
 
+Stakeholders:
+
+* <ins>Outdoor Lovers & Adventurers</ins> - These are the individuals who are searching for partners who share a common interest in adventuring. As the primary user demographic and beneficiaries, their satisfaction will be the key factor in determing the application's success.
+* <ins>Outdoor Organization & Guides</ins> - A third party may be interested in using Rovaly application to find and connect with potential participants. This can include local community groups, organization operatiors, and professional guides.
+* <ins>Investors</ins> - This party provides the funding and resources for the Rovaly team to carry out the application's development. The profit and growth to be gained will be contingent upon this product's success.
+
+---
+
 ## Project Backlog Ordering Rationale
 
 Our team ordered the project backlog with a focus on logical workflow progression and intuitive development flow. We began by grouping related features and tasks according to the typical user journey and core functionality dependencies. This ensures foundational components were prioritized before non-required features. Next, we ordered user stories based on what we perceived as the most natural and efficient route to implementation. We took into account task complexity, team capacity, and cross-feature dependencies. This approach allowed us to maintain flexibility while ensuring that the overall development process remained coherent and streamlined.
 
 ---
 
+## Definition of Ready
 
+* The user story has a clear and descriptive title
+* The description of each user story has the user story in the "As a __ I want to __ so that __" format.
+* Acceptance criteria are in the description
+* Dependencies are identified and addressed
+* Story points are assigned for each item in the backlog
+* UX/UI mockup is complete and approved by the team
+* All sprint one items and their required time can fit in the allotted timeframe of the sprint
+* The team has reviewed and approved the user stories, backlog order, and sprint plan
 
-
-
+---

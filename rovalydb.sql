@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 11, 2025 at 05:05 AM
+-- Generation Time: Jun 16, 2025 at 01:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,82 @@ SET time_zone = "+00:00";
 --
 -- Database: `rovalydb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adventure`
+--
+
+CREATE TABLE `adventure` (
+  `AdventureKey` int(11) NOT NULL,
+  `AdventureTypeKey` int(11) DEFAULT NULL,
+  `UserKey` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `adventure`
+--
+
+INSERT INTO `adventure` (`AdventureKey`, `AdventureTypeKey`, `UserKey`) VALUES
+(16, 1, 1),
+(17, 1, 1),
+(18, 7, 1),
+(19, 1, 1),
+(20, 1, 1),
+(21, 1, 1),
+(22, 1, 1),
+(23, 1, 1),
+(24, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adventurepreference`
+--
+
+CREATE TABLE `adventurepreference` (
+  `AdventurePreferenceKey` int(11) NOT NULL,
+  `AdventureKey` int(11) DEFAULT NULL,
+  `PreferenceKey` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `adventurepreference`
+--
+
+INSERT INTO `adventurepreference` (`AdventurePreferenceKey`, `AdventureKey`, `PreferenceKey`) VALUES
+(1, 23, 1),
+(2, 23, 4),
+(3, 24, 2),
+(4, 24, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adventuretype`
+--
+
+CREATE TABLE `adventuretype` (
+  `AdventureTypeKey` int(11) NOT NULL,
+  `Name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `adventuretype`
+--
+
+INSERT INTO `adventuretype` (`AdventureTypeKey`, `Name`) VALUES
+(1, 'Hiking'),
+(2, 'Fishing'),
+(3, 'Rock Climbing'),
+(4, 'Camping'),
+(5, 'Ziplining'),
+(6, 'Mountain Biking'),
+(7, 'Snorkeling'),
+(8, 'Geocatching'),
+(9, 'Surfing'),
+(10, 'Boating');
 
 -- --------------------------------------------------------
 
@@ -59,6 +135,80 @@ CREATE TABLE `milerangetype` (
   `DistanceMiles` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `milerangetype`
+--
+
+INSERT INTO `milerangetype` (`MileRangeTypeKey`, `DistanceMiles`) VALUES
+(1, 5),
+(2, 10),
+(3, 15),
+(4, 20),
+(5, 25);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `milerange`
+--
+
+CREATE TABLE `milerange` (
+    `MileRangeKey` int(11) NOT NULL,
+    `MileRangeTypeKey` int(11) DEFAULT NULL,
+    `UserKey` int(11) DEFAULT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `milerangetype`
+--
+
+INSERT INTO `milerange` (`MileRangeTypeKey`, `UserKey`) VALUES
+(3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `preference`
+--
+
+CREATE TABLE `preference` (
+  `PreferenceKey` int(11) NOT NULL,
+  `PreferenceTypeKey` int(11) DEFAULT NULL,
+  `Name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `preference`
+--
+
+INSERT INTO `preference` (`PreferenceKey`, `PreferenceTypeKey`, `Name`) VALUES
+(1, 1, 'Novice'),
+(2, 1, 'Intermediate'),
+(3, 1, 'Expert'),
+(4, 2, 'High Energy'),
+(5, 2, 'Casual'),
+(6, 2, 'Skill Builder'),
+(7, 2, 'Social Adventurer');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `preferencetype`
+--
+
+CREATE TABLE `preferencetype` (
+  `PreferenceTypeKey` int(11) NOT NULL,
+  `Name` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `preferencetype`
+--
+
+INSERT INTO `preferencetype` (`PreferenceTypeKey`, `Name`) VALUES
+(1, 'Skill Level'),
+(2, 'Attitude');
+
 -- --------------------------------------------------------
 
 --
@@ -93,12 +243,42 @@ CREATE TABLE `user` (
   `UserKey` int(11) NOT NULL,
   `Username` varchar(30) DEFAULT NULL,
   `PasswordHash` varchar(100) DEFAULT NULL,
-  `FullName` varchar(50) DEFAULT NULL
+  `FullName` varchar(50) DEFAULT NULL,
+  `Bio` varchar(10000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`UserKey`, `Username`, `PasswordHash`, `FullName`, `Bio`) VALUES
+(1, 'guest', '1234', 'Guest Guest', 'This is a bio');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `adventure`
+--
+ALTER TABLE `adventure`
+  ADD PRIMARY KEY (`AdventureKey`),
+  ADD KEY `AdventureTypeKey` (`AdventureTypeKey`),
+  ADD KEY `UserKey` (`UserKey`);
+
+--
+-- Indexes for table `adventurepreference`
+--
+ALTER TABLE `adventurepreference`
+  ADD PRIMARY KEY (`AdventurePreferenceKey`),
+  ADD KEY `AdventureKey` (`AdventureKey`),
+  ADD KEY `PreferenceKey` (`PreferenceKey`);
+
+--
+-- Indexes for table `adventuretype`
+--
+ALTER TABLE `adventuretype`
+  ADD PRIMARY KEY (`AdventureTypeKey`);
 
 --
 -- Indexes for table `chatroom`
@@ -124,6 +304,19 @@ ALTER TABLE `milerangetype`
   ADD PRIMARY KEY (`MileRangeTypeKey`);
 
 --
+-- Indexes for table `preference`
+--
+ALTER TABLE `preference`
+  ADD PRIMARY KEY (`PreferenceKey`),
+  ADD KEY `PreferenceTypeKey` (`PreferenceTypeKey`);
+
+--
+-- Indexes for table `preferencetype`
+--
+ALTER TABLE `preferencetype`
+  ADD PRIMARY KEY (`PreferenceTypeKey`);
+
+--
 -- Indexes for table `profilephoto`
 --
 ALTER TABLE `profilephoto`
@@ -143,15 +336,51 @@ ALTER TABLE `socialmedialink`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`UserKey`);
 
+  --
+-- Indexes for table `milerange`
+--
+ALTER TABLE `milerange`
+  ADD PRIMARY KEY (`MileRangeKey`);
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `adventure`
+--
+ALTER TABLE `adventure`
+  MODIFY `AdventureKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `adventurepreference`
+--
+ALTER TABLE `adventurepreference`
+  MODIFY `AdventurePreferenceKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `adventuretype`
+--
+ALTER TABLE `adventuretype`
+  MODIFY `AdventureTypeKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `milerangetype`
 --
 ALTER TABLE `milerangetype`
   MODIFY `MileRangeTypeKey` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `preference`
+--
+ALTER TABLE `preference`
+  MODIFY `PreferenceKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `preferencetype`
+--
+ALTER TABLE `preferencetype`
+  MODIFY `PreferenceTypeKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `profilephoto`
@@ -169,11 +398,31 @@ ALTER TABLE `socialmedialink`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserKey` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `milerange`
+--
+ALTER TABLE `milerange`
+  MODIFY `MileRangeKey` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `adventure`
+--
+ALTER TABLE `adventure`
+  ADD CONSTRAINT `adventure_ibfk_1` FOREIGN KEY (`AdventureTypeKey`) REFERENCES `adventuretype` (`AdventureTypeKey`),
+  ADD CONSTRAINT `adventure_ibfk_2` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
+
+--
+-- Constraints for table `adventurepreference`
+--
+ALTER TABLE `adventurepreference`
+  ADD CONSTRAINT `adventurepreference_ibfk_1` FOREIGN KEY (`AdventureKey`) REFERENCES `adventure` (`AdventureKey`),
+  ADD CONSTRAINT `adventurepreference_ibfk_2` FOREIGN KEY (`PreferenceKey`) REFERENCES `preference` (`PreferenceKey`);
 
 --
 -- Constraints for table `chatroom`
@@ -191,6 +440,12 @@ ALTER TABLE `message`
   ADD CONSTRAINT `message_ibfk_3` FOREIGN KEY (`ChatRoomKey`) REFERENCES `chatroom` (`ChatRoomKey`);
 
 --
+-- Constraints for table `preference`
+--
+ALTER TABLE `preference`
+  ADD CONSTRAINT `preference_ibfk_1` FOREIGN KEY (`PreferenceTypeKey`) REFERENCES `preferencetype` (`PreferenceTypeKey`);
+
+--
 -- Constraints for table `profilephoto`
 --
 ALTER TABLE `profilephoto`
@@ -201,6 +456,13 @@ ALTER TABLE `profilephoto`
 --
 ALTER TABLE `socialmedialink`
   ADD CONSTRAINT `socialmedialink_ibfk_1` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
+
+--
+-- Constraints for table `milerange`
+--
+ALTER TABLE `milerange`
+  ADD CONSTRAINT `milerange_ibfk_1` FOREIGN KEY (`MileRangeTypeKey`) REFERENCES `milerangetype` (`MileRangeTypeKey`),
+  ADD CONSTRAINT `milerange_ibfk_2` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
