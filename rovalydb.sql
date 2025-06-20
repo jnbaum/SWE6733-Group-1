@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 16, 2025 at 01:15 AM
+-- Generation Time: Jun 20, 2025 at 05:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,9 @@ INSERT INTO `adventure` (`AdventureKey`, `AdventureTypeKey`, `UserKey`) VALUES
 (21, 1, 1),
 (22, 1, 1),
 (23, 1, 1),
-(24, 3, 1);
+(24, 3, 1),
+(25, 1, 1),
+(26, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +70,11 @@ INSERT INTO `adventurepreference` (`AdventurePreferenceKey`, `AdventureKey`, `Pr
 (1, 23, 1),
 (2, 23, 4),
 (3, 24, 2),
-(4, 24, 7);
+(4, 24, 7),
+(5, 25, 1),
+(6, 25, 4),
+(7, 26, 1),
+(8, 26, 5);
 
 -- --------------------------------------------------------
 
@@ -112,6 +118,19 @@ CREATE TABLE `chatroom` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `interaction`
+--
+
+CREATE TABLE `interaction` (
+  `InteractionKey` int(11) NOT NULL,
+  `ActingUserKey` int(11) DEFAULT NULL,
+  `OtherUserKey` int(11) DEFAULT NULL,
+  `IsLiked` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `message`
 --
 
@@ -127,12 +146,36 @@ CREATE TABLE `message` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `milerange`
+--
+
+CREATE TABLE `milerange` (
+  `MileRangeKey` int(11) NOT NULL,
+  `MileRangeTypeKey` int(11) DEFAULT NULL,
+  `UserKey` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `milerangetype`
 --
 
 CREATE TABLE `milerangetype` (
   `MileRangeTypeKey` int(11) NOT NULL,
   `DistanceMiles` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `photo`
+--
+
+CREATE TABLE `photo` (
+  `PhotoKey` int(11) NOT NULL,
+  `UserKey` int(11) DEFAULT NULL,
+  `PhotoUrl` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -188,7 +231,8 @@ INSERT INTO `preferencetype` (`PreferenceTypeKey`, `Name`) VALUES
 CREATE TABLE `profilephoto` (
   `ProfilePhotoKey` int(11) NOT NULL,
   `UserKey` int(11) DEFAULT NULL,
-  `ProfilePhoto` longblob DEFAULT NULL
+  `ProfilePictureUrl` varchar(255) DEFAULT NULL,
+  `UploadTime` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -211,8 +255,8 @@ CREATE TABLE `socialmedialink` (
 
 CREATE TABLE `user` (
   `UserKey` int(11) NOT NULL,
-  `Username` varchar(30) DEFAULT NULL,
-  `PasswordHash` varchar(100) DEFAULT NULL,
+  `Username` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `PasswordHash` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `FullName` varchar(50) DEFAULT NULL,
   `Bio` varchar(10000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -259,6 +303,14 @@ ALTER TABLE `chatroom`
   ADD KEY `SecondUserKey` (`SecondUserKey`);
 
 --
+-- Indexes for table `interaction`
+--
+ALTER TABLE `interaction`
+  ADD PRIMARY KEY (`InteractionKey`),
+  ADD KEY `ActingUserKey` (`ActingUserKey`),
+  ADD KEY `OtherUserKey` (`OtherUserKey`);
+
+--
 -- Indexes for table `message`
 --
 ALTER TABLE `message`
@@ -268,10 +320,25 @@ ALTER TABLE `message`
   ADD KEY `ChatRoomKey` (`ChatRoomKey`);
 
 --
+-- Indexes for table `milerange`
+--
+ALTER TABLE `milerange`
+  ADD PRIMARY KEY (`MileRangeKey`),
+  ADD KEY `MileRangeTypeKey` (`MileRangeTypeKey`),
+  ADD KEY `UserKey` (`UserKey`);
+
+--
 -- Indexes for table `milerangetype`
 --
 ALTER TABLE `milerangetype`
   ADD PRIMARY KEY (`MileRangeTypeKey`);
+
+--
+-- Indexes for table `photo`
+--
+ALTER TABLE `photo`
+  ADD PRIMARY KEY (`PhotoKey`),
+  ADD KEY `UserKey` (`UserKey`);
 
 --
 -- Indexes for table `preference`
@@ -314,13 +381,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `adventure`
 --
 ALTER TABLE `adventure`
-  MODIFY `AdventureKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `AdventureKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `adventurepreference`
 --
 ALTER TABLE `adventurepreference`
-  MODIFY `AdventurePreferenceKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `AdventurePreferenceKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `adventuretype`
@@ -329,10 +396,22 @@ ALTER TABLE `adventuretype`
   MODIFY `AdventureTypeKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `milerange`
+--
+ALTER TABLE `milerange`
+  MODIFY `MileRangeKey` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `milerangetype`
 --
 ALTER TABLE `milerangetype`
   MODIFY `MileRangeTypeKey` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `photo`
+--
+ALTER TABLE `photo`
+  MODIFY `PhotoKey` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `preference`
@@ -390,12 +469,32 @@ ALTER TABLE `chatroom`
   ADD CONSTRAINT `chatroom_ibfk_2` FOREIGN KEY (`SecondUserKey`) REFERENCES `user` (`UserKey`);
 
 --
+-- Constraints for table `interaction`
+--
+ALTER TABLE `interaction`
+  ADD CONSTRAINT `interaction_ibfk_1` FOREIGN KEY (`ActingUserKey`) REFERENCES `user` (`UserKey`),
+  ADD CONSTRAINT `interaction_ibfk_2` FOREIGN KEY (`OtherUserKey`) REFERENCES `user` (`UserKey`);
+
+--
 -- Constraints for table `message`
 --
 ALTER TABLE `message`
   ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`SendingUserKey`) REFERENCES `user` (`UserKey`),
   ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`RecipientUserKey`) REFERENCES `user` (`UserKey`),
   ADD CONSTRAINT `message_ibfk_3` FOREIGN KEY (`ChatRoomKey`) REFERENCES `chatroom` (`ChatRoomKey`);
+
+--
+-- Constraints for table `milerange`
+--
+ALTER TABLE `milerange`
+  ADD CONSTRAINT `milerange_ibfk_1` FOREIGN KEY (`MileRangeTypeKey`) REFERENCES `milerangetype` (`MileRangeTypeKey`),
+  ADD CONSTRAINT `milerange_ibfk_2` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
+
+--
+-- Constraints for table `photo`
+--
+ALTER TABLE `photo`
+  ADD CONSTRAINT `photo_ibfk_1` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
 
 --
 -- Constraints for table `preference`
