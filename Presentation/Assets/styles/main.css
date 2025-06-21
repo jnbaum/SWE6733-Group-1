@@ -335,6 +335,7 @@
       cursor: pointer; /* set cursor pointer */
       transition: background-color 0.2s ease-in-out; /* background transition */
       font-weight: 400; /* font weight */
+      text-decoration: underline;
   }
 
   .form-group.submit-form-group .submit-button:hover {
