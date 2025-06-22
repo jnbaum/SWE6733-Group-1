@@ -1,6 +1,15 @@
 <?php
 $bodyClass = 'index-background';
 include("head.php"); 
+
+// Testing backend: create user and login
+// require_once(__DIR__ . '/../BusinessLogic/Services/UserService.php');
+// require_once(__DIR__ . '/../BusinessLogic/AllServices.php');
+// $userService = $allServices->GetUserService();
+// $userService->CreateNewUser("example", "example");
+// if($userService->IsValidUser("example", "example") != null) {
+//   echo "User valid!";
+// }
 ?>
 </body>
 </html>
@@ -18,7 +27,7 @@ include("head.php");
       </div>
       <div class="d-flex justify-content-center gap-5">
         <button type="submit" class="btn btn-brand">SIGN IN</button>
-        <button type="button" class="btn btn-brand" onclick="window.location.href='createProfile.php'">SIGN UP</button>
+        <button type="button" class="btn btn-brand" onclick="window.location.href='createProfile.php'">SIGN UP</button> <!-- TODO: make this a submit button too, then: 1) set session variable in form action with error message, and 2) redirect back to this page inside the form action. If error message session variable is NOT set on this page (meaning login was successful), then redirect to create profile. -->
       </div>
     </form>
   </div>
