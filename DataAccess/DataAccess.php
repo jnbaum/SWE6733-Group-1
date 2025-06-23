@@ -10,12 +10,27 @@ class DataAccess {
         'dbname' => 'rovalydb',
         'user' => 'root',
         'password' => '',
-        'host' => '127.0.0.1:3308', // change this to 3306
+        'host' => '127.0.0.1:3306', // change this to 3306
         'driver' => 'pdo_mysql'
     ];
     return DriverManager::GetConnection($connectionParams);
 
     }
+    public function GetPhoto(int $userKey): ?string {
+        $conn = $this->GetConnection();
+        
+        $result = $conn->executeQuery(
+            "SELECT PhotoUrl FROM photo WHERE UserKey = ?",
+            [$userKey]
+        );
+        
+        $row = $result->fetchAssociative();
+        $conn->close();
+        
+        return $row['PhotoUrl'] ?? null;
+    }
+    
+    
 
     public function ExecuteQuery(string $query, QueryType $queryType) {
         $conn = $this->GetConnection();

@@ -96,7 +96,7 @@ $adventureService = $allServices->GetAdventureService();
                         </div>
 
                         <div class="form-group submit-form-group">
-                            <button type="submit" class="submit-button">Save Profile</button>
+                            <button type="submit" class="submit-button">Create Profile</button>
                         </div>
                     </form>
                 </div>
