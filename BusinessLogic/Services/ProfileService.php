@@ -117,5 +117,55 @@ class ProfileService{
         return $mileRangePreference;
     }
 
+
+    function createNewUserProfile(
+    string $fullName,
+    string $bio,
+    string $profilePhotoUrl,
+    string $socialMediaUrl,
+    int $mileRangeTypeKey
+): int {
+
+    global $allServices;
+    $profileService = $allServices->GetProfileService(); 
+    $dataAccess = new DataAccess(); 
+
+
+    try {
+        $initialUserInsertQuery = "INSERT INTO user (FullName) VALUES ('Initial Name')"; // Placeholder query
+        $newUserKey = $dataAccess->ExecuteQuery($initialUserInsertQuery, QueryType::INSERT);
+
+        if (!is_int($newUserKey) || $newUserKey <= 0) {
+            throw new Exception("Failed to create initial user record or retrieve UserKey.");
+        }
+
+    } catch (Exception $e) {
+        // Handle database error or key generation failure
+        echo "Error during initial user creation: " . $e->getMessage();
+        return 0; // Indicate failure
+    }
+
+    try {
+        // Update user's full name and bio 
+        $profileService->UpdateUserInfo($newUserKey, $fullName, $bio); 
+
+        // Add profile picture URL
+        $profileService->AddProfilePictureToUser($newUserKey, $profilePhotoUrl);
+
+        // Add social media link (e.g., Instagram)
+        $profileService->AddSocialMediaLink($newUserKey, $socialMediaUrl);
+
+        // Add mile range preference
+        $profileService->AddMileRangePreferencesToUser($newUserKey, $mileRangeTypeKey); 
+
+        return $newUserKey; // Return the key of the newly created user
+    } catch (Exception $e) {
+        // Handle errors during profile population
+        echo "Error populating user profile: " . $e->getMessage();
+        // Depending on error, you might want to clean up the initial user record
+        return 0; // Indicate failure
+    }
+}
+
 }
 ?>
