@@ -3,6 +3,7 @@ require_once(__DIR__ . "/../../DataAccess/DataAccess.php");
 require_once(__DIR__ . "/../../Models/UserDetails.php");
 require_once(__DIR__ . "/../../Models/MileRangeType.php");
 require_once(__DIR__ . "/../QueryHelper.php");
+require_once(__DIR__ . "/PhotoService.php");
 
 
 class ProfileService{
@@ -39,18 +40,21 @@ class ProfileService{
     // insert a new S3 url link for a user; this should be called inside logic to CreateProfile
     public function AddProfilePictureToUser(int $userKey, string $photoUrl){
         //COMPLETE
-        $this->da->ExecuteQuery("INSERT INTO profilephoto (UserKey, ProfilePhoto) VALUES ("
+        $this->da->ExecuteQuery("INSERT INTO photo (UserKey, PhotoUrl) VALUES ("
             . $userKey . ", " . QueryHelper::SurroundWithQuotes($photoUrl) . ")", QueryType::INSERT);
     }
-
-    public function GetProfilePictureUrl(int $userKey): string{
-        //TODO; query is complete but DB needs to change the ProfilePhoto type from blob to varchar?
-        $stmt = $this->da->ExecuteQuery("SELECT ProfilePhoto  FROM profilephoto WHERE UserKey=" . $userKey, QueryType::SELECT);
-        while($row = $stmt->fetchAssociative()){
-            $photoUrl = (string)$row['ProfilePhoto'];
+    public function GetProfilePictureUrl(int $userKey): ?string {
+        $photoKey = $this->da->GetPhoto($userKey);
+      
+        if ($photoKey) {
+            $photoService = new PhotoService();
+            return $photoService->GetPresignedPhotoUrl($photoKey);
+        } else {
+            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/DefaultPhoto.png'; 
         }
-        return $photoUrl;
-    }
+      }
+
+
 
     /*
         SOCIAL MEDIA URL
@@ -117,55 +121,7 @@ class ProfileService{
         return $mileRangePreference;
     }
 
-
-    function createNewUserProfile(
-    string $fullName,
-    string $bio,
-    string $profilePhotoUrl,
-    string $socialMediaUrl,
-    int $mileRangeTypeKey
-): int {
-
-    global $allServices;
-    $profileService = $allServices->GetProfileService(); 
-    $dataAccess = new DataAccess(); 
-
-
-    try {
-        $initialUserInsertQuery = "INSERT INTO user (FullName) VALUES ('Initial Name')"; // Placeholder query
-        $newUserKey = $dataAccess->ExecuteQuery($initialUserInsertQuery, QueryType::INSERT);
-
-        if (!is_int($newUserKey) || $newUserKey <= 0) {
-            throw new Exception("Failed to create initial user record or retrieve UserKey.");
-        }
-
-    } catch (Exception $e) {
-        // Handle database error or key generation failure
-        echo "Error during initial user creation: " . $e->getMessage();
-        return 0; // Indicate failure
-    }
-
-    try {
-        // Update user's full name and bio 
-        $profileService->UpdateUserInfo($newUserKey, $fullName, $bio); 
-
-        // Add profile picture URL
-        $profileService->AddProfilePictureToUser($newUserKey, $profilePhotoUrl);
-
-        // Add social media link (e.g., Instagram)
-        $profileService->AddSocialMediaLink($newUserKey, $socialMediaUrl);
-
-        // Add mile range preference
-        $profileService->AddMileRangePreferencesToUser($newUserKey, $mileRangeTypeKey); 
-
-        return $newUserKey; // Return the key of the newly created user
-    } catch (Exception $e) {
-        // Handle errors during profile population
-        echo "Error populating user profile: " . $e->getMessage();
-        // Depending on error, you might want to clean up the initial user record
-        return 0; // Indicate failure
-    }
-}
+    
 
 }
 ?>

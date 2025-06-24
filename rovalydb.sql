@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 20, 2025 at 05:11 AM
+-- Generation Time: Jun 23, 2025 at 03:50 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,8 @@ INSERT INTO `adventure` (`AdventureKey`, `AdventureTypeKey`, `UserKey`) VALUES
 (23, 1, 1),
 (24, 3, 1),
 (25, 1, 1),
-(26, 1, 1);
+(26, 1, 1),
+(27, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +75,9 @@ INSERT INTO `adventurepreference` (`AdventurePreferenceKey`, `AdventureKey`, `Pr
 (5, 25, 1),
 (6, 25, 4),
 (7, 26, 1),
-(8, 26, 5);
+(8, 26, 5),
+(9, 27, 3),
+(10, 27, 5);
 
 -- --------------------------------------------------------
 
@@ -115,6 +118,13 @@ CREATE TABLE `chatroom` (
   `SecondUserKey` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chatroom`
+--
+
+INSERT INTO `chatroom` (`ChatRoomKey`, `FirstUserKey`, `SecondUserKey`) VALUES
+(1, 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -143,6 +153,14 @@ CREATE TABLE `message` (
   `SentTime` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`MessageKey`, `SendingUserKey`, `RecipientUserKey`, `ChatRoomKey`, `Content`, `SentTime`) VALUES
+(1, 2, 1, 1, 'Hey!', '2025-06-22 01:00:00'),
+(2, 1, 2, 1, 'Hello', '2025-06-22 02:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -165,36 +183,6 @@ CREATE TABLE `milerangetype` (
   `MileRangeTypeKey` int(11) NOT NULL,
   `DistanceMiles` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `milerangetype`
---
-
-INSERT INTO `milerangetype` (`MileRangeTypeKey`, `DistanceMiles`) VALUES
-(1, 5),
-(2, 10),
-(3, 15),
-(4, 20),
-(5, 25);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `milerange`
---
-
-CREATE TABLE `milerange` (
-    `MileRangeKey` int(11) NOT NULL,
-    `MileRangeTypeKey` int(11) DEFAULT NULL,
-    `UserKey` int(11) DEFAULT NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `milerangetype`
---
-
-INSERT INTO `milerange` (`MileRangeTypeKey`, `UserKey`) VALUES
-(3, 1);
 
 -- --------------------------------------------------------
 
@@ -296,7 +284,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserKey`, `Username`, `PasswordHash`, `FullName`, `Bio`) VALUES
-(1, 'guest', '1234', 'Guest Guest', 'This is a bio');
+(1, 'guest', '1234', 'Guest Guest', 'This is a bio'),
+(2, 'example', '$2y$10$u/fhuy6.VGWMGXvkv3758Ohxho626JOABYjJ0bBsBL1YPEozDwE1K', NULL, NULL),
+(3, 'example2', '$2y$10$4kn3VghKKrLniUyYc//noekVHatfBqwbT1b3fzluMkjyiJyNwV4q.', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -403,12 +393,6 @@ ALTER TABLE `socialmedialink`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`UserKey`);
 
-  --
--- Indexes for table `milerange`
---
-ALTER TABLE `milerange`
-  ADD PRIMARY KEY (`MileRangeKey`);
-
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -417,19 +401,31 @@ ALTER TABLE `milerange`
 -- AUTO_INCREMENT for table `adventure`
 --
 ALTER TABLE `adventure`
-  MODIFY `AdventureKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `AdventureKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `adventurepreference`
 --
 ALTER TABLE `adventurepreference`
-  MODIFY `AdventurePreferenceKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `AdventurePreferenceKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `adventuretype`
 --
 ALTER TABLE `adventuretype`
   MODIFY `AdventureTypeKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `chatroom`
+--
+ALTER TABLE `chatroom`
+  MODIFY `ChatRoomKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `MessageKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `milerange`
@@ -477,13 +473,7 @@ ALTER TABLE `socialmedialink`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `milerange`
---
-ALTER TABLE `milerange`
-  MODIFY `MileRangeKey` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserKey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -555,13 +545,6 @@ ALTER TABLE `profilephoto`
 --
 ALTER TABLE `socialmedialink`
   ADD CONSTRAINT `socialmedialink_ibfk_1` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
-
---
--- Constraints for table `milerange`
---
-ALTER TABLE `milerange`
-  ADD CONSTRAINT `milerange_ibfk_1` FOREIGN KEY (`MileRangeTypeKey`) REFERENCES `milerangetype` (`MileRangeTypeKey`),
-  ADD CONSTRAINT `milerange_ibfk_2` FOREIGN KEY (`UserKey`) REFERENCES `user` (`UserKey`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

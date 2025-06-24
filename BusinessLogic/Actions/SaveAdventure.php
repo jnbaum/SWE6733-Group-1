@@ -18,5 +18,5 @@ $adventureService->AddPreferencesToAdventure($adventureKey, $preferenceKeys);
 
 // Redirect back to original page where the form submission took place
 // Query string is one way to return data back to original page, but if it's sensitive info, use PHP SESSION variables instead
-header("Location: ../../Presentation/TestAdventures.php?adventureKey=" . $adventureKey)
+header("Location: ../../Presentation/createProfile.php");
 ?>
