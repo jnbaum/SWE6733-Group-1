@@ -101,19 +101,16 @@ class UserService {
         // exit();
     }
 
-     public function IsValidUser(int $userKey): bool {
-        // Checking for the existence of the UserKey itself is sufficient to confirm the user exists.
-        $query = "SELECT UserKey FROM user WHERE UserKey=" . $userKey;
-
-        try {
-            // Execute the SELECT query using the DataAccess layer. 
-            $stmt = $this->da->ExecuteQuery($query, QueryType::SELECT);
-            return (bool)$stmt->fetchAssociative();
-        } catch (Exception $e) {
-            // to aid in debugging without exposing sensitive information to the user.
-            error_log("Database error in IsValidUser for UserKey " . $userKey . ": " . $e->getMessage());
-            return false;
+    public function IsValidUser(string $enteredEmail, string $enteredPassword): ?int {
+        $query = "SELECT * FROM User WHERE Username=" . QueryHelper::SurroundWithQuotes($enteredEmail) . " LIMIT 1";
+        $stmt = $this->da->ExecuteQuery($query, QueryType::SELECT);
+        $row = $stmt->fetchAssociative(); 
+        // password_verify($plainTextPassword, $passwordHash) - returns true if the plain text password matches passwordHash after hash from password_hash() is applied
+        // https://www.phptutorial.net/php-tutorial/php-password_verify/
+        if($row && password_verify($enteredPassword, $row['PasswordHash'])) { // if a User was found in database with that username and entered password was valid
+            return $row['UserKey'];
         }
+        return null;
     }
 
     public function CreateNewUser(string $enteredEmail, string $enteredPassword): ?int {

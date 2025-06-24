@@ -118,54 +118,40 @@ class ProfileService{
     }
 
 
+    // this function populates profile details for an existing user.
+    // accepts the userKey obtained from UserService.php after user is created.
     function createNewUserProfile(
-    string $fullName,
-    string $bio,
-    string $profilePhotoUrl,
-    string $socialMediaUrl,
-    int $mileRangeTypeKey
-): int {
+        int $userKey, // added userKey as parameter
+        string $fullName,
+        string $bio,
+        string $profilePhotoUrl,
+        string $socialMediaUrl,
+        int $mileRangeTypeKey
+    ): int {
 
-    global $allServices;
-    $profileService = $allServices->GetProfileService(); 
-    $dataAccess = new DataAccess(); 
+        global $allServices;
+        $profileService = $allServices->GetProfileService();
 
+        try {
+            // update user full name and bio
+            $profileService->UpdateUserInfo($userKey, $fullName, $bio);
 
-    try {
-        $initialUserInsertQuery = "INSERT INTO user (FullName) VALUES ('Initial Name')"; // Placeholder query
-        $newUserKey = $dataAccess->ExecuteQuery($initialUserInsertQuery, QueryType::INSERT);
+            // add profile picture URL
+            $profileService->AddProfilePictureToUser($userKey, $profilePhotoUrl);
 
-        if (!is_int($newUserKey) || $newUserKey <= 0) {
-            throw new Exception("Failed to create initial user record or retrieve UserKey.");
+            // add social media link (e.g., Instagram)
+            $profileService->AddSocialMediaLink($userKey, $socialMediaUrl);
+
+            // add mile range preference
+            $profileService->AddMileRangePreferencesToUser($userKey, $mileRangeTypeKey);
+
+            return $userKey; // return userKey of the profile that was just updated
+        } catch (Exception $e) {
+            // handle errors during profile population
+            error_log("Error populating user profile for UserKey $userKey: " . $e->getMessage());
+            return 0; // failure
         }
-
-    } catch (Exception $e) {
-        // Handle database error or key generation failure
-        echo "Error during initial user creation: " . $e->getMessage();
-        return 0; // Indicate failure
     }
-
-    try {
-        // Update user's full name and bio 
-        $profileService->UpdateUserInfo($newUserKey, $fullName, $bio); 
-
-        // Add profile picture URL
-        $profileService->AddProfilePictureToUser($newUserKey, $profilePhotoUrl);
-
-        // Add social media link (e.g., Instagram)
-        $profileService->AddSocialMediaLink($newUserKey, $socialMediaUrl);
-
-        // Add mile range preference
-        $profileService->AddMileRangePreferencesToUser($newUserKey, $mileRangeTypeKey); 
-
-        return $newUserKey; // Return the key of the newly created user
-    } catch (Exception $e) {
-        // Handle errors during profile population
-        echo "Error populating user profile: " . $e->getMessage();
-        // Depending on error, you might want to clean up the initial user record
-        return 0; // Indicate failure
-    }
-}
 
 }
 ?>
