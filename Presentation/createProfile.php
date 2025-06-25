@@ -2,6 +2,12 @@
 $bodyClass = 'create-profile';
 include("head.php");
 include("header.php");
+
+require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
+require_once(__DIR__ . "/../Models/AdventureType.php");
+require_once(__DIR__ . "/../Models/PreferenceTypeEnum.php");
+
+$adventureService = $allServices->GetAdventureService();                       
 ?>
 
 
@@ -90,52 +96,71 @@ include("header.php");
                         </div>
 
                         <div class="form-group submit-form-group">
-                            <button type="submit" class="submit-button">Save Profile</button>
+                            <button type="submit" class="submit-button">Create Profile</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <!-- TODO: Uncomment this section and style it so that it appears to the right of the page 
+         - Also, set userKey to the userKey of the logged in user via a session variable -->
+        <!-- <ul>
+            <?php 
+                //$userKey = 1; // replace with $_SESSION['currentUserKey'] after login is implemented
+                //$adventureDetailsArray = $adventureService->GetAdventureDetailsArray(1);
+                //foreach($adventureDetailsArray as $adventureDetails) {
+                //   echo '<li>' . $adventureDetails->GetActivityName() . '-' . $adventureDetails->GetPreferencesString() . '</li>';
+                //}
+            ?>
+        </ul> -->
+          
     </main>
 <!---------------------- Modal --------------------------------->
+                    <form action="../BusinessLogic/Actions/SaveAdventure.php" method="POST">
                         <div id="customModal" class="modal">
                             <div class="modal-content">
                                <p>Choose your adventure type:</p>
                                 <div class="dropdown-container">
-                                    <select id="myDropdown2" name="myDropdown2">
+                                    <select id="myDropdown2" name="adventureTypeKey">
                                     <option disabled selected>Adventure</option>
-                                    <option>Hiking</option>
-                                    <option>Fishing</option>
-                                    <option>Rock climbing</option>
-                                    <option>Camping</option>
-                                    <option>Ziplining</option>
-                                    <option>Mountain biking</option>
-                                    <option>Snorkelling</option>
-                                    <option>Geocaching</option>
-                                    <option>Surfing</option>
-                                    <option>Boating</option>
+                                    <?php
+                                   $adventureTypes = $adventureService->GetAdventureTypes();
+                                    foreach($adventureTypes as $adventureType) {
+                                        echo '<option value="' . $adventureType->GetAdventureTypeKey() . '">' . $adventureType->GetName() . '</option>';
+                                    }
+                                    ?>
                                     </select>
                                 </div>
 
                             <div class="dropdown-container">
-                                <select id="myDropdown3" name="myDropdown3">
+                                <select id="myDropdown3" name="skillLevelPreferenceKey">
                                 <option disabled selected>Skill Level</option>
-                                <option>Beginner</option>
-                                <option>Intermediate</option>
-                                <option>Expert</option>
+                                <?php
+                                $preferenceTypeKey = PreferenceTypeEnum::SkillLevel->value;
+                                $skillLevelPreferences = $adventureService->GetPreferencesByPreferenceTypeKey((int)$preferenceTypeKey);
+                                foreach($skillLevelPreferences as $skillLevelPreference) {
+                                    echo '<option value="' . $skillLevelPreference->GetPreferenceKey() . '">' . $skillLevelPreference->GetName() . '</option>';
+                                }
+                                ?>
                                 </select>
                             </div>
 
                             <div class="dropdown-container">
-                            <select id="myDropdown4" name="myDropdown4">
+                            <select id="myDropdown4" name="attitudePreferenceKey">
                                 <option disabled selected>Attitude</option>
-                                <option>Fun</option>
-                                <option>Casual</option>
-                                <option>Serious</option>
-                                <option>Competitive</option>
+                                <?php
+                                    $preferenceTypeKey = PreferenceTypeEnum::Attitude->value;
+                                    $attitudePreferences = $adventureService->GetPreferencesByPreferenceTypeKey((int)$preferenceTypeKey);
+                                    foreach($attitudePreferences as $attiudePreference) {
+                                        echo '<option value="' . $attiudePreference->GetPreferenceKey() . '">' . $attiudePreference->GetName() . '</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
-            <button class = "adventurebutton" onclick="submitAdventure()">Add Adventure</button>
-
+            <button type="submit" class="adventurebutton">Add Adventure</button>
+             </form>
+            
 </body>
+           
 </html>
