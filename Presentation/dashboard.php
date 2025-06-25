@@ -9,7 +9,7 @@ include("header.php");
     <!-- LEFT COLUMN -->
     <div class="dashboard-left">
       <h2 class="section-headingg">DASHBOARD</h2>
-      <p class="subhead">HEY <?php echo strtoupper($userName); ?>!</p>
+      <p class="subhead">HEY!</p> <!--<?php echo strtoupper($userName); ?>!</p>-->
     </div>
     <div class="dashboard-right">
         <div class="dashboard-buttons">
