@@ -121,7 +121,41 @@ class ProfileService{
         return $mileRangePreference;
     }
 
-    
+
+    // this function populates profile details for an existing user.
+    // accepts the userKey obtained from UserService.php after user is created.
+    function createNewUserProfile(
+        int $userKey, // added userKey as parameter
+        string $fullName,
+        string $bio,
+        string $profilePhotoUrl,
+        string $socialMediaUrl,
+        int $mileRangeTypeKey
+    ): int {
+
+        global $allServices;
+        $profileService = $allServices->GetProfileService();
+
+        try {
+            // update user full name and bio
+            $profileService->UpdateUserInfo($userKey, $fullName, $bio);
+
+            // add profile picture URL
+            $profileService->AddProfilePictureToUser($userKey, $profilePhotoUrl);
+
+            // add social media link (e.g., Instagram)
+            $profileService->AddSocialMediaLink($userKey, $socialMediaUrl);
+
+            // add mile range preference
+            $profileService->AddMileRangePreferencesToUser($userKey, $mileRangeTypeKey);
+
+            return $userKey; // return userKey of the profile that was just updated
+        } catch (Exception $e) {
+            // handle errors during profile population
+            error_log("Error populating user profile for UserKey $userKey: " . $e->getMessage());
+            return 0; // failure
+        }
+    }
 
 }
 ?>
