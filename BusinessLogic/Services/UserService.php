@@ -56,7 +56,7 @@ class UserService {
                 $storedPasswordHash = $row['PasswordHash'];
                 // In a real application, use password_verify($password, $storedPasswordHash)
                 // For demonstration, assuming plain text or a direct match (not secure for production).
-                if ($password === $storedPasswordHash) { // This comparison is for demonstration only. Use password_verify() in production.
+                if (password_verify($password, $storedPasswordHash)) { // This comparison is for demonstration only. Use password_verify() in production.
                     return (int)$row['UserKey'];
                 }
             }
