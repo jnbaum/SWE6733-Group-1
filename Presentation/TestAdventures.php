@@ -7,7 +7,6 @@ $adventureService = $allServices->GetAdventureService();
 ?>
 <html>
 <body>
-    
     <form action="../BusinessLogic/Actions/SaveAdventure.php" method="POST">
         
         <select name="adventureTypeKey"> <!-- name attribute is important so that SaveAdventure.php form action can know what to get from the POST request (form submission) -->
@@ -43,5 +42,15 @@ $adventureService = $allServices->GetAdventureService();
             echo "Adventure saved with preferences in database with new AdventureKey: " . $_GET["adventureKey"];
         }
     ?>
+    <h1>My Adventures</h1>
+        <ul>
+            <?php 
+                $userKey = 1; // replace with $_SESSION['currentUserKey'] after login is implemented
+                $adventureDetailsArray = $adventureService->GetAdventureDetailsArray(1);
+                foreach($adventureDetailsArray as $adventureDetails) {
+                    echo '<li>' . $adventureDetails->GetActivityName() . '-' . $adventureDetails->GetPreferencesString() . '</li>';
+                }
+            ?>
+        </ul>
 </body>
 </html>

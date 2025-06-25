@@ -1,2 +1,49 @@
+# Composer dependencies
 vendor/
-build/
+/Packages/vendor/
+
+
+# Environment configuration
+.env
+
+# IDE and editor files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails and caches
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# XAMPP log or session files (if you store them in your repo folder)
+logs/
+sessions/
+
+# JetBrains/PHPStorm
+.idea/
+
+# VSCode
+.vscode/
+
+# PHPUnit test output
+phpunit.xml
+phpunit.result.cache
+coverage/
+
+# OS or tool-specific
+*.orig
+*.lock
+
+# Node (if you use it for frontend stuff)
+node_modules/

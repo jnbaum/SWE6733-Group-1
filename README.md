@@ -57,6 +57,7 @@ This far vision can only be achieved by creating a polished, scalable version of
 * Refactor the codebase for clarity, scalability, and portfolio use
 * Updating user profiles and additional photo storage
 
+---
 
 Stakeholders:
 
@@ -85,11 +86,3 @@ Our team ordered the project backlog with a focus on logical workflow progressio
 * The team has reviewed and approved the user stories, backlog order, and sprint plan
 
 ---
-
-
-
-
-
-
-
-
