@@ -39,7 +39,7 @@ $adventureService = $allServices->GetAdventureService();
             <!-- Right Column: Profile Details & Adventure Preferences -->
             <div class="profile-right-column">
                 <div class="profile-card">
-                    <form class="profile-form" action="save-profile.php" method="POST" enctype="multipart/form-data">
+                    <form class="profile-form" action="dashboard.php" method="POST" enctype="multipart/form-data">
                         <!-- Name Fields -->
                         <div class="form-group name-form-group">
                             <label for="first-name" class="form-label" style="color: black;">Name</label>

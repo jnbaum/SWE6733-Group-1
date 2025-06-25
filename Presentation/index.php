@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // checks if form was submitted via 
                 $signinError = "Invalid email or password."; // sets the error message
             } else {
                 $_SESSION['user_id'] = $userKey; // stores user ID in the session
-                header("Location: createProfile.php"); // redirects to createProfile.php after successful sign-in
+                header("Location: dashboard.php"); // redirects to dashboard.php after successful sign-in
                 exit(); // ends script
             }
         }
