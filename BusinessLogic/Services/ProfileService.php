@@ -50,7 +50,7 @@ class ProfileService{
             $photoService = new PhotoService();
             return $photoService->GetPresignedPhotoUrl($photoKey);
         } else {
-            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/DefaultPhoto.png'; 
+            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
         }
       }
 

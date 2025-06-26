@@ -13,12 +13,14 @@ require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
 require_once(__DIR__ . "/../Models/UserDetails.php");
 require_once(__DIR__ . "/../Models/AdventureType.php");
 require_once(__DIR__ . "/../Models/PreferenceTypeEnum.php");
-$userKey = '1';
 
-// if (!isset($_SESSION['UserKey'])) {
-//   echo "<p>Error: No user is logged in.</p>";
-//   exit;
-// }
+if (!isset($_SESSION['user_id'])) {
+  header("Location: index.php");
+  exit();
+}
+
+
+$userKey = $_SESSION['user_id'];
 
 $da = new DataAccess();
 $profileService = new ProfileService($da);
@@ -28,7 +30,7 @@ $userDetails = $profileService->GetUserDetails($userKey);
 $socialMediaUrl = $profileService->GetSocialMediaLink($userKey);
 $mileRange = $profileService->GetMileRangePreference($userKey);
 $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey);
-//$profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
+$profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
 
 
 
@@ -52,7 +54,7 @@ $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey);
             <?php echo htmlspecialchars($socialMediaUrl ?? 'Not provided'); ?>
           </a>
         </p>
-        <p>Hey, I'm <?php echo htmlspecialchars($userDetails?->GetFullName() ?? 'someone'); ?></p>
+        <p>Hey, I'm <?php echo htmlspecialchars($userDetails?->GetFullName() ?? 'Please enter a name'); ?></p>
         <p><?php echo htmlspecialchars($userDetails?->GetBio() ?? 'No bio yet.'); ?></p>
 
         <p>Adventure Types <?php foreach($adventureDetailsArray as $adventureDetails) {

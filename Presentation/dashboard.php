@@ -1,15 +1,33 @@
 <?php
+session_start();
+
 $bodyClass = 'dashboard';
 include("head.php");
 include("header.php");
+require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
+require_once(__DIR__ . "/../Models/UserDetails.php");
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+
+}
+
+
+$userKey = $_SESSION['user_id'];
+
+$da = new DataAccess();
+$profileService = new ProfileService($da);
+$userDetails = $profileService->GetUserDetails($userKey);
+
 ?>
 
 <main class="profile-container">
 <div class="dashboard-container">
     <!-- LEFT COLUMN -->
     <div class="dashboard-left">
-      <h2 class="section-headingg">DASHBOARD</h2>
-      <p class="subhead">HEY!</p> <!--<?php echo strtoupper($userName); ?>!</p>-->
+      <h2 class="section-heading">DASHBOARD</h2>
+      <p class="subhead">HEY <?php echo htmlspecialchars($userDetails?->GetFullName() ?? 'User'); ?>!</p>
     </div>
     <div class="dashboard-right">
         <div class="dashboard-buttons">
