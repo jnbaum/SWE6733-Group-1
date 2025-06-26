@@ -332,8 +332,8 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`PhotoKey`, `UserKey`, `PhotoUrl`) VALUES
-  ('1','1','aisha_mbali.jpeg'),
-  ('2','2','mateo_ruiz.jpeg'),
+  ('1','1','aisha_mbali.jpg'),
+  ('2','2','mateo_ruiz.jpg'),
   ('3','3','leilani_kauhane.jpg'),
   ('4','4','hoon-ho_park.jpg'),
   ('5','5','amara_okeke.jpg'),
