@@ -39,7 +39,7 @@ $adventureService = $allServices->GetAdventureService();
             <!-- Right Column: Profile Details & Adventure Preferences -->
             <div class="profile-right-column">
                 <div class="profile-card">
-                    <form class="profile-form" action="dashboard.php" method="POST" enctype="multipart/form-data">
+                    <form class="profile-form" action="../BusinessLogic/Actions/SaveProfile.php" method="POST" enctype="multipart/form-data">
                         <!-- Name Fields -->
                         <div class="form-group name-form-group">
                             <label for="first-name" class="form-label" style="color: black;">Name</label>
@@ -95,6 +95,8 @@ $adventureService = $allServices->GetAdventureService();
                             <textarea class="form-textarea form-field-wrapper" id="bio" rows="5"></textarea>
                         </div>
 
+                        <input type="hidden" id="pendingAdventures" name="pendingAdventures">
+
                         <div class="form-group submit-form-group">
                             <button type="submit" class="submit-button">Create Profile</button>
                         </div>
@@ -114,15 +116,21 @@ $adventureService = $allServices->GetAdventureService();
                 //}
             ?>
         </ul> -->
+
+        <!-- TODO: style this -->
+        <p>Pending Adventures:</p>
+        <ul id="adventuresToAddList">
+           
+        <ul>
           
     </main>
 <!---------------------- Modal --------------------------------->
-                    <form action="../BusinessLogic/Actions/SaveAdventure.php" method="POST">
+                    <form action="" method="POST">
                         <div id="customModal" class="modal">
                             <div class="modal-content">
                                <p>Choose your adventure type:</p>
                                 <div class="dropdown-container">
-                                    <select id="myDropdown2" name="adventureTypeKey">
+                                    <select id="myDropdown2" name="adventureTypeKey" onchange="setSelectedAdventureTypeName(this.options[this.selectedIndex].text)">
                                     <option disabled selected>Adventure</option>
                                     <?php
                                    $adventureTypes = $adventureService->GetAdventureTypes();
@@ -134,7 +142,7 @@ $adventureService = $allServices->GetAdventureService();
                                 </div>
 
                             <div class="dropdown-container">
-                                <select id="myDropdown3" name="skillLevelPreferenceKey">
+                                <select id="myDropdown3" name="skillLevelPreferenceKey" onchange="setSelectedSkillLevelName(this.options[this.selectedIndex].text)">
                                 <option disabled selected>Skill Level</option>
                                 <?php
                                 $preferenceTypeKey = PreferenceTypeEnum::SkillLevel->value;
@@ -147,7 +155,7 @@ $adventureService = $allServices->GetAdventureService();
                             </div>
 
                             <div class="dropdown-container">
-                            <select id="myDropdown4" name="attitudePreferenceKey">
+                            <select id="myDropdown4" name="attitudePreferenceKey" onchange="setSelectedAttitudeName(this.options[this.selectedIndex].text)">
                                 <option disabled selected>Attitude</option>
                                 <?php
                                     $preferenceTypeKey = PreferenceTypeEnum::Attitude->value;
@@ -158,9 +166,52 @@ $adventureService = $allServices->GetAdventureService();
                                 ?>
                             </select>
                         </div>
-            <button type="submit" class="adventurebutton">Add Adventure</button>
+            <button type="button" id="saveAdventureButton" onclick="addAdventureFromForm()" class="adventurebutton">Add Adventure</button>
              </form>
+    <script>
+        var adventures = [];
+        var selectedAdventureTypeName = "";
+        var selectedSkillLevelName = "";
+        var selectedAttitudeName = "";
+
+        // Add selected from Add Adventure modal to "Pending Adventures" section whenever modal save button is clicked
+        // When the "create profile" button is finally clicked, it saves all the stored up adventures to the database at that time.
+        function addAdventureFromForm() {
+            var adventureTypeKey = $("#myDropdown2").val();
+            var skillLevelPreferenceKey = $("#myDropdown3").val();
+            var attitudePreferenceKey = $("#myDropdown4").val();
+
+            if(adventureTypeKey == null || skillLevelPreferenceKey == null || attitudePreferenceKey == null) { // require all three modal fields to have an option selected
+                return;
+            }
+
+            var objAdventure = {adventureTypeKey:adventureTypeKey, skillLevelPreferenceKey:skillLevelPreferenceKey, attitudePreferenceKey:attitudePreferenceKey}
+            adventures.push(objAdventure);
+
+            // Show pending adventure to add when submit button on create profile page is clicked
+            var ul = document.getElementById("adventuresToAddList");
+            var li = document.createElement('li');
+            li.appendChild(document.createTextNode(selectedAdventureTypeName + "-" + selectedSkillLevelName + "-" + selectedAttitudeName));
+            ul.appendChild(li);
+
+            $("#pendingAdventures").val(JSON.stringify(adventures));
+
+            $("#customModal").hide(); // close modal
+        }
             
+
+        function setSelectedAdventureTypeName(name) {
+            selectedAdventureTypeName = name;
+        }
+
+        function setSelectedSkillLevelName(name) {
+            selectedSkillLevelName = name;
+        }
+
+        function setSelectedAttitudeName(name) { 
+            selectedAttitudeName = name;
+        }
+    </script>    
 </body>
            
 </html>
