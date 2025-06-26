@@ -5,6 +5,7 @@ require_once(__DIR__ . "/../../Models/MileRangeType.php");
 require_once(__DIR__ . "/../QueryHelper.php");
 require_once(__DIR__ . "/PhotoService.php");
 
+use Doctrine\DBAL\Connection;
 
 class ProfileService{
     private DataAccess $da;
@@ -44,17 +45,50 @@ class ProfileService{
             . $userKey . ", " . QueryHelper::SurroundWithQuotes($photoUrl) . ")", QueryType::INSERT);
     }
     public function GetProfilePictureUrl(int $userKey): ?string {
-        $photoKey = $this->da->GetPhoto($userKey);
-      
-        if ($photoKey) {
-            $photoService = new PhotoService();
-            return $photoService->GetPresignedPhotoUrl($photoKey);
-        } else {
-            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
+        // The 'photo' table exists, but 'profilephoto' is specifically for profile pictures.
+        // This method assumes it should query the 'profilephoto' table.
+        $query = "SELECT ProfilePictureUrl FROM profilephoto WHERE UserKey = " . $userKey;
+        try {
+            $stmt = $this->da->ExecuteQuery($query, QueryType::SELECT); 
+            $row = $stmt->fetchAssociative();
+            return $row['ProfilePictureUrl'] ?? null;
+        } catch (Exception $e) {
+            error_log("Error retrieving profile picture URL: " . $e->getMessage());
+            return null;
         }
-      }
+    }
+ public function UpdateProfilePictureUrl(int $userKey, string $profilePictureUrl): bool {
+        // Check if a profile photo record already exists for this user
+        $existingPhoto = $this->da->ExecuteQuery(
+            "SELECT ProfilePhotoKey FROM profilephoto WHERE UserKey = " . $userKey,
+            QueryType::SELECT // Use QueryType::SELECT for fetching data 
+        )->fetchAssociative();
 
+        $query = "";
+        if ($existingPhoto) {
+            // Update existing record in the `profilephoto` table 
+            $query = "UPDATE profilephoto SET ProfilePictureUrl = "
+                     . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", UploadTime = NOW() WHERE UserKey = " . $userKey;
+            // For UPDATE, ExecuteQuery returns a statement object, not an ID.
+            // A simple try-catch for the query execution is sufficient to determine success.
+            $queryType = QueryType::UPDATE; // Use QueryType::UPDATE 
+        } else {
+            // Insert a new record into the `profilephoto` table 
+            $query = "INSERT INTO profilephoto (UserKey, ProfilePictureUrl, UploadTime) VALUES ("
+                     . $userKey . ", "
+                     . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", NOW())";
+            $queryType = QueryType::INSERT; // Use QueryType::INSERT 
+        }
 
+        try {
+            // ExecuteQuery handles both INSERT and UPDATE based on QueryType 
+            $this->da->ExecuteQuery($query, $queryType);
+            return true;
+        } catch (Exception $e) {
+            error_log("Error updating profile picture URL for UserKey " . $userKey . ": " . $e->getMessage());
+            return false;
+        }
+    }
 
     /*
         SOCIAL MEDIA URL

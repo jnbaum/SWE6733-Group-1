@@ -7,7 +7,59 @@ require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
 require_once(__DIR__ . "/../Models/AdventureType.php");
 require_once(__DIR__ . "/../Models/PreferenceTypeEnum.php");
 
-$adventureService = $allServices->GetAdventureService();                       
+$allServices = new AllServices();
+$uploadMessage = '';
+$adventureService = $allServices->GetAdventureService(); 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_picture"])) {
+    // *** This block of code is new and not directly from the provided sources. ***
+    // It processes the form submission for the file upload.
+
+    $userKey = $_SESSION['user_id'] ?? null; // Get UserKey from session
+
+    if ($userKey === null) {
+        $uploadMessage = "Error: User not logged in.";
+    } elseif (isset($_FILES["profile_picture"]) && $_FILES["profile_picture"]["error"] == UPLOAD_ERR_OK) {
+        $photoService = $allServices->GetPhotoService(); // This getter for PhotoService needs to be added to AllServices (see Part 4.1)
+        $profileService = $allServices->GetProfileService(); 
+
+        $fileTmpPath = $_FILES["profile_picture"]["tmp_name"];
+        $fileName = $_FILES["profile_picture"]["name"];
+        $fileSize = $_FILES["profile_picture"]["size"];
+        $fileType = $_FILES["profile_picture"]["type"];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+
+        // Define allowed file types and max size
+        $allowedFileTypes = ['jpg', 'jpeg', 'png', 'gif'];
+        $maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+        if (in_array($fileExtension, $allowedFileTypes) && $fileSize <= $maxFileSize) {
+            // Generate a unique file name for S3 to avoid conflicts
+            // Using UserKey ensures each user has a distinct profile photo name.
+            $s3Key = "profile_pictures/user_" . $userKey . "." . $fileExtension;
+
+            // Call the new UploadPhoto method in PhotoService 
+            $s3Url = $photoService->UploadPhoto($s3Key, $fileTmpPath, $fileType);
+
+            if ($s3Url) {
+                // Call the new UpdateProfilePictureUrl method in ProfileService 
+                $success = $profileService->UpdateProfilePictureUrl($userKey, $s3Url);
+                if ($success) {
+                    $uploadMessage = "Profile picture uploaded successfully!";
+                } else {
+                    $uploadMessage = "Error: Could not update profile picture URL in database.";
+                }
+            } else {
+                $uploadMessage = "Error: Could not upload picture to S3.";
+            }
+        } else {
+            $uploadMessage = "Error: Invalid file type or size. Allowed types: JPG, PNG, GIF. Max size: 5MB.";
+        }
+    } else {
+        $uploadMessage = "Error: No file uploaded or an upload error occurred.";
+    }
+}
 ?>
 
 
