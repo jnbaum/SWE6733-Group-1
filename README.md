@@ -92,13 +92,13 @@ Our team ordered the project backlog with a focus on logical workflow progressio
 ## Story Point Forecasting
 
 Story point estimation criteria: 
-.5 = < 1 hour
-1 = 2-6 hours
-2 = 1 day
-3 = 2-3 days
-5 = 3-5 days
-8 = 5-10 days
-13 = > 10 days
+* .5 = < 1 hour
+* 1 = 2-6 hours
+* 2 = 1 day
+* 3 = 2-3 days
+* 5 = 3-5 days
+* 8 = 5-10 days
+* 13 = > 10 days
 
 * For Sprint 1, we forecast that our team can complete 18 story points. The completion of these story points will take an estimated 21 days, which fits within our 23-day timeframe. 
 * For Sprint 2, the current estimation prior to the start of Sprint 2 is 24.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3.
@@ -110,9 +110,9 @@ Story point estimation criteria:
 
 ## Daily Scrum
 
-[Daily Scrum from 6/12:](https://swe6673.atlassian.net/wiki/x/BAA9)
-[Daily Scrum from 6/17:](https://swe6673.atlassian.net/wiki/x/AYAxAQ)
-[Daily Scrum from 6/20:](https://swe6673.atlassian.net/wiki/x/AYBpAQ)
+* [Daily Scrum from 6/12](https://swe6673.atlassian.net/wiki/x/BAA9)
+* [Daily Scrum from 6/17](https://swe6673.atlassian.net/wiki/x/AYAxAQ)
+* [Daily Scrum from 6/20](https://swe6673.atlassian.net/wiki/x/AYBpAQ)
 
 ---
 
@@ -120,7 +120,7 @@ Story point estimation criteria:
 
 ## Sprint Burndown Chart
 
-[Jira Burndown:](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1/reports/burndown?source=overview)
+[Jira Sprint 1 Burndown](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1/reports/burndown?source=overview)
 
 ---
 
@@ -128,8 +128,8 @@ Story point estimation criteria:
 
 #Pair Programming
 
-[Teams Meeting between Jessica, Joo, and Tarik:](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/Ea6kDxeRc1NMvSxsUUzRDegBYta0TGfuJFZzxu4NKPDOIw?e=unq1fw&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
-[Teams Meeting Between Megan and Jerry:](link here)
+* [Teams Meeting between Jessica, Joo, and Tarik](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/Ea6kDxeRc1NMvSxsUUzRDegBYta0TGfuJFZzxu4NKPDOIw?e=unq1fw&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+* [Teams Meeting Between Megan and Jerry](link here)
 
 ---
 
