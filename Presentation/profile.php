@@ -28,35 +28,38 @@ $userDetails = $profileService->GetUserDetails($userKey);
 $socialMediaUrl = $profileService->GetSocialMediaLink($userKey);
 $mileRange = $profileService->GetMileRangePreference($userKey);
 $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey);
-$profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
+//$profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
 
 
 
 ?>
 
 <main class="profile-container">
-  <h2 class="section-heading">PROFILE</h2>
+  <h2 class="profile-section-heading">PROFILE</h2>
   <div class="profile-view-row">
-    <div class="profile-photo">
-      <div class="polaroid">
-        <img src="<?php echo htmlspecialchars($profilePhotoUrl ?? 'default.jpg'); ?>" alt="Profile Photo" />
+    <div class="profile-left-column">
+      <div class="profile-photo">
+        <div class="polaroid">
+          <img src="<?php echo htmlspecialchars($profilePhotoUrl ?? 'default.jpg'); ?>" alt="Profile Photo" />
+        </div>
       </div>
     </div>
+    <div class="profile-right-column">
+      <div class="profile-text">
+        <h3><?php echo htmlspecialchars($userDetails?->GetFullName() ?? 'User'); ?></h3>
+        <p>Instagram
+          <a href="<?php echo htmlspecialchars($socialMediaUrl ?? '#'); ?>" target="_blank">
+            <?php echo htmlspecialchars($socialMediaUrl ?? 'Not provided'); ?>
+          </a>
+        </p>
+        <p>Hey, I'm <?php echo htmlspecialchars($userDetails?->GetFullName() ?? 'someone'); ?></p>
+        <p><?php echo htmlspecialchars($userDetails?->GetBio() ?? 'No bio yet.'); ?></p>
 
-    <div class="profile-text">
-      <h3><?php echo htmlspecialchars($userDetails?->GetFullName() ?? 'User'); ?></h3>
-      <p>Instagram
-        <a href="<?php echo htmlspecialchars($socialMediaUrl ?? '#'); ?>" target="_blank">
-          <?php echo htmlspecialchars($socialMediaUrl ?? 'Not provided'); ?>
-        </a>
-      </p>
-      <p>Hey, I'm <?php echo htmlspecialchars($userDetails?->GetFullName() ?? 'someone'); ?></p>
-      <p><?php echo htmlspecialchars($userDetails?->GetBio() ?? 'No bio yet.'); ?></p>
-
-      <p>Adventure Types <?php foreach($adventureDetailsArray as $adventureDetails) {
-                    echo '<span>' . $adventureDetails->GetActivityName() . '-' . $adventureDetails->GetPreferencesString() . '</span> ';
-      }?></p>
-      <p>Match Range <?php echo $mileRange !== null ? htmlspecialchars($mileRange). ' miles' : 'Not set';?></p>
+        <p>Adventure Types <?php foreach($adventureDetailsArray as $adventureDetails) {
+                      echo '<span>' . $adventureDetails->GetActivityName() . '-' . $adventureDetails->GetPreferencesString() . '</span> ';
+        }?></p>
+        <p>Match Range <span><?php echo $mileRange !== null ? htmlspecialchars($mileRange). ' miles' : 'Not set';?></span></p>
+      </div>
     </div>
   </div>
 </main>
