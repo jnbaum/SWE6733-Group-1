@@ -50,7 +50,7 @@ class ProfileService{
             $photoService = new PhotoService();
             return $photoService->GetPresignedPhotoUrl($photoKey);
         } else {
-            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/DefaultPhoto.png'; 
+            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
         }
       }
 
@@ -69,6 +69,7 @@ class ProfileService{
        public function GetSocialMediaLink(int $userKey): string{
         //COMPLETE; SELECT
         $stmt = $this->da->ExecuteQuery("SELECT SocialMediaLinkUrl FROM socialmedialink  WHERE UserKey=" . $userKey, QueryType::SELECT);
+        $url = '';
         while($row = $stmt->fetchAssociative()){
             $url = (string)$row['SocialMediaLinkUrl'];
         }
@@ -105,7 +106,7 @@ class ProfileService{
     }
 
     // get mile range preferences for user
-    public function GetMileRangePreference(int $userKey): int{
+    public function GetMileRangePreference(int $userKey): ?int{
         //COMPLETE;
 
         $stmt = $this->da->ExecuteQuery("SELECT DistanceMiles 
@@ -115,6 +116,7 @@ class ProfileService{
         
         $mileRangeTypes = [];
         //https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/reference/data-retrieval-and-manipulation.html
+        $mileRangePreference = null; //initialize
         while($row = $stmt->fetchAssociative()) {
             $mileRangePreference = (int)($row['DistanceMiles']);
         }

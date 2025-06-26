@@ -738,38 +738,6 @@ select {
   text-decoration: underline;
 }
 
-.profile-view-row {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.profile-photo .polaroid {
-  border: 10px solid white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  background: #fff;
-  transform: rotate(-2deg);
-  max-width: 250px;
-}
-
-.profile-photo img {
-  width: 100%;
-  display: block;
-}
-
-.profile-text h3 {
-  margin-top: 0;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
-.profile-text p {
-  margin: 10px 0;
-  font-size: 1rem;
-  color: #333;
-}
-
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
@@ -780,3 +748,89 @@ select {
     width: 100%;
   }
 }
+
+/************************************ profile.php ************************************/
+.profile-section-heading {
+    font-family: 'Norwester', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: left; 
+    text-decoration: underline;
+}
+
+.profile-view-row {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.profile-left-column {
+  flex-basis: 300px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.profile-right-column {
+  flex: 1;
+}
+
+.profile-photo {
+  max-width: 100%;
+}
+
+.profile-photo .polaroid {
+  border: 10px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  transform: rotate(-2deg);
+  max-width: 300px;
+}
+
+.profile-photo img {
+  width: 100%;
+  display: block;
+}
+
+.profile-text {
+  text-align: left;
+  font-size: 1rem;
+}
+
+.profile-text p span:first-of-type {
+    margin-left: 15px
+}
+
+.profile-text p span {
+    margin-right: 15px;
+    display: inline-block;
+}
+
+.profile-text p span.match-range-value {
+    margin-left: 15px;
+}
+
+/* smaller screens - responsive layout */
+@media (max-width: 768px) {
+  .profile-view-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .profile-left-column,
+  .profile-right-column {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .profile-text {
+      margin-left: 0;
+  }
+
+  .profile-photo {
+    align-self: center;
+  }
+}
+/************************************ profile.php ************************************/
