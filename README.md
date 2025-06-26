@@ -92,6 +92,7 @@ Our team ordered the project backlog with a focus on logical workflow progressio
 ## Story Point Forecasting
 
 Story point estimation criteria: 
+
 * .5 = < 1 hour
 * 1 = 2-6 hours
 * 2 = 1 day
@@ -100,11 +101,10 @@ Story point estimation criteria:
 * 8 = 5-10 days
 * 13 = > 10 days
 
-* For Sprint 1, we forecast that our team can complete 18 story points. The completion of these story points will take an estimated 21 days, which fits within our 23-day timeframe. 
-* For Sprint 2, the current estimation prior to the start of Sprint 2 is 24.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3.
-* For Sprint 3, the current estimation prior to the start of Sprint 3 is 4 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint. 
 
----
++ For Sprint 1, we forecast that our team can complete 18 story points. The completion of these story points will take an estimated 21 days, which fits within our 23-day timeframe. 
++ For Sprint 2, the current estimation prior to the start of Sprint 2 is 24.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3.
++ For Sprint 3, the current estimation prior to the start of Sprint 3 is 4 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint. 
 
 ---
 
@@ -116,13 +116,9 @@ Story point estimation criteria:
 
 ---
 
----
-
 ## Sprint Burndown Chart
 
 [Jira Sprint 1 Burndown](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1/reports/burndown?source=overview)
-
----
 
 ---
 
