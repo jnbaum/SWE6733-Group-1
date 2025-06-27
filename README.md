@@ -104,7 +104,9 @@ Story point estimation criteria:
 
 + For Sprint 1, we forecast that our team can complete 18 story points. The completion of these story points will take an estimated 21 days, which fits within our 23-day timeframe. 
 + For Sprint 2, the current estimation prior to the start of Sprint 2 is 24.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3.
-+ For Sprint 3, the current estimation prior to the start of Sprint 3 is 4 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint. 
++ For Sprint 3, the current estimation prior to the start of Sprint 3 is 4 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint.
+
++ Rationale: We used our experience from work and past school projects to estimate the points for each story. For example, login was given 2 story points because we are mostly familiar with the concept (i.e. fetching an existing user from the database with the entered username, and then comparing its password to the entered password). For stories that we have less past experience with, such as the matching feature, in-app messaging, and S3 photo uploads, we gave more generous story point estimates to allow for extra time to research and explore new concepts.
 
 ---
 
