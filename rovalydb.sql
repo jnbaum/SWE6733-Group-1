@@ -97,7 +97,11 @@ INSERT INTO `adventure` (`AdventureKey`, `AdventureTypeKey`, `UserKey`) VALUES
 -- User 15
 (43, 1,15),
 (44, 4,15),
-(45, 2,15);
+(45, 2,15),
+-- User 16
+(46, 1,16),
+(47, 4,16),
+(48, 2,16);
 
 
 -- --------------------------------------------------------
@@ -176,7 +180,11 @@ INSERT INTO `adventurepreference` (`AdventurePreferenceKey`, `AdventureKey`, `Pr
 -- User 15 (Adv 43–45)
 ( 85, 43, 2),( 86, 43, 5),
 ( 87, 44, 2),( 88, 44, 6),
-( 89, 45, 1),( 90, 45, 7);
+( 89, 45, 1),( 90, 45, 7),
+-- User 16 (Adv 46–48)
+( 91, 46, 2),( 92, 46, 5),
+( 93, 47, 2),( 94, 47, 6),
+( 95, 48, 1),( 96, 48, 7);
 
 
 -- --------------------------------------------------------
@@ -292,7 +300,8 @@ INSERT INTO `milerange` (`MileRangeKey`, `MileRangeTypeKey`, `UserKey`) VALUES
 ('12','3','12'),
 ('13','3','13'),
 ('14','4','14'),
-('15','2','15');
+('15','2','15'),
+('16','3','16');
 
 -- --------------------------------------------------------
 
@@ -346,7 +355,8 @@ INSERT INTO `photo` (`PhotoKey`, `UserKey`, `PhotoUrl`) VALUES
   ('12','12','jin_mei.jpg'),
   ('13','13','darnell_brooks.jpg'),
   ('14','14','Tahmina_rahimi.jpg'),
-  ('15','15','oliver_ncube.jpg');
+  ('15','15','oliver_ncube.jpg'),
+  ('16','16','default_image.jpg');;
 
 -- --------------------------------------------------------
 
@@ -435,7 +445,8 @@ INSERT INTO `socialmedialink` (`SocialMediaLinkKey`, `UserKey`, `SocialMediaLink
 ('12','12','https://instagram.com/jinmeiexplores'),
 ('13','13','https://instagram.com/darnell.trailcraft'),
 ('14','14','https://instagram.com/tahmina.treks'),
-('15','15','https://instagram.com/olivertheplantguy');
+('15','15','https://instagram.com/olivertheplantguy'),
+('16','16','https://instagram.com/hellokitty');
 
 -- --------------------------------------------------------
 
@@ -470,7 +481,8 @@ INSERT INTO `user` (`UserKey`, `Username`, `PasswordHash`, `FullName`, `Bio`) VA
 ('12','jin.mei@lotusrange.ga','$2a$12$/uBOdBhwFhMY9hrPIX/jn.eVo1eoFFf1UNRsbvpVh3D9oNNXw/qUm','Jin Mei','I’m a nature lover and hobby botanist based in Kennesaw. I hike trails around Sope Creek and East Cobb with my camera, documenting native flora and fungi. I moved from Chengdu to Georgia for grad school and found unexpected beauty here. I run a small Instagram page where I post photos and short haikus from each hike. I’m not fast, but I notice everything. For me, every step is a meditation.'),
 ('13','d.brooks@rootspark.ga','$2a$12$cX2afXF4uitx1y5x1JVNduTmc8mA2.I48uxVuKFG8LSd1xIm2ne6C','Darnell Brooks','I’m from South Cobb and spend most weekends leading wilderness training for teens and first-time campers. I started out teaching my nephews how to build fires and pitch tents, and it turned into a nonprofit project. We do monthly overnights in Sweetwater Creek and teach everything from water purification to trail ethics. My goal is to show kids that nature belongs to them, too. I document our adventures on Instagram to raise awareness and inspire support. These kids are tough, and I’m proud to hike beside them.'),
 ('14','t.rahimi@steplight.ga','$2a$12$MB55mH/IcROFLsp0DSSque/LVtaUQiNTmFtefVM5KKYcTP9afA/q2','Tahmina Rahimi','I’m an Afghan American living in Kennesaw, and I lead hiking groups for Muslim women looking to explore safely and freely. I started out walking local trails alone and wishing I had company that understood my experiences. Now I organize weekly meetups and share reflections from the trail on social media. We hike modestly, laugh loudly, and make space for one another. Nature has always been a source of healing for me. My dream is to expand our group across the Southeast.'),
-('15','o.ncube@leafscribe.ga','$2a$12$TUBzPLt3yceCObCRB4v4COJ0KzJ.msYNVHN5P5SM46TXUEZIkdnC.','Oliver Ncube','I’m a Zimbabwean American living in Acworth who hikes with a notebook more than a compass. I study plants and fungi for fun, and I post sketches and facts on my channel for other curious hikers. I’ve identified over 100 species in the Kennesaw area alone. I take things slow, so most of my hikes are short and focused on observing. I volunteer at a botanical garden and help run a nature journaling club. If you see someone staring at moss for 20 minutes, it’s probably me.');
+('15','o.ncube@leafscribe.ga','$2a$12$TUBzPLt3yceCObCRB4v4COJ0KzJ.msYNVHN5P5SM46TXUEZIkdnC.','Oliver Ncube','I’m a Zimbabwean American living in Acworth who hikes with a notebook more than a compass. I study plants and fungi for fun, and I post sketches and facts on my channel for other curious hikers. I’ve identified over 100 species in the Kennesaw area alone. I take things slow, so most of my hikes are short and focused on observing. I volunteer at a botanical garden and help run a nature journaling club. If you see someone staring at moss for 20 minutes, it’s probably me.'),
+('16','hellokitty25@gmail.com','$2a$12$Q.bLQS6xher2nk69ALAAEOsh2fz0KDNoEVjOClSXG4rl/HdDzKAxm','Hello Kitty','I’m a Zimbabwean American living in Acworth who hikes with a notebook more than a compass. I study plants and fungi for fun, and I post sketches and facts on my channel for other curious hikers. I’ve identified over 100 species in the Kennesaw area alone. I take things slow, so most of my hikes are short and focused on observing. I volunteer at a botanical garden and help run a nature journaling club. If you see someone staring at moss for 20 minutes, it’s probably me.');
 
 
 --
