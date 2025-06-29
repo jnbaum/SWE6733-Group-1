@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/../../DataAccess/DataAccess.php");
+require_once(__DIR__ . "/../QueryHelper.php");
 class MessageService {
     private DataAccess $da;
     public function __construct($da) {
@@ -22,6 +23,16 @@ class MessageService {
             $messages[] = $message;
         }
         return $messages;
+    }
+
+    public function InsertMessage(string $content, int $sendingUserKey, int $recipientUserKey, int $chatRoomKey) {
+        $now = date('Y-m-d H:i:s');
+        $stmt = $this->da->ExecuteQuery("INSERT INTO Message (Content, SendingUserKey, RecipientUserKey, SentTime, ChatRoomKey) VALUES("
+        . QueryHelper::SurroundWithQuotes($content) . ","
+        . $sendingUserKey . ","
+        . $recipientUserKey . ","
+        . QueryHelper::SurroundWithQuotes($now) . ","
+        . $chatRoomKey . ")", QueryType::INSERT);
     }
 }
 ?>
