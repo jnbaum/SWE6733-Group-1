@@ -102,7 +102,7 @@ class UserService {
     }
 
     public function IsValidUser(string $enteredEmail, string $enteredPassword): ?int {
-        $query = "SELECT * FROM User WHERE Username=" . QueryHelper::SurroundWithQuotes($enteredEmail) . " LIMIT 1";
+        $query = "SELECT * FROM user WHERE Username=" . QueryHelper::SurroundWithQuotes($enteredEmail) . " LIMIT 1";
         $stmt = $this->da->ExecuteQuery($query, QueryType::SELECT);
         $row = $stmt->fetchAssociative(); 
         // password_verify($plainTextPassword, $passwordHash) - returns true if the plain text password matches passwordHash after hash from password_hash() is applied
@@ -114,14 +114,14 @@ class UserService {
     }
 
     public function CreateNewUser(string $enteredEmail, string $enteredPassword): ?int {
-        $query = "SELECT * FROM User WHERE Username=" . QueryHelper::SurroundWithQuotes($enteredEmail) . " LIMIT 1";
+        $query = "SELECT * FROM user WHERE Username=" . QueryHelper::SurroundWithQuotes($enteredEmail) . " LIMIT 1";
         $stmt = $this->da->ExecuteQuery($query, QueryType::SELECT);
         $row = $stmt->fetchAssociative();
         if($row) {
             return null; // User already exists
         }
         $passwordHash = password_hash($enteredPassword, PASSWORD_BCRYPT);
-        $insertedUserKey = $this->da->ExecuteQuery("INSERT INTO User(Username, PasswordHash) VALUES(" 
+        $insertedUserKey = $this->da->ExecuteQuery("INSERT INTO user(Username, PasswordHash) VALUES(" 
         . QueryHelper::SurroundWithQuotes($enteredEmail) . ", " . QueryHelper::SurroundWithQuotes($passwordHash) . ")", QueryType::INSERT);
 
         return $insertedUserKey;
