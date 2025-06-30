@@ -16,7 +16,7 @@ class AdventureService {
     }
 
     public function GetAdventureTypes(): array {
-        $stmt = $this->da->ExecuteQuery("SELECT * FROM AdventureType", QueryType::SELECT);
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM adventuretype", QueryType::SELECT);
         $adventureTypes = [];
         //https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/reference/data-retrieval-and-manipulation.html
         while($row = $stmt->fetchAssociative()) {
@@ -29,7 +29,7 @@ class AdventureService {
 
     // Returns the AdventureKey of the newly inserted Adventure record
     public function CreateAdventure(Adventure $adventure): int {
-        $insertedAdventureKey = $this->da->ExecuteQuery("INSERT INTO Adventure (AdventureTypeKey, UserKey) VALUES (" 
+        $insertedAdventureKey = $this->da->ExecuteQuery("INSERT INTO adventure (AdventureTypeKey, UserKey) VALUES (" 
             . $adventure->GetAdventureTypeKey() . ","
             . $adventure->GetUserKey() . ")", QueryType::INSERT);
         return $insertedAdventureKey;
@@ -46,13 +46,13 @@ class AdventureService {
         }
  
         // Bulk insert AdventurePreference records to tie preferences to adventure in an efficient fashion
-        $this->da->ExecuteQuery("INSERT INTO AdventurePreference (AdventureKey, PreferenceKey) VALUES" 
+        $this->da->ExecuteQuery("INSERT INTO adventurepreference (AdventureKey, PreferenceKey) VALUES" 
             . $insertValuesString, QueryType::INSERT);
         
     }
 
     public function GetPreferencesByPreferenceTypeKey(int $preferenceTypeKey): array {
-        $stmt = $this->da->ExecuteQuery("SELECT * FROM Preference WHERE PreferenceTypeKey=" . $preferenceTypeKey, QueryType::SELECT);
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM preference WHERE PreferenceTypeKey=" . $preferenceTypeKey, QueryType::SELECT);
         $preferences = [];
         while($row = $stmt->fetchAssociative()) {
             $preference = new Preference($row['PreferenceTypeKey'], $row['Name']);
