@@ -67,13 +67,13 @@ class AdventureService {
     }
 
     public function GetAdventureDetailsArray(int $userKey): array {
-        $stmt = $this->da->ExecuteQuery("SELECT Adventure.AdventureKey AS AdventureKey, AdventureType.Name AS ActivityName, GROUP_CONCAT(Preference.Name SEPARATOR '-') AS Preferences FROM AdventurePreference
-                INNER JOIN Adventure ON AdventurePreference.AdventureKey = Adventure.AdventureKey
-                INNER JOIN AdventureType ON Adventure.AdventureTypeKey = AdventureType.AdventureTypeKey
-                INNER JOIN Preference ON AdventurePreference.PreferenceKey = Preference.PreferenceKey
-                INNER JOIN PreferenceType ON PreferenceType.PreferenceTypeKey = Preference.PreferenceTypeKey
-                WHERE Adventure.UserKey =" . $userKey .
-                " GROUP BY Adventure.AdventureKey", QueryType::SELECT);
+        $stmt = $this->da->ExecuteQuery("SELECT adventure.AdventureKey AS AdventureKey, AdventureType.Name AS ActivityName, GROUP_CONCAT(preference.Name SEPARATOR '-') AS Preferences FROM adventurepreference
+                INNER JOIN adventure ON adventurepreference.AdventureKey = adventure.AdventureKey
+                INNER JOIN adventuretype ON adventure.AdventureTypeKey = adventuretype.AdventureTypeKey
+                INNER JOIN preference ON adventurepreference.PreferenceKey = preference.PreferenceKey
+                INNER JOIN preferencetype ON preferencetype.PreferenceTypeKey = preference.PreferenceTypeKey
+                WHERE adventure.UserKey =" . $userKey .
+                " GROUP BY adventure.AdventureKey", QueryType::SELECT);
 
         $adventureDetailsArray = [];
         while($row = $stmt->fetchAssociative()) {
