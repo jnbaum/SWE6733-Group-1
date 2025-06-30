@@ -53,7 +53,7 @@ class PhotoService {
             // Return the URL of the uploaded object
             return (string) $result->get('ObjectURL');
         } catch (Exception $e) {
-            return $e->getMessage();
+            // return $e->getMessage();
             error_log("S3 Upload Error: " . $e->getMessage());
             return null;
         }
