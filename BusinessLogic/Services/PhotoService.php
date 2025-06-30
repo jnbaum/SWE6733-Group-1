@@ -39,6 +39,7 @@ class PhotoService {
             error_log("S3 Error: " . $e->getMessage());
             return null;
         }
+        //return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
     }
      
     public function UploadPhoto(string $key, string $filePath, string $contentType): ?string {
@@ -57,5 +58,16 @@ class PhotoService {
             return null;
         }
     }
+
+     public function GetProfilePictureUrl(int $userKey): ?string {
+        $photoKey = $this->da->GetPhoto($userKey);
+
+        if ($photoKey) {
+            $photoService = new PhotoService();
+            return $photoService->GetPresignedPhotoUrl($photoKey);
+        } else {
+            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
+        }
+      }
 }
 

@@ -8,7 +8,7 @@ cacheDirectory=".phpunit.cache"
 backupGlobals="false"> 
 <testsuites> 
 <testsuite name="Unit Tests"> 
-<directory>tests\Unit\</directory> 
+<directory>tests/Unit/</directory> 
 </testsuite> 
 <testsuite name="Behavior Tests"> 
 <directory>tests/Behavior</directory> 
@@ -25,12 +25,12 @@ backupGlobals="false">
 </exclude> 
 </source> 
 <logging> 
-<junit outputFile="build/logs/junit.xml"/> 
+<junit outputFile="phpunit/logs/junit.xml"/> 
 </logging> 
 <coverage> 
 <report> 
-<html outputDirectory="build/coverage"/> 
-<text outputFile="build/coverage.txt"/> 
+<html outputDirectory="phpunit/coverage"/> 
+<text outputFile="phpunit/coverage.txt"/> 
 </report> 
 </coverage> 
 </phpunit>
