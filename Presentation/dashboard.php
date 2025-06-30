@@ -16,6 +16,10 @@ if (!isset($_SESSION['user_id'])) {
 
 $userKey = $_SESSION['user_id'];
 
+// if(isset($_SESSION["uploadMessage"])) {
+//   echo $_SESSION["uploadMessage"];
+//   unset($_SESSION["uploadMessage"]);
+// }
 $da = new DataAccess();
 $profileService = new ProfileService($da);
 $userDetails = $profileService->GetUserDetails($userKey);

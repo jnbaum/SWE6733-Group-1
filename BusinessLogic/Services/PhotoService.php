@@ -47,15 +47,19 @@ class PhotoService {
                 'Bucket'     => $this->bucket, // 'rovaly-uploads'
                 'Key'        => $key,          // The desired S3 object key 
                 'SourceFile' => $filePath,     // The temporary path of the uploaded file on your server
-                'ContentType' => $contentType, // The MIME type, e.g., 'image/jpeg'
-                'ACL'        => 'public-read'  // Makes the object publicly readable via its URL
+                'ContentType' => $contentType // The MIME type, e.g., 'image/jpeg'
+                // 'ACL'        => 'public-read'  // Makes the object publicly readable via its URL
             ]);
             // Return the URL of the uploaded object
             return (string) $result->get('ObjectURL');
         } catch (Exception $e) {
+            // return $e->getMessage();
             error_log("S3 Upload Error: " . $e->getMessage());
             return null;
         }
     }
+
+    
+    
 }
 
