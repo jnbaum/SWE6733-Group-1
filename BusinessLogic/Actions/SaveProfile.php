@@ -18,7 +18,7 @@ $profileService->createNewUserProfile($_SESSION['user_id'], $fullName, $bio, $so
 
 // Save adventures
 foreach ($array as $adventureToAdd) {
-    $userKey = 1; // after we implement login, change this to $_SESSION['currentUserKey']
+    $userKey = $_SESSION["user_id"]; // after we implement login, change this to $_SESSION['currentUserKey']
     $adventure = new Adventure((int)$adventureToAdd->{"adventureTypeKey"}, $userKey); // $_POST gets the value of element with name "adventureTypeKey" from the form that made this post request (form submission)
 
     // Add adventure to database
