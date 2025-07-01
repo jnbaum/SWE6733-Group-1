@@ -34,16 +34,6 @@ class ProfileService{
         return $userDetails;
     }
 
-
-    /*
-        PROFILEPHOTO
-    */
-    // insert a new S3 url link for a user; this should be called inside logic to CreateProfile
-    public function AddProfilePictureToUser(int $userKey, string $photoUrl){
-        //COMPLETE
-        $this->da->ExecuteQuery("INSERT INTO photo (UserKey, PhotoUrl) VALUES ("
-            . $userKey . ", " . QueryHelper::SurroundWithQuotes($photoUrl) . ")", QueryType::INSERT);
-    }
     public function GetProfilePictureUrl(int $userKey): ?string {
         // The 'photo' table exists, but 'profilephoto' is specifically for profile pictures.
         // This method assumes it should query the 'profilephoto' table.
@@ -57,15 +47,23 @@ class ProfileService{
             return null;
         }
     }
- public function UpdateProfilePictureUrl(int $userKey, string $profilePictureUrl): bool {
-        // Check if a profile photo record already exists for this user
+
+    public function IsExistingProfilePhoto(int $userKey): bool {
+         // Check if a profile photo record already exists for this user
         $existingPhoto = $this->da->ExecuteQuery(
             "SELECT ProfilePhotoKey FROM profilephoto WHERE UserKey = " . $userKey,
             QueryType::SELECT // Use QueryType::SELECT for fetching data 
         )->fetchAssociative();
 
+        if($existingPhoto) {
+            return true;
+        }
+        return false;
+    }
+
+ public function UpdateProfilePictureUrl(int $userKey, string $profilePictureUrl): bool {
         $query = "";
-        if ($existingPhoto) {
+        if ($this->IsExistingProfilePhoto($userKey)) {
             // Update existing record in the `profilephoto` table 
             $query = "UPDATE profilephoto SET ProfilePictureUrl = "
                      . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", UploadTime = NOW() WHERE UserKey = " . $userKey;
@@ -164,7 +162,6 @@ class ProfileService{
         int $userKey, // added userKey as parameter
         string $fullName,
         string $bio,
-        string $profilePhotoUrl,
         string $socialMediaUrl,
         int $mileRangeTypeKey
     ): int {
@@ -175,9 +172,6 @@ class ProfileService{
         try {
             // update user full name and bio
             $profileService->UpdateUserInfo($userKey, $fullName, $bio);
-
-            // add profile picture URL
-            $profileService->AddProfilePictureToUser($userKey, $profilePhotoUrl);
 
             // add social media link (e.g., Instagram)
             $profileService->AddSocialMediaLink($userKey, $socialMediaUrl);

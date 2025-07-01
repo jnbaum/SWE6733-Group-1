@@ -10,62 +10,13 @@ require_once(__DIR__ . "/../Models/PreferenceTypeEnum.php");
 $allServices = new AllServices();
 $uploadMessage = '';
 $adventureService = $allServices->GetAdventureService(); 
+$profileService = $allServices->GetProfileService();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_picture"])) {
-    // *** This block of code is new and not directly from the provided sources. ***
-    // It processes the form submission for the file upload.
-
-    $userKey = $_SESSION['user_id'] ?? null; // Get UserKey from session
-
-    if ($userKey === null) {
-        $uploadMessage = "Error: User not logged in.";
-    } elseif (isset($_FILES["profile_picture"]) && $_FILES["profile_picture"]["error"] == UPLOAD_ERR_OK) {
-        $photoService = $allServices->GetPhotoService(); // This getter for PhotoService needs to be added to AllServices (see Part 4.1)
-        $profileService = $allServices->GetProfileService(); 
-
-        $fileTmpPath = $_FILES["profile_picture"]["tmp_name"];
-        $fileName = $_FILES["profile_picture"]["name"];
-        $fileSize = $_FILES["profile_picture"]["size"];
-        $fileType = $_FILES["profile_picture"]["type"];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
-
-        // Define allowed file types and max size
-        $allowedFileTypes = ['jpg', 'jpeg', 'png', 'gif'];
-        $maxFileSize = 5 * 1024 * 1024; // 5 MB
-
-        if (in_array($fileExtension, $allowedFileTypes) && $fileSize <= $maxFileSize) {
-            // Generate a unique file name for S3 to avoid conflicts
-            // Using UserKey ensures each user has a distinct profile photo name.
-            $s3Key = "profile_pictures/user_" . $userKey . "." . $fileExtension;
-
-            // Call the new UploadPhoto method in PhotoService 
-            $s3Url = $photoService->UploadPhoto($s3Key, $fileTmpPath, $fileType);
-
-            if ($s3Url) {
-                // Call the new UpdateProfilePictureUrl method in ProfileService 
-                $success = $profileService->UpdateProfilePictureUrl($userKey, $s3Url);
-                if ($success) {
-                    $uploadMessage = "Profile picture uploaded successfully!";
-                } else {
-                    $uploadMessage = "Error: Could not update profile picture URL in database.";
-                }
-            } else {
-                $uploadMessage = "Error: Could not upload picture to S3.";
-            }
-        } else {
-            $uploadMessage = "Error: Invalid file type or size. Allowed types: JPG, PNG, GIF. Max size: 5MB.";
-        }
-    } else {
-        $uploadMessage = "Error: No file uploaded or an upload error occurred.";
-    }
-}
 ?>
-
-
 
 <main class="profile-container">
         <div class="profile-row">
+             <form class="profile-form" action="../BusinessLogic/Actions/SaveProfile.php" method="POST" enctype="multipart/form-data">
             <!-- Left Column: Profile Picture and Delete Button -->
             <div class="profile-left-column">
                  <!-- header 4: "Edit/Create Profile -->
@@ -79,9 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_picture"])) {
                             </svg>
                         </div>
                          <!-- Upload profile picture -->
-                        <label for="profile-picture" class="profile-upload-button" form action="upload.php" method="post" enctype="multipart/form-data">
+                        <label for="profile-picture" class="profile-upload-button" form action="" method="post" enctype="multipart/form-data">
                             Upload Picture
-                            <input type="file" id="profile-picture" class="hidden-input">
+                            <input type="file" name="profile_picture" id="profile-picture" class="hidden-input">
                         </label>
                         <button class="profile-delete-button">Delete Profile</button>          
                     </div>
@@ -91,20 +42,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_picture"])) {
             <!-- Right Column: Profile Details & Adventure Preferences -->
             <div class="profile-right-column">
                 <div class="profile-card">
-                    <form class="profile-form" action="../BusinessLogic/Actions/SaveProfile.php" method="POST" enctype="multipart/form-data">
+                   
                         <!-- Name Fields -->
                         <div class="form-group name-form-group">
                             <label for="first-name" class="form-label" style="color: black;">Name</label>
                             <div class="name-fields form-field-wrapper">
-                                <input type="text" class="form-input" id="first-name" placeholder="First" style="margin-right: 1rem;">
-                                <input type="text" class="form-input" id="last-name" placeholder="Last">
+                                <input type="text" name="first-name" class="form-input" id="first-name" placeholder="First" style="margin-right: 1rem;">
+                                <input type="text" name="last-name" class="form-input" id="last-name" placeholder="Last">
                             </div>
                         </div>
 
                         <!-- Instagram Field -->
                         <div class="form-group instagram-form-group">
                             <label for="instagram" class="form-label" style="color: black;">Instagram</label>
-                            <input type="url" class="form-input form-field-wrapper" id="instagram" placeholder="URL">
+                            <input type="url" name="instagramUrl" class="form-input form-field-wrapper" id="instagram" placeholder="URL">
                         </div>
 
                         <!-- Location Field -->
@@ -121,11 +72,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_picture"])) {
                                 <label for="myDropdown" class="sr-only">Choose an option</label>
                                 <select id="myDropdown" name="myDropdown">
                                     <option value="disabled-option" disabled selected>Number</option>
-                                    <option value="option1">5</option>
+                                    <?php
+                                        $mileRangeOptions = $profileService->GetMileRangeTypes();
+                                        foreach($mileRangeOptions as $mileRangeOption) {
+                                            echo '<option value="' . $mileRangeOption->GetMileRangeTypeKey() . '">' . $mileRangeOption->GetDistanceMiles() . '</option>';
+                                        }
+                                    ?>
+                                    <!-- <option value="option1">5</option>
                                     <option value="option2">10</option>
                                     <option value="option3">15</option>
                                     <option value="option4">20</option>
-                                    <option value="option5">25</option>
+                                    <option value="option5">25</option> -->
                                 </select>
                             </div>
                             <span class="ml-2">Miles</span>
@@ -144,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_picture"])) {
                         <!-- Biography -->
                         <div class="form-group bio-form-group">
                             <label for="bio" class="form-label" style="color: black;">Bio</label>
-                            <textarea class="form-textarea form-field-wrapper" id="bio" rows="5"></textarea>
+                            <textarea name="bio" class="form-textarea form-field-wrapper" id="bio" rows="5"></textarea>
                         </div>
 
                         <input type="hidden" id="pendingAdventures" name="pendingAdventures">
