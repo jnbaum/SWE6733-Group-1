@@ -13,7 +13,7 @@ class MessageServiceTest extends TestCase
     /**
      * Test get messages method
      */
-    public function testMethods()
+    public function testGetMessagesReturnsArray()
     {
         $da = new DataAccess();
         $messageService = new MessageService($da);
@@ -24,19 +24,29 @@ class MessageServiceTest extends TestCase
         $chatRoomKey = 1;
         $content = "hello";
 
-        
+        //insert a message
         $messageService->InsertMessage($content, $sendingUserKey, $recipientUserKey, $chatRoomKey);
         
+        //assert that GetMessages() returns an array
         $this->assertIsArray($messageService->GetMessages($chatRoomKey));
     }
+    public function testGetMessagesNotNull()
+    {
+        $da = new DataAccess();
+        $messageService = new MessageService($da);
 
-    // public function testInsertMessage()
-    // {
-    //     $da = new DataAccess();
-    //     $messageService = new MessageService($da);
+        //define chatRoomKey
+        $sendingUserKey = 1;
+        $recipientUserKey = 2;
+        $chatRoomKey = 1;
+        $content = "hello";
 
-    //     /
-    // }
+        //insert a message
+        $messageService->InsertMessage($content, $sendingUserKey, $recipientUserKey, $chatRoomKey);
+        
+        //assert that GetMessages() returns is not null
+        $this->assertNotNull($messageService->GetMessages($chatRoomKey));
+    }
 }
 
 ?>
