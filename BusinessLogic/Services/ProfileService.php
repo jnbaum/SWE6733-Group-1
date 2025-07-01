@@ -35,18 +35,15 @@ class ProfileService{
     }
 
     public function GetProfilePictureUrl(int $userKey): ?string {
-        // The 'photo' table exists, but 'profilephoto' is specifically for profile pictures.
-        // This method assumes it should query the 'profilephoto' table.
-        $query = "SELECT ProfilePictureUrl FROM profilephoto WHERE UserKey = " . $userKey;
-        try {
-            $stmt = $this->da->ExecuteQuery($query, QueryType::SELECT); 
-            $row = $stmt->fetchAssociative();
-            return $row['ProfilePictureUrl'] ?? null;
-        } catch (Exception $e) {
-            error_log("Error retrieving profile picture URL: " . $e->getMessage());
-            return null;
+        $photoKey = $this->da->GetPhoto($userKey);
+
+        if ($photoKey) {
+            $photoService = new PhotoService();
+            return $photoService->GetPresignedPhotoUrl($photoKey);
+        } else {
+            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
         }
-    }
+      }
 
     public function IsExistingProfilePhoto(int $userKey): bool {
          // Check if a profile photo record already exists for this user
