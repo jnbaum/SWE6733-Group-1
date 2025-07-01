@@ -5,6 +5,7 @@ require_once(__DIR__ . "/../../Models/MileRangeType.php");
 require_once(__DIR__ . "/../QueryHelper.php");
 require_once(__DIR__ . "/PhotoService.php");
 
+use Doctrine\DBAL\Connection;
 
 class ProfileService{
     private DataAccess $da;
@@ -33,28 +34,59 @@ class ProfileService{
         return $userDetails;
     }
 
-
-    /*
-        PROFILEPHOTO
-    */
-    // insert a new S3 url link for a user; this should be called inside logic to CreateProfile
-    public function AddProfilePictureToUser(int $userKey, string $photoUrl){
-        //COMPLETE
-        $this->da->ExecuteQuery("INSERT INTO photo (UserKey, PhotoUrl) VALUES ("
-            . $userKey . ", " . QueryHelper::SurroundWithQuotes($photoUrl) . ")", QueryType::INSERT);
-    }
     public function GetProfilePictureUrl(int $userKey): ?string {
-        $photoKey = $this->da->GetPhoto($userKey);
-      
-        if ($photoKey) {
-            $photoService = new PhotoService();
-            return $photoService->GetPresignedPhotoUrl($photoKey);
-        } else {
-            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/DefaultPhoto.png'; 
+        // The 'photo' table exists, but 'profilephoto' is specifically for profile pictures.
+        // This method assumes it should query the 'profilephoto' table.
+        $query = "SELECT ProfilePictureUrl FROM profilephoto WHERE UserKey = " . $userKey;
+        try {
+            $stmt = $this->da->ExecuteQuery($query, QueryType::SELECT); 
+            $row = $stmt->fetchAssociative();
+            return $row['ProfilePictureUrl'] ?? null;
+        } catch (Exception $e) {
+            error_log("Error retrieving profile picture URL: " . $e->getMessage());
+            return null;
         }
-      }
+    }
 
+    public function IsExistingProfilePhoto(int $userKey): bool {
+         // Check if a profile photo record already exists for this user
+        $existingPhoto = $this->da->ExecuteQuery(
+            "SELECT ProfilePhotoKey FROM profilephoto WHERE UserKey = " . $userKey,
+            QueryType::SELECT // Use QueryType::SELECT for fetching data 
+        )->fetchAssociative();
 
+        if($existingPhoto) {
+            return true;
+        }
+        return false;
+    }
+
+ public function UpdateProfilePictureUrl(int $userKey, string $profilePictureUrl): bool {
+        $query = "";
+        if ($this->IsExistingProfilePhoto($userKey)) {
+            // Update existing record in the `profilephoto` table 
+            $query = "UPDATE profilephoto SET ProfilePictureUrl = "
+                     . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", UploadTime = NOW() WHERE UserKey = " . $userKey;
+            // For UPDATE, ExecuteQuery returns a statement object, not an ID.
+            // A simple try-catch for the query execution is sufficient to determine success.
+            $queryType = QueryType::UPDATE; // Use QueryType::UPDATE 
+        } else {
+            // Insert a new record into the `profilephoto` table 
+            $query = "INSERT INTO profilephoto (UserKey, ProfilePictureUrl, UploadTime) VALUES ("
+                     . $userKey . ", "
+                     . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", NOW())";
+            $queryType = QueryType::INSERT; // Use QueryType::INSERT 
+        }
+
+        try {
+            // ExecuteQuery handles both INSERT and UPDATE based on QueryType 
+            $this->da->ExecuteQuery($query, $queryType);
+            return true;
+        } catch (Exception $e) {
+            error_log("Error updating profile picture URL for UserKey " . $userKey . ": " . $e->getMessage());
+            return false;
+        }
+    }
 
     /*
         SOCIAL MEDIA URL
@@ -69,6 +101,7 @@ class ProfileService{
        public function GetSocialMediaLink(int $userKey): string{
         //COMPLETE; SELECT
         $stmt = $this->da->ExecuteQuery("SELECT SocialMediaLinkUrl FROM socialmedialink  WHERE UserKey=" . $userKey, QueryType::SELECT);
+        $url = '';
         while($row = $stmt->fetchAssociative()){
             $url = (string)$row['SocialMediaLinkUrl'];
         }
@@ -105,7 +138,7 @@ class ProfileService{
     }
 
     // get mile range preferences for user
-    public function GetMileRangePreference(int $userKey): int{
+    public function GetMileRangePreference(int $userKey): ?int{
         //COMPLETE;
 
         $stmt = $this->da->ExecuteQuery("SELECT DistanceMiles 
@@ -115,6 +148,7 @@ class ProfileService{
         
         $mileRangeTypes = [];
         //https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/reference/data-retrieval-and-manipulation.html
+        $mileRangePreference = null; //initialize
         while($row = $stmt->fetchAssociative()) {
             $mileRangePreference = (int)($row['DistanceMiles']);
         }
@@ -128,7 +162,6 @@ class ProfileService{
         int $userKey, // added userKey as parameter
         string $fullName,
         string $bio,
-        string $profilePhotoUrl,
         string $socialMediaUrl,
         int $mileRangeTypeKey
     ): int {
@@ -139,9 +172,6 @@ class ProfileService{
         try {
             // update user full name and bio
             $profileService->UpdateUserInfo($userKey, $fullName, $bio);
-
-            // add profile picture URL
-            $profileService->AddProfilePictureToUser($userKey, $profilePhotoUrl);
 
             // add social media link (e.g., Instagram)
             $profileService->AddSocialMediaLink($userKey, $socialMediaUrl);

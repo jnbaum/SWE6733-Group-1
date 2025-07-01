@@ -22,7 +22,7 @@
       <li><a href="chats.php">Chats</a></li>
     </ul>
     <ul class="mb-4">
-      <li><a href="#">Sign Out</a></li>
+      <li><a href="logout.php">Sign Out</a></li>
     </ul>
   </div>
   

@@ -7,13 +7,16 @@ require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
 require_once(__DIR__ . "/../Models/AdventureType.php");
 require_once(__DIR__ . "/../Models/PreferenceTypeEnum.php");
 
-$adventureService = $allServices->GetAdventureService();                       
+$allServices = new AllServices();
+$uploadMessage = '';
+$adventureService = $allServices->GetAdventureService(); 
+$profileService = $allServices->GetProfileService();
+
 ?>
-
-
 
 <main class="profile-container">
         <div class="profile-row">
+             <form class="profile-form" action="../BusinessLogic/Actions/SaveProfile.php" method="POST" enctype="multipart/form-data">
             <!-- Left Column: Profile Picture and Delete Button -->
             <div class="profile-left-column">
                  <!-- header 4: "Edit/Create Profile -->
@@ -27,9 +30,9 @@ $adventureService = $allServices->GetAdventureService();
                             </svg>
                         </div>
                          <!-- Upload profile picture -->
-                        <label for="profile-picture" class="profile-upload-button" form action="upload.php" method="post" enctype="multipart/form-data">
+                        <label for="profile-picture" class="profile-upload-button" form action="" method="post" enctype="multipart/form-data">
                             Upload Picture
-                            <input type="file" id="profile-picture" class="hidden-input">
+                            <input type="file" name="profile_picture" id="profile-picture" class="hidden-input">
                         </label>
                         <button class="profile-delete-button">Delete Profile</button>          
                     </div>
@@ -39,20 +42,20 @@ $adventureService = $allServices->GetAdventureService();
             <!-- Right Column: Profile Details & Adventure Preferences -->
             <div class="profile-right-column">
                 <div class="profile-card">
-                    <form class="profile-form" action="dashboard.php" method="POST" enctype="multipart/form-data">
+                   
                         <!-- Name Fields -->
                         <div class="form-group name-form-group">
                             <label for="first-name" class="form-label" style="color: black;">Name</label>
                             <div class="name-fields form-field-wrapper">
-                                <input type="text" class="form-input" id="first-name" placeholder="First" style="margin-right: 1rem;">
-                                <input type="text" class="form-input" id="last-name" placeholder="Last">
+                                <input type="text" name="first-name" class="form-input" id="first-name" placeholder="First" style="margin-right: 1rem;">
+                                <input type="text" name="last-name" class="form-input" id="last-name" placeholder="Last">
                             </div>
                         </div>
 
                         <!-- Instagram Field -->
                         <div class="form-group instagram-form-group">
                             <label for="instagram" class="form-label" style="color: black;">Instagram</label>
-                            <input type="url" class="form-input form-field-wrapper" id="instagram" placeholder="URL">
+                            <input type="url" name="instagramUrl" class="form-input form-field-wrapper" id="instagram" placeholder="URL">
                         </div>
 
                         <!-- Location Field -->
@@ -69,11 +72,17 @@ $adventureService = $allServices->GetAdventureService();
                                 <label for="myDropdown" class="sr-only">Choose an option</label>
                                 <select id="myDropdown" name="myDropdown">
                                     <option value="disabled-option" disabled selected>Number</option>
-                                    <option value="option1">5</option>
+                                    <?php
+                                        $mileRangeOptions = $profileService->GetMileRangeTypes();
+                                        foreach($mileRangeOptions as $mileRangeOption) {
+                                            echo '<option value="' . $mileRangeOption->GetMileRangeTypeKey() . '">' . $mileRangeOption->GetDistanceMiles() . '</option>';
+                                        }
+                                    ?>
+                                    <!-- <option value="option1">5</option>
                                     <option value="option2">10</option>
                                     <option value="option3">15</option>
                                     <option value="option4">20</option>
-                                    <option value="option5">25</option>
+                                    <option value="option5">25</option> -->
                                 </select>
                             </div>
                             <span class="ml-2">Miles</span>
@@ -92,8 +101,10 @@ $adventureService = $allServices->GetAdventureService();
                         <!-- Biography -->
                         <div class="form-group bio-form-group">
                             <label for="bio" class="form-label" style="color: black;">Bio</label>
-                            <textarea class="form-textarea form-field-wrapper" id="bio" rows="5"></textarea>
+                            <textarea name="bio" class="form-textarea form-field-wrapper" id="bio" rows="5"></textarea>
                         </div>
+
+                        <input type="hidden" id="pendingAdventures" name="pendingAdventures">
 
                         <div class="form-group submit-form-group">
                             <button type="submit" class="submit-button">Create Profile</button>
@@ -114,15 +125,21 @@ $adventureService = $allServices->GetAdventureService();
                 //}
             ?>
         </ul> -->
+
+        <!-- TODO: style this -->
+        <p>Pending Adventures:</p>
+        <ul id="adventuresToAddList">
+           
+        <ul>
           
     </main>
 <!---------------------- Modal --------------------------------->
-                    <form action="../BusinessLogic/Actions/SaveAdventure.php" method="POST">
+                    <form action="" method="POST">
                         <div id="customModal" class="modal">
                             <div class="modal-content">
                                <p>Choose your adventure type:</p>
                                 <div class="dropdown-container">
-                                    <select id="myDropdown2" name="adventureTypeKey">
+                                    <select id="myDropdown2" name="adventureTypeKey" onchange="setSelectedAdventureTypeName(this.options[this.selectedIndex].text)">
                                     <option disabled selected>Adventure</option>
                                     <?php
                                    $adventureTypes = $adventureService->GetAdventureTypes();
@@ -134,7 +151,7 @@ $adventureService = $allServices->GetAdventureService();
                                 </div>
 
                             <div class="dropdown-container">
-                                <select id="myDropdown3" name="skillLevelPreferenceKey">
+                                <select id="myDropdown3" name="skillLevelPreferenceKey" onchange="setSelectedSkillLevelName(this.options[this.selectedIndex].text)">
                                 <option disabled selected>Skill Level</option>
                                 <?php
                                 $preferenceTypeKey = PreferenceTypeEnum::SkillLevel->value;
@@ -147,7 +164,7 @@ $adventureService = $allServices->GetAdventureService();
                             </div>
 
                             <div class="dropdown-container">
-                            <select id="myDropdown4" name="attitudePreferenceKey">
+                            <select id="myDropdown4" name="attitudePreferenceKey" onchange="setSelectedAttitudeName(this.options[this.selectedIndex].text)">
                                 <option disabled selected>Attitude</option>
                                 <?php
                                     $preferenceTypeKey = PreferenceTypeEnum::Attitude->value;
@@ -158,9 +175,52 @@ $adventureService = $allServices->GetAdventureService();
                                 ?>
                             </select>
                         </div>
-            <button type="submit" class="adventurebutton">Add Adventure</button>
+            <button type="button" id="saveAdventureButton" onclick="addAdventureFromForm()" class="adventurebutton">Add Adventure</button>
              </form>
+    <script>
+        var adventures = [];
+        var selectedAdventureTypeName = "";
+        var selectedSkillLevelName = "";
+        var selectedAttitudeName = "";
+
+        // Add selected from Add Adventure modal to "Pending Adventures" section whenever modal save button is clicked
+        // When the "create profile" button is finally clicked, it saves all the stored up adventures to the database at that time.
+        function addAdventureFromForm() {
+            var adventureTypeKey = $("#myDropdown2").val();
+            var skillLevelPreferenceKey = $("#myDropdown3").val();
+            var attitudePreferenceKey = $("#myDropdown4").val();
+
+            if(adventureTypeKey == null || skillLevelPreferenceKey == null || attitudePreferenceKey == null) { // require all three modal fields to have an option selected
+                return;
+            }
+
+            var objAdventure = {adventureTypeKey:adventureTypeKey, skillLevelPreferenceKey:skillLevelPreferenceKey, attitudePreferenceKey:attitudePreferenceKey}
+            adventures.push(objAdventure);
+
+            // Show pending adventure to add when submit button on create profile page is clicked
+            var ul = document.getElementById("adventuresToAddList");
+            var li = document.createElement('li');
+            li.appendChild(document.createTextNode(selectedAdventureTypeName + "-" + selectedSkillLevelName + "-" + selectedAttitudeName));
+            ul.appendChild(li);
+
+            $("#pendingAdventures").val(JSON.stringify(adventures));
+
+            $("#customModal").hide(); // close modal
+        }
             
+
+        function setSelectedAdventureTypeName(name) {
+            selectedAdventureTypeName = name;
+        }
+
+        function setSelectedSkillLevelName(name) {
+            selectedSkillLevelName = name;
+        }
+
+        function setSelectedAttitudeName(name) { 
+            selectedAttitudeName = name;
+        }
+    </script>    
 </body>
            
 </html>

@@ -14,6 +14,7 @@ class AllServices {
         private AdventureService $adventureService;
         private ProfileService $profileService;
         private UserService $userService;
+        private PhotoService $photoService;
 
         public function __construct() {
             $da = new DataAccess();
@@ -21,6 +22,7 @@ class AllServices {
             $this->adventureService = new AdventureService($da);
             $this->profileService = new ProfileService($da);
             $this->userService = new UserService($da);
+            $this->photoService = new PhotoService(); 
         }
 
         public function GetMessageService() {
@@ -38,6 +40,10 @@ class AllServices {
         public function GetUserService() {
             return $this->userService;
         }
+
+        public function GetPhotoService() {
+        return $this->photoService;
+    }
     }
 
     $allServices = new AllServices();

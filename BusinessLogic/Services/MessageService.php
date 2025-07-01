@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/../../DataAccess/DataAccess.php");
+require_once(__DIR__ . "/../QueryHelper.php");
 class MessageService {
     private DataAccess $da;
     public function __construct($da) {
@@ -11,9 +12,9 @@ class MessageService {
     }
 
     public function GetMessages(int $chatRoomKey): array {
-        $stmt = $this->da->ExecuteQuery("SELECT * FROM Message 
-            INNER JOIN ChatRoom ON Message.ChatRoomKey = ChatRoom.ChatRoomKey 
-            WHERE Message.ChatRoomKey=" . $chatRoomKey . " ORDER BY SentTime ASC", QueryType::SELECT);
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM message 
+            INNER JOIN chatroom ON message.ChatRoomKey = chatroom.ChatRoomKey 
+            WHERE message.ChatRoomKey=" . $chatRoomKey . " ORDER BY SentTime ASC", QueryType::SELECT);
 
         $messages = [];
         //https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/reference/data-retrieval-and-manipulation.html
@@ -22,6 +23,16 @@ class MessageService {
             $messages[] = $message;
         }
         return $messages;
+    }
+
+    public function InsertMessage(string $content, int $sendingUserKey, int $recipientUserKey, int $chatRoomKey) {
+        $now = date('Y-m-d H:i:s');
+        $stmt = $this->da->ExecuteQuery("INSERT INTO message (Content, SendingUserKey, RecipientUserKey, SentTime, ChatRoomKey) VALUES("
+        . QueryHelper::SurroundWithQuotes($content) . ","
+        . $sendingUserKey . ","
+        . $recipientUserKey . ","
+        . QueryHelper::SurroundWithQuotes($now) . ","
+        . $chatRoomKey . ")", QueryType::INSERT);
     }
 }
 ?>
