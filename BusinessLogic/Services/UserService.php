@@ -127,5 +127,3 @@ class UserService {
         return $insertedUserKey;
     }
 }
-?>
-
