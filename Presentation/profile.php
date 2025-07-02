@@ -30,7 +30,7 @@ $userDetails = $profileService->GetUserDetails($userKey);
 $socialMediaUrl = $profileService->GetSocialMediaLink($userKey);
 $mileRange = $profileService->GetMileRangePreference($userKey);
 $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey);
-$profilePhotoUrl = $profileService->GetProfilePictureUrl((string)$userKey);
+$profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
 
 
 
