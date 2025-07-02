@@ -10,7 +10,7 @@ class DataAccess {
         'dbname' => 'rovalydb',
         'user' => 'root',
         'password' => '',
-        'host' => '127.0.0.1:3306', // change this to 3306
+        'host' => 'rovaly-db:3306', // change this to 127.0.0.1:3306
         'driver' => 'pdo_mysql'
     ];
     return DriverManager::GetConnection($connectionParams);
