@@ -1,4 +1,3 @@
-
     <?php
     require_once(__DIR__ . "/../Services/PhotoService.php");
     require_once(__DIR__ . "/../Services/ProfileService.php");
@@ -54,4 +53,3 @@
             // $_SESSION["uploadMessage"] = $uploadMessage;
         }
     }
-    ?>
