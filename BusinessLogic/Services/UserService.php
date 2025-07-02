@@ -121,7 +121,7 @@ class UserService {
             return null; // User already exists
         }
         $passwordHash = password_hash($enteredPassword, PASSWORD_BCRYPT);
-        $insertedUserKey = $this->da->ExecuteQuery("INSERT INTO User(Username, PasswordHash) VALUES(" 
+        $insertedUserKey = $this->da->ExecuteQuery("INSERT INTO user (Username, PasswordHash) VALUES(" 
         . QueryHelper::SurroundWithQuotes($enteredEmail) . ", " . QueryHelper::SurroundWithQuotes($passwordHash) . ")", QueryType::INSERT);
 
         return $insertedUserKey;
