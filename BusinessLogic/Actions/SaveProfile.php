@@ -5,6 +5,9 @@ require_once(__DIR__ . "/../../Models/Adventure.php");
 require_once(__DIR__ . "/../AllServices.php");
 require_once(__DIR__ . "/../Managers/ProfilePhotoManager.php");
 
+//instantiate $allServices
+$allServices = new AllServices();
+
 $array = json_decode($_POST["pendingAdventures"]);
 $adventureService = $allServices->GetAdventureService();
 $profileService = $allServices->GetProfileService();
