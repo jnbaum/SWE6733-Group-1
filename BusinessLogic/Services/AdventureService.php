@@ -67,7 +67,7 @@ class AdventureService {
     }
 
     public function GetAdventureDetailsArray(int $userKey): array {
-        $stmt = $this->da->ExecuteQuery("SELECT adventure.AdventureKey AS AdventureKey, AdventureType.Name AS ActivityName, GROUP_CONCAT(preference.Name SEPARATOR '-') AS Preferences FROM adventurepreference
+        $stmt = $this->da->ExecuteQuery("SELECT adventure.AdventureKey AS AdventureKey, adventureType.Name AS ActivityName, GROUP_CONCAT(preference.Name SEPARATOR '-') AS Preferences FROM adventurepreference
                 INNER JOIN adventure ON adventurepreference.AdventureKey = adventure.AdventureKey
                 INNER JOIN adventuretype ON adventure.AdventureTypeKey = adventuretype.AdventureTypeKey
                 INNER JOIN preference ON adventurepreference.PreferenceKey = preference.PreferenceKey
