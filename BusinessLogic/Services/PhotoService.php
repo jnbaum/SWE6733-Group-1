@@ -1,4 +1,3 @@
-
 <?php
 require_once(__DIR__ . '/../../Packages/vendor/autoload.php');
 
@@ -62,4 +61,3 @@ class PhotoService {
     
     
 }
-
