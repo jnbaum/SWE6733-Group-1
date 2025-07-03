@@ -21,7 +21,7 @@ class DataAccess {
         $conn = $this->GetConnection();
         
         $result = $conn->executeQuery(
-            "SELECT PhotoUrl FROM photo WHERE UserKey = ?",
+            "SELECT PhotoUrl FROM profilephoto WHERE UserKey = ?",
             [$userKey]
         );
         
