@@ -415,7 +415,7 @@ CREATE TABLE `profilephoto` (
   `UploadTime` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `profilephoto` (`ProfilePhotoKey`, `UserKey`, `ProfilePhotoUrl`, `UploadTime`) VALUES
+INSERT INTO `profilephoto` (`ProfilePhotoKey`, `UserKey`, `ProfilePictureUrl`, `UploadTime`) VALUES
   ('1','1','aisha_mbali.jpg', '2025-01-01 11:11:11'),
   ('2','2','mateo_ruiz.jpg', '2025-01-01 11:11:11'),
   ('3','3','leilani_kauhane.jpg', '2025-01-01 11:11:11'),
