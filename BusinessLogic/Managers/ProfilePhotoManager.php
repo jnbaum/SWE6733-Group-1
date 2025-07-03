@@ -28,10 +28,11 @@ class ProfilePhotoManager {
 
                 // Call the new UploadPhoto method in PhotoService 
                 $s3Url = $photoService->UploadPhoto($s3Key, $fileTmpPath, $fileType);
-
-                if ($s3Url != null) {
+                
+                $s3ImageName = "user_" . $userKey . "." . $fileExtension;
+                if ($s3ImageName != null) {
                     // Add url of s3 photo to database in ProfilePicture table
-                    $success = $profileService->UpdateProfilePictureUrl($userKey, $s3Url);
+                    $success = $profileService->UpdateProfilePictureUrl($userKey, $s3ImageName);
 
                     if ($success) {
                         $uploadMessage = "Profile picture uploaded successfully!";
