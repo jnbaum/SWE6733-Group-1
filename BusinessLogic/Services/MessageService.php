@@ -12,9 +12,9 @@ class MessageService {
     }
 
     public function GetMessages(int $chatRoomKey): array {
-        $stmt = $this->da->ExecuteQuery("SELECT * FROM Message 
-            INNER JOIN ChatRoom ON Message.ChatRoomKey = ChatRoom.ChatRoomKey 
-            WHERE Message.ChatRoomKey=" . $chatRoomKey . " ORDER BY SentTime ASC", QueryType::SELECT);
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM message 
+            INNER JOIN chatroom ON message.ChatRoomKey = chatroom.ChatRoomKey 
+            WHERE message.ChatRoomKey=" . $chatRoomKey . " ORDER BY SentTime ASC", QueryType::SELECT);
 
         $messages = [];
         //https://www.doctrine-project.org/projects/doctrine-dbal/en/4.2/reference/data-retrieval-and-manipulation.html
@@ -25,14 +25,39 @@ class MessageService {
         return $messages;
     }
 
+    public function GetLatestMessage(int $chatRoomKey): Message {
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM message 
+            INNER JOIN chatroom ON message.ChatRoomKey = chatroom.ChatRoomKey 
+            WHERE message.ChatRoomKey=" . $chatRoomKey . " ORDER BY SentTime DESC LIMIT 1", QueryType::SELECT);
+        
+        $row = $stmt->fetchAssociative();
+        return new Message($row['SendingUserKey'], $row['RecipientUserKey'], $row['ChatRoomKey'], $row['Content'], $row['SentTime']);
+    }
+
     public function InsertMessage(string $content, int $sendingUserKey, int $recipientUserKey, int $chatRoomKey) {
         $now = date('Y-m-d H:i:s');
-        $stmt = $this->da->ExecuteQuery("INSERT INTO Message (Content, SendingUserKey, RecipientUserKey, SentTime, ChatRoomKey) VALUES("
+        $stmt = $this->da->ExecuteQuery("INSERT INTO message (Content, SendingUserKey, RecipientUserKey, SentTime, ChatRoomKey) VALUES("
         . QueryHelper::SurroundWithQuotes($content) . ","
         . $sendingUserKey . ","
         . $recipientUserKey . ","
         . QueryHelper::SurroundWithQuotes($now) . ","
         . $chatRoomKey . ")", QueryType::INSERT);
+    }
+
+    // Get chat rooms that the user is involved in
+    public function GetStartedChatRooms(int $userKey) {
+         $stmt = $this->da->ExecuteQuery("SELECT * FROM chatroom 
+            INNER JOIN message ON message.chatroomKey = chatroom.ChatRoomKey
+            WHERE chatroom.FirstUserKey = " . $userKey .
+            " OR chatroom.SecondUserKey = " . $userKey .
+            " GROUP BY chatroom.ChatRoomKey", QueryType::SELECT);
+       
+        $chatRooms = [];
+         while($row = $stmt->fetchAssociative()) {
+            $chatRoom = new ChatRoom($row['FirstUserKey'], $row['SecondUserKey']);
+            $chatRooms[] = $chatRoom;
+        }
+        return $chatRooms;
     }
 }
 ?>
