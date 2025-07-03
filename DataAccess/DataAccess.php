@@ -28,7 +28,7 @@ class DataAccess {
         $row = $result->fetchAssociative();
         $conn->close();
         
-        return $row['PhotoUrl'] ?? null;
+        return $row['ProfilePictureUrl'] ?? null;
     }
     
 
