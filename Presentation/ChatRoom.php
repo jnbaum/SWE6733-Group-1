@@ -27,9 +27,9 @@
     $chatRoomKey = $_GET["chatRoomKey"]; // Replace with $_GET["chatRoomKey"] when each link to chat room in chat room selection list has ?chatRoomKey=... appended to it 
         require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
 ?>
-<body class="main flex-centered">
+<body class="main">
     <h1>Chat with User</h1>
-    <div class="flex-centered chatContainer">
+    <div class="chatContainer">
         <div class="messagesSectionWrapper">
         <div id="messagesSection" class="messagesSection">
         </div>
