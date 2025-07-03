@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+    $currentUserKey = $_SESSION["user_id"];
+?>
 <html>
 <head>
     <!-- Font Awesome -->
@@ -16,19 +20,19 @@
     rel="stylesheet"
     />
 
-  
    <link rel="stylesheet" href="../Presentation/Assets/styles/ChatRoom.css?v14">
-   
 </head>
-
-<?php 
+<?php
     include("head.php");
     include("header.php");
+    require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
+    $profileService = $allServices->GetProfileService();
     $chatRoomKey = $_GET["chatRoomKey"]; // Replace with $_GET["chatRoomKey"] when each link to chat room in chat room selection list has ?chatRoomKey=... appended to it 
-        require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
+    $otherUserKey = $_GET["otherUserKey"];
+    $otherUserDetails = $profileService->GetUserDetails($otherUserKey);
 ?>
 <body class="main">
-    <h1>Chat with User</h1>
+    <h1>Chat with <?php echo $otherUserDetails->GetFullName()?></h1>
     <div class="chatContainer">
         <div class="messagesSectionWrapper">
         <div id="messagesSection" class="messagesSection">
@@ -68,8 +72,8 @@
         var content = $("#sendMessageInput").val();
         var data = {
             content: content,
-            sendingUserKey: 1, // TODO: Replace with php echo currentUserKey
-            recipientUserKey: 2, // TODO: Replace with php echo user key of person in chat room that isn't current user
+            sendingUserKey: <?php echo $currentUserKey?>, // TODO: Replace with php echo currentUserKey
+            recipientUserKey: <?php echo $otherUserKey?>, // TODO: Replace with php echo user key of person in chat room that isn't current user
             chatRoomKey: <?php echo $chatRoomKey ?>
         }
 
