@@ -5,6 +5,7 @@ include("head.php");
 include("header.php");
 require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
 require_once(__DIR__ . "/../BusinessLogic/Managers/MatchesManager.php");
+include "matchComponent.php";
 
 $profileService = $allServices->GetProfileService();
 $adventureService = $allServices->GetAdventureService();
@@ -25,24 +26,8 @@ $adventureService = $allServices->GetAdventureService();
         $adventureDetailsArray = $matchDetails->GetAdventureDetailsArray();
         $distanceMiles = $matchDetails->GetMileRangePreferenceInMiles();
         
-        echo '<div class="profile-photo">
-            <div class="polaroid">
-            <img src="' . htmlspecialchars($profilePictureUrl ?? "default.jpg") . '" alt="Profile Photo" />
-            </div>
-        </div>
-        <div>';
-
-        echo "<p>" . htmlspecialchars($fullName)  . "</p>";
-        // HERE - Create a button that executes a PHP action to insert a new chat room record between two users if it doesn't already exist. Otherwise, return existing chatRoomKey
-        // And navigate to ChatRoom.php using that returned chatRoomKey and otherUserKey in url
-        ?>
-        <p>Adventure Types: <?php foreach($adventureDetailsArray as $adventureDetails) {
-                      echo '<span>' . $adventureDetails->GetActivityName() . '-' . $adventureDetails->GetPreferencesString() . '</span> ';
-        }?></p>
-
-        <p>Match Range: <?php echo $distanceMiles?> miles</p>
-        <hr>
-    <?php
+        echo createMatchElement($profilePictureUrl, $fullName, $adventureDetailsArray, $distanceMiles); // from matchComponent.php
+        echo "<hr>";
     }
-    ?>  
+    ?>
 </main>
