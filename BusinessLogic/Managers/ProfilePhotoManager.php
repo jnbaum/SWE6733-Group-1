@@ -24,7 +24,7 @@ class ProfilePhotoManager {
             if (in_array($fileExtension, $allowedFileTypes)) { // && $fileSize <= $maxFileSize
                 // Generate a unique file name for S3 to avoid conflicts
                 // Using UserKey ensures each user has a distinct profile photo name.
-                $s3Key = "profile_pictures/user_" . $userKey . "." . $fileExtension;
+                $s3Key = "user_" . $userKey . "." . $fileExtension;
 
                 // Call the new UploadPhoto method in PhotoService 
                 $s3Url = $photoService->UploadPhoto($s3Key, $fileTmpPath, $fileType);
