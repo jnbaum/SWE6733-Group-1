@@ -183,7 +183,7 @@
     font-size: 2.2rem;
   }
 
-/*************************************** TESTING  ***************************************/
+/*************************************** createProfile.php  ***************************************/
 
   /* General Body and Container Styles */
   .body {
@@ -226,9 +226,11 @@
 
   .profile-left-column {
       flex-shrink: .5; /* shrink flex item in available space */
-      min-width: 350px; /* adjust minimum width */
+      min-width: 400px; /* adjust minimum width */
       display: flex; /* make column a flex container */
       flex-direction: column; /* stack contents vertically */
+      /* border: 2px solid #375622; to see a dark green border */
+      /* border-radius: 0.75rem; to see profile-card border-radius */
   }
 
   .profile-right-column {
@@ -236,7 +238,9 @@
       min-width: 500px; /* adjust min-width to allow more flexibility while maintaining a usable size */
       display: flex; /* make column flex container */
       flex-direction: column; /* stack contents vertically */
-  }
+      /* border: 2px solid #375622; to see a dark green border */
+      /* border-radius: 0.75rem; to see profile-card border-radius */
+    }
 
   .profile-card {
       background-color: white; /* white color */
@@ -253,7 +257,7 @@
 
   .profile-heading {
       font-family: 'Norwester', sans-serif; /* font */
-      font-size: 3rem; /* font size */
+      font-size: 2rem; /* font size */
       font-weight: bold; /* bold the text */
       color: #333; /* dark shade gray */
       margin-bottom: 1rem; /* adds margin from bottom */
@@ -344,7 +348,7 @@
 
   .profile-form {
       display: flex; /* set display to flex */
-      flex-direction: column; /* stack contents vertically */
+      flex-direction: row; /* stack contents vertically */
       gap: 1rem; /* space between form groups */
       width: 100%; /* ensure form takes full width within parent to align properly */
       flex-grow: 1; /* allow the form to grow vertically */
