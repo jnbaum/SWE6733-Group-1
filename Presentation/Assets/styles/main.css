@@ -361,7 +361,7 @@
   .form-group {
       display: flex; /* make it a flex container */
       align-items: center; /* vertically align items in the middle */
-      margin-bottom: 0.75rem; /* .75 rem from margin bottom */
+      margin-bottom: 1.5rem; /* 1.5 rem from margin bottom */
       width: 100%; /* ensure group full width */
   }
 
