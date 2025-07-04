@@ -1,4 +1,3 @@
-
 <?php
 require_once(__DIR__ . '/../../Packages/vendor/autoload.php');
 
@@ -58,16 +57,5 @@ class PhotoService {
             error_log("S3 Upload Error: " . $e->getMessage());
             return null;
         }
-    }
-
-     public function GetProfilePictureUrl(int $userKey): ?string {
-        $photoKey = $this->da->GetPhoto($userKey);
-
-        if ($photoKey) {
-            $photoService = new PhotoService();
-            return $photoService->GetPresignedPhotoUrl($photoKey);
-        } else {
-            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
-        }
-     }
+    }  
 }

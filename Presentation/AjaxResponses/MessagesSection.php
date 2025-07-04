@@ -2,7 +2,8 @@
     require_once(__DIR__ . "/../../Models/Message.php"); 
     require_once(__DIR__ . "/../../BusinessLogic/AllServices.php");
 
-    $currentUserKey = 1; // Replace with $_SESSION["currentUserKey"] after login is implemented
+    session_start();
+    $currentUserKey = $_SESSION["user_id"]; // Replace with $_SESSION["currentUserKey"] after login is implemented
     $chatRoomKey = $_GET["chatRoomKey"]; 
 
     // Get messages for the chat room key - make the query order by sentTime ASC, and union messages sent by current user + other user

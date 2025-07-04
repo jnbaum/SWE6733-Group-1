@@ -35,18 +35,15 @@ class ProfileService{
     }
 
     public function GetProfilePictureUrl(int $userKey): ?string {
-        // The 'photo' table exists, but 'profilephoto' is specifically for profile pictures.
-        // This method assumes it should query the 'profilephoto' table.
-        $query = "SELECT ProfilePictureUrl FROM profilephoto WHERE UserKey = " . $userKey;
-        try {
-            $stmt = $this->da->ExecuteQuery($query, QueryType::SELECT); 
-            $row = $stmt->fetchAssociative();
-            return $row['ProfilePictureUrl'] ?? null;
-        } catch (Exception $e) {
-            error_log("Error retrieving profile picture URL: " . $e->getMessage());
-            return null;
+        $photoKey = $this->da->GetPhoto($userKey);
+
+        if ($photoKey) {
+            $photoService = new PhotoService();
+            return $photoService->GetPresignedPhotoUrl($photoKey);
+        } else {
+            return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
         }
-    }
+      }
 
     public function IsExistingProfilePhoto(int $userKey): bool {
          // Check if a profile photo record already exists for this user
@@ -61,12 +58,12 @@ class ProfileService{
         return false;
     }
 
- public function UpdateProfilePictureUrl(int $userKey, string $profilePictureUrl): bool {
+ public function UpdateProfilePictureUrl(int $userKey, string $s3ImageName): bool {
         $query = "";
         if ($this->IsExistingProfilePhoto($userKey)) {
             // Update existing record in the `profilephoto` table 
             $query = "UPDATE profilephoto SET ProfilePictureUrl = "
-                     . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", UploadTime = NOW() WHERE UserKey = " . $userKey;
+                     . QueryHelper::SurroundWithQuotes($s3ImageName) . ", UploadTime = NOW() WHERE UserKey = " . $userKey;
             // For UPDATE, ExecuteQuery returns a statement object, not an ID.
             // A simple try-catch for the query execution is sufficient to determine success.
             $queryType = QueryType::UPDATE; // Use QueryType::UPDATE 
@@ -74,7 +71,7 @@ class ProfileService{
             // Insert a new record into the `profilephoto` table 
             $query = "INSERT INTO profilephoto (UserKey, ProfilePictureUrl, UploadTime) VALUES ("
                      . $userKey . ", "
-                     . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", NOW())";
+                     . QueryHelper::SurroundWithQuotes($s3ImageName) . ", NOW())";
             $queryType = QueryType::INSERT; // Use QueryType::INSERT 
         }
 
@@ -188,4 +185,3 @@ class ProfileService{
     }
 
 }
-?>

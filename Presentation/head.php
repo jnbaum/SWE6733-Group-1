@@ -1,6 +1,6 @@
-<!-- Presentation/head.php -->
 <?php
-  $bodyClass = $bodyClass ?? '';
+// Presentation/head.php
+ $bodyClass = $bodyClass ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">

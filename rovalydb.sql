@@ -356,7 +356,7 @@ INSERT INTO `photo` (`PhotoKey`, `UserKey`, `PhotoUrl`) VALUES
   ('13','13','darnell_brooks.jpg'),
   ('14','14','Tahmina_rahimi.jpg'),
   ('15','15','oliver_ncube.jpg'),
-  ('16','16','default_image.jpg');;
+  ('16','16','default_image.jpg');
 
 -- --------------------------------------------------------
 
@@ -414,6 +414,24 @@ CREATE TABLE `profilephoto` (
   `ProfilePictureUrl` varchar(255) DEFAULT NULL,
   `UploadTime` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `profilephoto` (`ProfilePhotoKey`, `UserKey`, `ProfilePictureUrl`, `UploadTime`) VALUES
+  ('1','1','aisha_mbali.jpg', '2025-01-01 11:11:11'),
+  ('2','2','mateo_ruiz.jpg', '2025-01-01 11:11:11'),
+  ('3','3','leilani_kauhane.jpg', '2025-01-01 11:11:11'),
+  ('4','4','hoon-ho_park.jpg', '2025-01-01 11:11:11'),
+  ('5','5','amara_okeke.jpg', '2025-01-01 11:11:11'),
+  ('6','6','elijah_thompson.jpg', '2025-01-01 11:11:11'),
+  ('7','7','zara_abidi.jpg', '2025-01-01 11:11:11'),
+  ('8','8','marcus_bradley.jpg', '2025-01-01 11:11:11'),
+  ('9','9','anika_singh.jpg', '2025-01-01 11:11:11'),
+  ('10','10','yusuf_almansouri.jpg', '2025-01-01 11:11:11'),
+  ('11','11','keisha_morrison.jpg', '2025-01-01 11:11:11'),
+  ('12','12','jin_mei.jpg', '2025-01-01 11:11:11'),
+  ('13','13','darnell_brooks.jpg', '2025-01-01 11:11:11'),
+  ('14','14','Tahmina_rahimi.jpg', '2025-01-01 11:11:11'),
+  ('15','15','oliver_ncube.jpg', '2025-01-01 11:11:11'),
+  ('16','16','default_image.jpg', '2025-01-01 11:11:11');
 
 -- --------------------------------------------------------
 
