@@ -1,5 +1,7 @@
 # SWE6733 Group 1 Repo
 
+## [Click here to access Rovaly](http://ec2-3-149-252-93.us-east-2.compute.amazonaws.com:8080/Presentation/index.php) 
+
 ## Group Members
 
 * Jessica Baum- Scrum Master, UX/UI designer, and frontend developer
@@ -138,4 +140,3 @@ Sprint 1 - The team showed a great overall performance in completing all the pla
 Confluence page with results and notes under PHPUnit section.
 
 * [Sprint 1](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/41713665/Unit+Test+Results+-+Sprint+1+7+3+2025)
-* Sprint 2
