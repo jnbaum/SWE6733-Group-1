@@ -28,7 +28,7 @@
         require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
 ?>
 <body class="main">
-    <h1>Chat with User</h1>
+    <h1 class="chat-heading" >Chat with User</h1>
     <div class="chatContainer">
         <div class="messagesSectionWrapper">
         <div id="messagesSection" class="messagesSection">
