@@ -2,6 +2,7 @@
 vendor/
 /Packages/vendor/
 
+/tests/Unit/bootstrap.php 
 
 # Environment configuration
 .env

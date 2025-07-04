@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" bootstrap="Packages/vendor/autoload.php" 
+xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd" bootstrap="tests/Unit/bootstrap.php" 
 colors="true" 
 processIsolation="false" 
 stopOnFailure="false" 
+displayDetailsOnTestsThatTriggerWarnings="true"
 cacheDirectory=".phpunit.cache" 
 backupGlobals="false"> 
 <testsuites> 
@@ -28,9 +29,9 @@ backupGlobals="false">
 <junit outputFile="phpunit/logs/junit.xml"/> 
 </logging> 
 <coverage> 
-<report> 
+<!-- <report> 
 <html outputDirectory="phpunit/coverage"/> 
 <text outputFile="phpunit/coverage.txt"/> 
-</report> 
+</report>  -->
 </coverage> 
 </phpunit>

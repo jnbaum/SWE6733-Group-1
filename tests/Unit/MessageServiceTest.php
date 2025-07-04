@@ -21,15 +21,16 @@ class MessageServiceTest extends TestCase
         //define chatRoomKey
         $sendingUserKey = 1;
         $recipientUserKey = 2;
-        $chatRoomKey = 1;
         $content = "hello";
-
+        $chatRoomKey = $messageService->GetChatRoomKey($sendingUserKey, $recipientUserKey);
+        
         //insert a message
         $messageService->InsertMessage($content, $sendingUserKey, $recipientUserKey, $chatRoomKey);
         
         //assert that GetMessages() returns an array
         $this->assertIsArray($messageService->GetMessages($chatRoomKey));
     }
+
     public function testGetMessagesNotNull()
     {
         $da = new DataAccess();
@@ -38,8 +39,8 @@ class MessageServiceTest extends TestCase
         //define chatRoomKey
         $sendingUserKey = 1;
         $recipientUserKey = 2;
-        $chatRoomKey = 1;
         $content = "hello";
+        $chatRoomKey = $messageService->GetChatRoomKey($sendingUserKey, $recipientUserKey);
 
         //insert a message
         $messageService->InsertMessage($content, $sendingUserKey, $recipientUserKey, $chatRoomKey);
