@@ -30,12 +30,12 @@ require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
             <img src="' . htmlspecialchars($profilePictureUrl ?? "default.jpg") . '" alt="Profile Photo" />
             </div>
         </div>
-        <div>';
+        <div>
+        <p>' . htmlspecialchars($otherUserDetails->GetFullName()) . '</p> 
+        <p>Last Message: ' . htmlspecialchars($latestMessage->GetContent())  . '</p>
+        <p>' . htmlspecialchars($latestMessage->GetSentTime()) . '</p>
+        <a href="ChatRoom.php?chatRoomKey=' . $chatRoomKey . '&otherUserKey=' . $otherUserKey .'">Open Chat</a>';
 
-        echo "<p>" . htmlspecialchars($otherUserDetails->GetFullName())  . "</p>";
-        echo "<p>Last Message: '" . htmlspecialchars($latestMessage->GetContent())  . "'</p>";
-        echo "<p>" . htmlspecialchars($latestMessage->GetSentTime()) . "</p>";
-        echo '<a href="ChatRoom.php?chatRoomKey=' . $chatRoomKey . '&otherUserKey=' . $otherUserKey .'">Open Chat</a>';
         echo '<hr>';
     }
     ?>
