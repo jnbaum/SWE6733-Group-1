@@ -1,5 +1,7 @@
 # SWE6733 Group 1 Repo
 
+## [Click here to access Rovaly (EC2 instance)](http://ec2-3-149-252-93.us-east-2.compute.amazonaws.com:8080/Presentation/index.php) 
+
 ## Group Members
 
 * Jessica Baum- Scrum Master, UX/UI designer, and frontend developer
@@ -102,11 +104,13 @@ Story point estimation criteria:
 * 13 = > 10 days
 
 
-+ For Sprint 1, we forecast that our team can complete 18 story points. The completion of these story points will take an estimated 21 days, which fits within our 23-day timeframe. 
-+ For Sprint 2, the current estimation prior to the start of Sprint 2 is 24.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3.
-+ For Sprint 3, the current estimation prior to the start of Sprint 3 is 4 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint.
+For Sprint 1, we forecast that our team can complete 18 story points. The completion of these story points will take an estimated 21 days, which fits within our 23-day timeframe. 
 
-+ Rationale: We used our experience from work and past school projects to estimate the points for each story. For example, login was given 2 story points because we are mostly familiar with the concept (i.e. fetching an existing user from the database with the entered username, and then comparing its password to the entered password). For stories that we have less past experience with, such as the matching feature, in-app messaging, and S3 photo uploads, we gave more generous story point estimates to allow for extra time to research and explore new concepts.
+For Sprint 2, the current estimation prior to the start of Sprint 2 is 19.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3.
+
+For Sprint 3, the current estimation prior to the start of Sprint 3 is 4 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint.
+
+Rationale: We used our experience from work and past school projects to estimate the points for each story. For example, login was given 2 story points because we are mostly familiar with the concept (i.e. fetching an existing user from the database with the entered username, and then comparing its password to the entered password). For stories that we have less past experience with, such as the matching feature, in-app messaging, and S3 photo uploads, we gave more generous story point estimates to allow for extra time to research and explore new concepts.
 
 ---
 
@@ -122,7 +126,7 @@ Story point estimation criteria:
 
 [Jira Sprint 1 Burndown](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1/reports/burndown?source=overview)
 
-Sprint 1 - The team showed a great overall performance in completing all the planned tasks ahead of schedule. The high productivity and effective execution provided a buffer period for the final two weeks of the sprint. Although the team encountered issues related to web service hosting, the team was able to resolve some of the problems and accelerate their work to complete the scope early. An important note, there is discrepancy with the sprint burndown chart's visual representation. The graph shows a flat start during the initial week followed by an acceleration during midpoint. This actually does not truly reflect the team's consistent progress as there were some delay in updating the stories on a continuous basis. Therefore, the acutal trajectory of work completion should have shown a consistent burndown instead a rapid acceleration midway through the sprint.
+Sprint 1 - The team showed a great overall performance in completing all the planned tasks ahead of schedule. The high productivity and effective execution provided a buffer period for the final two weeks of the sprint. Although the team encountered issues related to web service hosting, the team was able to resolve some of the problems and accelerate their work to complete the scope early. An important note: there is a discrepancy with the sprint burndown chart's visual representation. The graph shows a flat start during the initial week, followed by an acceleration during the midpoint. This does not truly reflect the team's consistent progress, as there were some delays in updating the stories on a continuous basis. Therefore, the acutal trajectory of work completion should have shown a consistent burndown instead a rapid acceleration midway through the sprint. The team discussed this issue during the Sprint Review, and corrections have been made for the next sprint. 
 
 ---
 
@@ -138,4 +142,9 @@ Sprint 1 - The team showed a great overall performance in completing all the pla
 Confluence page with results and notes under PHPUnit section.
 
 * [Sprint 1](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/41713665/Unit+Test+Results+-+Sprint+1+7+3+2025)
-* Sprint 2
+
+---
+
+## Sprint Review
+
+* [Sprint One Review](https://swe6673.atlassian.net/wiki/x/AoCDAg)
