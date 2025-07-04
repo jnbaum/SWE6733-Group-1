@@ -22,7 +22,7 @@ class UserDetails {
     }
 
     public function SetBio(string $bio) {
-        return $this->bio;
+        return $this->bio = $bio;
     }
 
 }

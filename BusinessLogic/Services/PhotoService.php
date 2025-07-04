@@ -38,6 +38,7 @@ class PhotoService {
             error_log("S3 Error: " . $e->getMessage());
             return null;
         }
+        //return 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png'; 
     }
      
     public function UploadPhoto(string $key, string $filePath, string $contentType): ?string {
@@ -56,8 +57,5 @@ class PhotoService {
             error_log("S3 Upload Error: " . $e->getMessage());
             return null;
         }
-    }
-
-    
-    
+    }  
 }

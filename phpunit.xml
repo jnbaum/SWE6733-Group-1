@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" bootstrap="Packages/vendor/autoload.php" 
+colors="true" 
+processIsolation="false" 
+stopOnFailure="false" 
+cacheDirectory=".phpunit.cache" 
+backupGlobals="false"> 
+<testsuites> 
+<testsuite name="Unit Tests"> 
+<directory>tests/Unit/</directory> 
+</testsuite> 
+<testsuite name="Behavior Tests"> 
+<directory>tests/Behavior</directory> 
+</testsuite> 
+</testsuites> 
+<source> 
+<include> 
+<directory>BusinessLogic</directory> 
+<directory>Models</directory> 
+</include> 
+<exclude> 
+<directory>DataAccess</directory>
+<directory>Presentation</directory>  
+</exclude> 
+</source> 
+<logging> 
+<junit outputFile="phpunit/logs/junit.xml"/> 
+</logging> 
+<coverage> 
+<report> 
+<html outputDirectory="phpunit/coverage"/> 
+<text outputFile="phpunit/coverage.txt"/> 
+</report> 
+</coverage> 
+</phpunit>
