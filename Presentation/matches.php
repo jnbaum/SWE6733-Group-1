@@ -26,8 +26,34 @@ $adventureService = $allServices->GetAdventureService();
         $adventureDetailsArray = $matchDetails->GetAdventureDetailsArray();
         $distanceMiles = $matchDetails->GetMileRangePreferenceInMiles();
         
-        echo createMatchElement($profilePictureUrl, $fullName, $adventureDetailsArray, $distanceMiles); // from matchComponent.php
+        // FRONT-END: To change styling, modify the html/css in matchComponent.php. 
+        // Do not remove the chatBubble class from the img element. It is necessary to link to a chat room (via the jQuery code below)
+        echo createMatchElement($profilePictureUrl, $fullName, $adventureDetailsArray, $distanceMiles, $matchedUserKey); // from matchComponent.php
         echo "<hr>";
     }
     ?>
 </main>
+<footer>
+    <!-- Do not remove this; it's legally required if we choose to use the animated icons -->
+    <a href="https://www.flaticon.com/free-animated-icons/conversation" title="conversation animated icons">Conversation animated icons created by Freepik - Flaticon</a>
+</footer>
+<script>
+    $(".chatBubble").on("click", function() {
+        var otherUserKey = $(this).attr("value");
+        console.log("Clicked on chat bubble for user with user key: " + otherUserKey);
+
+        var data = {
+            otherUserKey: otherUserKey
+        }
+
+        var json = JSON.stringify(data);
+
+        // Whatever is echoed inside of OpenChatRoom.php is stored in the parameter to the callback function (AKA in the chatRoomKey variable)
+        // https://stackoverflow.com/questions/23807411/redirect-with-php-after-ajax-call
+        $.get("./AjaxResponses/OpenChatRoom.php", {chatRoomData: json}, function(chatRoomKey) {
+           console.log("Chat Room Key created or fetched: " + chatRoomKey);
+           window.location.href = "./ChatRoom.php?chatRoomKey=" + chatRoomKey + "&otherUserKey=" + otherUserKey;
+        });
+    });
+        
+</script>

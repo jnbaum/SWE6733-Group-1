@@ -72,5 +72,22 @@ class MessageService {
         $chatRoom->SetChatRoomKey($row['ChatRoomKey']);
         return $chatRoom;
     }
+
+    public function GetChatRoomKey(int $currentUserKey, int $otherUserKey): int {
+         $stmt = $this->da->ExecuteQuery("SELECT ChatRoomKey FROM chatroom 
+            WHERE FirstUserKey = " . $currentUserKey . " AND SecondUserKey = " . $otherUserKey . 
+            " OR FirstUserKey = " . $otherUserKey . " AND SecondUserKey = " . $currentUserKey . " LIMIT 1", 
+            QueryType::SELECT);
+
+        $row = $stmt->fetchAssociative();
+        if($row) {
+            return (int)$row['ChatRoomKey'];
+        }
+        
+        $insertedKey = $this->da->ExecuteQuery("INSERT INTO chatroom (FirstUserKey, SecondUserKey) VALUES ("
+            . $currentUserKey . "," . $otherUserKey . ")", QueryType::INSERT);
+
+        return $insertedKey; 
+    }
 }
 ?>
