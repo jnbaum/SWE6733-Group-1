@@ -4,11 +4,19 @@ class ChatRoom {
     private int $firstUserKey;
     private int $secondUserKey;
     
-    function __construct($firstUserkey, $secondUserKey) {
+    function __construct($firstUserKey, $secondUserKey) {
         $this->firstUserKey = $firstUserKey;
         $this->secondUserKey = $secondUserKey;
     }
     
+    public function SetChatRoomKey(int $chatRoomKey) {
+        $this->chatRoomKey = $chatRoomKey;
+    }
+
+    public function GetChatRoomKey(): int {
+        return $this->chatRoomKey;
+    }
+
     public function GetFirstUserKey(): int {
         return $this->firstUserKey;
     }
