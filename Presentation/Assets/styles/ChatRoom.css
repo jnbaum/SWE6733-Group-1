@@ -1,86 +1,103 @@
- .flex-centered {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-         
-        }
+.flex-centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
 
-        .main {
-            height: 100vh; /* main container must have 100vh if using flex to center vertically */
-        }
+.main {
+    height: 100vh; /* main container must have 100vh if using flex to center vertically */
+}
 
-        .chatContainer {
-            min-height: 80vh;
-            width: 80%;
-            /* https://www.w3schools.com/css/css3_shadows_box.asp */
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            position: relative;
-            
-        }
+.chat-heading {
+    font-family: 'Norwester', sans-serif; /* font */
+    font-size: 2.5rem; /* font size */
+    font-weight: bold; /* bold the text */
+    color: #333; /* dark shade gray */
+    margin-bottom: 1rem; /* adds margin from bottom */
+    text-decoration: underline; /* add underline */
+}
 
-        .sendMessageForm {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            display: flex;
-            flex-direction: row;
-            width: 90%;
-            margin-top: auto; /* equivalent to floating to bottom when direct parent is a flex container (flex-centered chatContainer) */
-        }
-        
-        .sendMessageInput {
-           min-width: 0; /* override because inputs have default width */
-           width: 100%;
-           border: white;
-        }
-        .sendMessageButton {
-            float: right;
-            width: 100px;
-        }
+.chatContainer {
+    min-height: 80vh;
+    width: 80%;
+    /* https://www.w3schools.com/css/css3_shadows_box.asp */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    margin-left: 9%;
+    display: flex; /* Added */
+    flex-direction: column; /* Added */
+    
+}
 
-        .messagesSection {
-            display: flex;
-            flex-direction: column;
-            max-height: 500px;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto; /* todo: test this */
-            padding: 1%;
-            margin-bottom: 1%;
-        }
+.sendMessageForm {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 0;
+}
 
-        .bubble {
-            width: 46%;
-            display: inline-block;
-            border-radius: 10px;
-            padding: 1rem;
-            box-shadow: rgb(0 0 0 / 25%) 0px 2px 5px 2px;  /* shadow taken from https://www.scaler.com/topics/chat-interface-project-css/ */
-            margin-top: 1%;
-            padding: 5px 10px 5px 12px;
-        }
+.sendMessageInput {
+    min-width: 0; /* override because inputs have default width */
+    width: 100%;
+    border: white;
+}
+.sendMessageButton {
+    float: right;
+    width: 100px;
+}
 
-        .timeStamp {
-            font-size: .9em;
-            color: #888;
-            margin-top: 5px;
-            display: block; 
-        }
+.messagesSectionWrapper {
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+}
 
-        .left {
-            margin-right: auto; /* equivalent to float left when inside a flex container */
-        }
+.messagesSection {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; 
+    padding: 1%;
+}
 
-        .right {
-            margin-left: auto;
-        }
+.bubble {
+    width: 46%;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: rgb(0 0 0 / 25%) 0px 2px 5px 2px;  /* shadow taken from https://www.scaler.com/topics/chat-interface-project-css/ */
+    margin-top: 1%;
+    padding: 5px 10px 5px 12px;
+}
 
-        .gray {
-            /* color taken from https://www.scaler.com/topics/chat-interface-project-css/ */
-            background: #efefef none repeat scroll 0 0;
-            color: #646464;
-            
-        }
-        .gradient {
-            /* background-image: linear-gradient(45deg,rgb(44, 153, 97) 0%,rgb(42, 221, 75) 100%); */
-            background-image: linear-gradient(45deg,rgb(30, 105, 219) 0%,rgb(95, 155, 246) 100%);
-            color: #fff;
-        }
+.timeStamp {
+    font-size: .9em;
+    color: #888;
+    margin-top: 5px;
+    display: block; 
+}
+
+.left {
+    margin-right: auto; /* equivalent to float left when inside a flex container */
+}
+
+.right {
+    margin-left: auto;
+}
+
+.gray {
+    /* color taken from https://www.scaler.com/topics/chat-interface-project-css/ */
+    background: #efefef none repeat scroll 0 0;
+    color: #646464;
+    
+}
+.gradient {
+    /* background-image: linear-gradient(45deg,rgb(44, 153, 97) 0%,rgb(42, 221, 75) 100%); */
+    background-image: linear-gradient(45deg,rgb(30, 105, 219) 0%,rgb(95, 155, 246) 100%);
+    color: #fff;
+}
