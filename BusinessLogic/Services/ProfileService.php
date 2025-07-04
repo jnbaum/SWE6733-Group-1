@@ -58,12 +58,12 @@ class ProfileService{
         return false;
     }
 
- public function UpdateProfilePictureUrl(int $userKey, string $profilePictureUrl): bool {
+ public function UpdateProfilePictureUrl(int $userKey, string $s3ImageName): bool {
         $query = "";
         if ($this->IsExistingProfilePhoto($userKey)) {
             // Update existing record in the `profilephoto` table 
             $query = "UPDATE profilephoto SET ProfilePictureUrl = "
-                     . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", UploadTime = NOW() WHERE UserKey = " . $userKey;
+                     . QueryHelper::SurroundWithQuotes($s3ImageName) . ", UploadTime = NOW() WHERE UserKey = " . $userKey;
             // For UPDATE, ExecuteQuery returns a statement object, not an ID.
             // A simple try-catch for the query execution is sufficient to determine success.
             $queryType = QueryType::UPDATE; // Use QueryType::UPDATE 
@@ -71,7 +71,7 @@ class ProfileService{
             // Insert a new record into the `profilephoto` table 
             $query = "INSERT INTO profilephoto (UserKey, ProfilePictureUrl, UploadTime) VALUES ("
                      . $userKey . ", "
-                     . QueryHelper::SurroundWithQuotes($profilePictureUrl) . ", NOW())";
+                     . QueryHelper::SurroundWithQuotes($s3ImageName) . ", NOW())";
             $queryType = QueryType::INSERT; // Use QueryType::INSERT 
         }
 
@@ -185,4 +185,3 @@ class ProfileService{
     }
 
 }
-?>
