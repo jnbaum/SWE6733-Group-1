@@ -1,6 +1,6 @@
 # SWE6733 Group 1 Repo
 
-## [Click here to access Rovaly (EC2 instance)](http://ec2-3-149-252-93.us-east-2.compute.amazonaws.com:8080/Presentation/index.php) 
+## [Click here to access Rovaly (EC2 instance)](http://ec2-18-222-1-62.us-east-2.compute.amazonaws.com:8080/Presentation/index.php) 
 
 ## Group Members
 
