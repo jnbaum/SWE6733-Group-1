@@ -4,6 +4,7 @@ require_once(__DIR__ . "/../BusinessLogic/Services/MessageService.php");
 require_once(__DIR__ . "/../BusinessLogic/Services/AdventureService.php");
 require_once(__DIR__ . "/../BusinessLogic/Services/ProfileService.php");
 require_once(__DIR__ . "/../BusinessLogic/Services/UserService.php");
+require_once(__DIR__ . "/../BusinessLogic/Services/MatchingService.php");
 
 // When adding a new service: 
 //  1. Add a require_once statement at the top
@@ -15,6 +16,7 @@ class AllServices {
         private ProfileService $profileService;
         private UserService $userService;
         private PhotoService $photoService;
+        private MatchingService $matchingService;
 
         public function __construct() {
             $da = new DataAccess();
@@ -23,6 +25,7 @@ class AllServices {
             $this->profileService = new ProfileService($da);
             $this->userService = new UserService($da);
             $this->photoService = new PhotoService(); 
+            $this->matchingService = new MatchingService($da);
         }
 
         public function GetMessageService() {
@@ -42,8 +45,12 @@ class AllServices {
         }
 
         public function GetPhotoService() {
-        return $this->photoService;
-    }
+            return $this->photoService;
+        }
+
+        public function GetMatchingService() {
+            return $this->matchingService;
+        }
     }
 
     $allServices = new AllServices();
