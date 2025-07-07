@@ -1,5 +1,5 @@
 <?php
-class AdventureDetails {
+class AdventureDetails implements \JsonSerializable {
     private int $adventureKey;
     private string $activityName;
     private string $preferencesString;
@@ -23,5 +23,9 @@ class AdventureDetails {
         return $this->preferencesString;
     }
 
-
+    public function jsonSerialize() {
+        // https://stackoverflow.com/questions/7005860/php-json-encode-class-private-members
+        $vars = get_object_vars($this);
+        return $vars;
+    }
 }

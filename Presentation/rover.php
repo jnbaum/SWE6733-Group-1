@@ -7,7 +7,6 @@ require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
 require_once(__DIR__ . "/../BusinessLogic/Managers/MatchesManager.php");
 
 
-
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
@@ -27,10 +26,17 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
     <!-- LEFT COLUMN -->
     <div class="dashboard-left">
       <h2 class="section-heading">Find A Rover</h2>
-        <img id="profilePicture" src="" alt="Profile Photo"/>
-        <div id="fullName"></div>
+      <div class="profile-photo">
+            <div class="polaroid">
+              <img id="profilePicture" src="" alt="Profile Photo"/>
+            </div>
+      </div>
+        <h3 id="fullName"></h3>
+        <div id="instagramUrl"></div>
         <div id="bio"></div>
-        <div id="adventures"></div>
+        <!-- Note to front-end: I've added a class "adventure" to each adventure <span> element in DisplayRoverDetails below ... to adjust styling, simply add a .adventure CSS class and adjust spacing -->
+        <div id="adventures">Adventures: </div> 
+        <div id="mileRangePreference"></div>
         <!-- IMPORTANT: DO NOT PUT THESE BUTTONS IN A FORM OR MAKE THEM SUBMIT BUTTONS! We do not want to reload page on button click because then the GetRovers function will be called every time -->
         <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">Swipe Left</button> 
         <button class="btn btn-danger" id="swipeRightButton" value="" onclick="SwipeRight()">Swipe Right</button>
@@ -43,62 +49,79 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   var index = 0; // current index within rovers array
   var currentRover = null;
 
-  // Fetch top 10 rovers 
-  $.ajax({
-     url:'./AjaxResponses/GetRovers.php',
-     type:'post',
-     dataType:'json',
-     success: function(data) {
-      alert("Hello");
-      rovers = data;
-      console.log(rovers);
-     }
-    });
-
-  if(rovers.length != 0) {
-      currentRover = rovers[index];
-      index++;
-      DisplayRoverDetails(currentRover);
-  }
-
+  ResetCardDeck(); // fetch rovers and display first rover on page load
 
   function DisplayRoverDetails(rover) {
-    console.log(rover);
-    // $("#profilePicture").attr("src", rover.profilePicture);
+    // console.log(rover);
+    if(rover !== undefined) {
+        var roverDetails = rover[1];
+        $("#profilePicture").attr("src", roverDetails.profilePictureUrl);
+        $("#fullName").html(roverDetails.fullName);
+        $("#bio").html(roverDetails.bio);
+        $("#instagramUrl").html("Instagram: " + roverDetails.socialMediaUrl);
+        console.log(roverDetails.adventureDetailsArray);
+        console.log(typeof(roverDetails.adventureDetailsArray));
+        
+        for(let i = 0; i < roverDetails.adventureDetailsArray.length; i++) {
+          var adventure = roverDetails.adventureDetailsArray[i];
+          var currentValue = $("#adventures").html();
+          $("#adventures").html(currentValue + '<span class="adventure">' + adventure.activityName + "-" + adventure.preferencesString + '</span> ');
+        }
+
+        $("#mileRangePreference").html("Match Range: " + roverDetails.mileRangePreferenceInMiles + " miles");
+        // Set value of swipe buttons to be the user key of the current rover displayed. This will be used in SwipeLeft and SwipeRight functions
+        $("#swipeLeftButton").val(rover[0]);
+        $("#swipeRightButton").val(rover[0]);
+    }
+    
   }
 
   function ResetCardDeck() {
     index = 0;
+    rovers = [];
 
-    // Make ajax call to get rovers on a php page, and return those user keys (GET)
     $.ajax({
      url:'./AjaxResponses/GetRovers.php',
-     type:'post',
+     type:'get',
      dataType:'json',
      success: function(data) {
-      rovers = data;
+      // Convert json to array
+      for(var i in data)
+       rovers.push([i, data[i]]); // Array of arrays: each element of the first array is an array with two elements: [UserKey, Obj containing data for that user key]
+ 
+      if(rovers.length > 0) {
+          currentRover = rovers[index];
+          console.log(currentRover);
+          DisplayRoverDetails(currentRover); // display first Rover
+      }
+
      }
     });
-
-    if(rovers.length != 0) {
-      currentRover = rovers[index];
-      index++;
-      DisplayRoverDetails(currentRover);
-    }
   }
 
   function Swipe() {
-    // Show the next card and increment index
+    // Increment index and show the next card. If at the end of fetched rovers, fetch rovers again. 
+    index++;
+    if(index == rovers.length) {
+      ResetCardDeck();
+    }
+    else {
+      DisplayRoverDetails(rovers[index]);
+    }
   }
 
   function SwipeLeft() {
     Swipe();
-    // Make an ajax call to insert an interaction record
+    console.log("Swipe Left button value: " + $("#swipeLeftButton").val());
+    // TODO: Make an ajax call to insert an interaction record with IsLiked = 1. OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
+    // Insert code here
   }
   function SwipeRight() {
     Swipe();
+    console.log("Swipe Right button value: " + $("#swipeRightButton").val());
 
-    // Make an ajax call to insert an interaction record
+    // TODO: Make an ajax call to insert an interaction record with IsLiked = 0 OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
+    // Insert code here
   }
 
 
