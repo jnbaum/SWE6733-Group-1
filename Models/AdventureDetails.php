@@ -23,7 +23,7 @@ class AdventureDetails implements \JsonSerializable {
         return $this->preferencesString;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         // https://stackoverflow.com/questions/7005860/php-json-encode-class-private-members
         $vars = get_object_vars($this);
         return $vars;
