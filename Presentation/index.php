@@ -1,10 +1,23 @@
 <?php
-
+////////////////////////////////// TESTING ////////////////////////////////////////////////////////////
 session_start(); // starts the php session to store user data like error messasges
+////////////////////////////////// TESTING ////////////////////////////////////////////////////////////
 
+$bodyClass = 'index-background';
+include("head.php"); 
+
+// Testing backend: create user and login
+////////////////////////////////// TESTING ////////////////////////////////////////////////////////////
 require_once(__DIR__ . '/../BusinessLogic/Services/UserService.php');
 require_once(__DIR__ . '/../BusinessLogic/AllServices.php'); 
+////////////////////////////////// TESTING ////////////////////////////////////////////////////////////
+// $userService = $allServices->GetUserService();
+// $userService->CreateNewUser("example", "example");
+// if($userService->IsValidUser("example", "example") != null) {
+//   echo "User valid!";
+// }
 
+////////////////////////////////// TESTING ////////////////////////////////////////////////////////////
 $userService = $allServices->GetUserService(); // retrieves instance of UserService from the $allServices
 
 $signupError = null; // holds sign-up error messages
@@ -38,24 +51,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // checks if form was submitted via 
                 $signinError = "Invalid email or password."; // sets the error message
             } else {
                 $_SESSION['user_id'] = $userKey; // stores user ID in the session
-                header("Location: dashboard.php"); // redirects to dashboard.php after successful sign-in
+                header("Location: createProfile.php"); // redirects to createProfile.php after successful sign-in
                 exit(); // ends script
             }
         }
     }
 }
-
-$bodyClass = 'index-background';
-include("head.php"); 
-
-// Testing backend: create user and login
-// $userService = $allServices->GetUserService();
-// $userService->CreateNewUser("example", "example");
-// if($userService->IsValidUser("example", "example") != null) {
-//   echo "User valid!";
-// }
-
-//////////////////////////////// PHP section ///////////////////////////////////////////////////
+////////////////////////////////// TESTING /////////////////////////////////////////////////////////////
 ?>
 </body>
 </html>
@@ -64,7 +66,7 @@ include("head.php");
   <div class="login-box d-flex flex-column justify-content-center p-5">
     <h1 class="logo-text text-center mb-5">Rovaly</h1>
     <p class="welcome text-center mb-4">Welcome!</p>
-<!------------------------------ mini-section ----------------------------------------------------->
+<!------------------------------ TESTING ----------------------------------------------------->
     <!-- if statement - checks whether php variable "$signupError" is set to true or empty (null) -->
     <form method="POST" action=""> <?php if ($signupError): ?> <div class="alert alert-danger text-center" role="alert">
         <?php echo $signupError; ?>
@@ -76,7 +78,7 @@ include("head.php");
         <?php echo $signinError; ?>
       </div>
     <?php endif; ?>
-<!------------------------------ mini-section ----------------------------------------------------->
+<!------------------------------ TESTING ----------------------------------------------------->
       <div class="mb-4">
         <input type="email" class="form-control input-round text-center" placeholder="Email Address" name="email_address"> 
         <!-- added name="email_address" to input -->

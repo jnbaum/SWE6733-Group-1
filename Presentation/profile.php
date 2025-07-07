@@ -41,8 +41,8 @@ $profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
   <div class="profile-view-row">
     <div class="profile-left-column">
       <div class="profile-photo">
-        <div class="polaroid">
-          <img src="<?php echo htmlspecialchars($profilePhotoUrl ?? 'default.jpg'); ?>" alt="Profile Photo" />
+        <div class="polaroid-frame">
+          <img class="rover-photo" src="<?php echo htmlspecialchars($profilePhotoUrl ?? 'default.jpg'); ?>" alt="Profile Photo" />
         </div>
       </div>
     </div>
