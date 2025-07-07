@@ -44,7 +44,7 @@ class MatchingServiceTest extends TestCase
         if($userKey === null) {
             $userKey = $userService->IsValidUser("test@gmail.com", "test");
         }
-        $roverUserKeys = $matchingService->GetPotentialMatches($userKey, 5);
+        $roverUserKeys = $matchingService->GetPotentialMatches($userKey, 5, 0); // userKey, mileRange, current % of swipes that are likes for the user
 
         $this->assertIsArray($roverUserKeys);
         $this->assertEmpty($roverUserKeys);
