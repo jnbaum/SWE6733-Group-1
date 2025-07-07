@@ -97,7 +97,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
           DisplayRoverDetails(currentRover); // display first Rover
       }
       else {
-        $("#roverContents").html("No rovers were found that match your profile's preferences.");
+        $("#roverContents").html("No more rovers were found that match your profile's preferences.");
       }
 
      }
