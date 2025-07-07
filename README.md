@@ -143,6 +143,10 @@ Confluence page with results and notes under PHPUnit section.
 
 * [Sprint 1](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/41713665/Unit+Test+Results+-+Sprint+1+7+3+2025)
 
+## TDD
+This section alone - TDD only - was implemented after the deadline for Sprint 1. We finished it on 7/6/2025 at 11:05 PM. Everything else for sprint 1 was finished on time.
+For TDD, we wrote a unit test for the GetPotentialMethods function, which is basically our matching algorithm. We will continue writing our tests and implementing the rest of the algorithm next sprint, but we were able to test one scenario: when the user has swiped left 0-50% of the time. Proof of our TDD is found here: [TDD - Get Potential Matches](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/42270743/TDD+-+GetPotentialMatches)
+
 ---
 
 ## Sprint Review
