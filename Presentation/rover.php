@@ -26,6 +26,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
     <!-- LEFT COLUMN -->
     <div class="dashboard-left">
       <h2 class="section-heading">Find A Rover</h2>
+      <div id="roverContents">
       <div class="profile-photo">
             <div class="polaroid">
               <img id="profilePicture" src="" alt="Profile Photo"/>
@@ -40,6 +41,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
         <!-- IMPORTANT: DO NOT PUT THESE BUTTONS IN A FORM OR MAKE THEM SUBMIT BUTTONS! We do not want to reload page on button click because then the GetRovers function will be called every time -->
         <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">Swipe Left</button> 
         <button class="btn btn-danger" id="swipeRightButton" value="" onclick="SwipeRight()">Swipe Right</button>
+      </div> <!-- id roverContents -->
     </div>
 </div>
 </main>
@@ -93,6 +95,9 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
           currentRover = rovers[index];
           console.log(currentRover);
           DisplayRoverDetails(currentRover); // display first Rover
+      }
+      else {
+        $("#roverContents").html("No rovers were found that match your profile's preferences.");
       }
 
      }
