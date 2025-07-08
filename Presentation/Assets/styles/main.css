@@ -793,14 +793,39 @@ select {
   max-width: 300px;
 }
 
-.profile-photo img {
+/* .profile-photo img {
   width: 100%;
   display: block;
+} */
+.polaroid-frame {
+  background-image: url('https://rovaly-assets.s3.us-east-2.amazonaws.com/Rovaly+Icons/Polaroid.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 300px;
+  height: 340px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
+
+.rover-photo {
+  width: 223px;
+  height: 215px;
+  object-fit: cover;
+  border-radius: 0;
+  z-index: 1;
+  position: absolute;
+  top: 32px;
+  left: 21px;
+}
+
+
 
 .profile-text {
   text-align: left;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .profile-text p span:first-of-type {
@@ -815,6 +840,78 @@ select {
 .profile-text p span.match-range-value {
     margin-left: 15px;
 }
+
+
+/* Profile layout refinements */
+.profile-name {
+  font-family: var(--font-header);
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.profile-ig {
+  color: #444;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.profile-bio {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.adventure-list {
+  margin-bottom: 0.5rem;
+}
+
+.adventure-list .adventure {
+  display: inline-block;
+  background-color: var(--sky-light);
+  padding: 6px 12px;
+  margin: 0 6px 6px 0;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.match-range-value {
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-success {
+  background-color: var(--green-light);
+  color: black;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: center;
+  width: 200px;
+}
+
+.btn-success:hover {
+  background-color: var(--green-dark); /* slightly darker for hover */
+  color: white;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+
+
 
 /* smaller screens - responsive layout */
 @media (max-width: 768px) {

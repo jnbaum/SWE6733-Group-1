@@ -25,22 +25,26 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
 <div class="dashboard-container">
     <!-- LEFT COLUMN -->
     <div class="dashboard-left">
-      <h2 class="section-heading">Find A Rover</h2>
-      <div id="roverContents">
-      <div class="profile-photo">
-            <div class="polaroid">
-              <img id="profilePicture" src="" alt="Profile Photo"/>
+      <h2 class="profile-section-heading">Find A Rover</h2>
+      <div id="roverContents" class="profile-view-row">
+        <div class="profile-left-column">
+          <div class="profile-photo">
+            <div class="polaroid-frame">
+              <img id="profilePicture" class="rover-photo" src="" alt="Profile Photo"/>
             </div>
-      </div>
-        <h3 id="fullName"></h3>
-        <div id="instagramUrl"></div>
-        <div id="bio"></div>
-        <!-- Note to front-end: I've added a class "adventure" to each adventure <span> element in DisplayRoverDetails below ... to adjust styling, simply add a .adventure CSS class and adjust spacing -->
-        <div id="adventures">Adventures: </div> 
-        <div id="mileRangePreference"></div>
-        <!-- IMPORTANT: DO NOT PUT THESE BUTTONS IN A FORM OR MAKE THEM SUBMIT BUTTONS! We do not want to reload page on button click because then the GetRovers function will be called every time -->
-        <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">Swipe Left</button> 
-        <button class="btn btn-danger" id="swipeRightButton" value="" onclick="SwipeRight()">Swipe Right</button>
+          </div>
+        </div>
+        <div class="profile-right-column profile-text">
+          <h3 id="fullName"></h3>
+          <p id="instagramUrl"></p>
+          <p id="bio"></p>
+          <p id="adventures">Adventures </p> 
+          <p id="mileRangePreference" class="match-range-value"></p>
+          <div class="profile-buttons">
+            <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">+ Add to Matches</button> 
+            <button class="btn btn-success" id="swipeRightButton" value="" onclick="SwipeRight()">Skip →</button>
+          </div>
+        </div>
       </div> <!-- id roverContents -->
     </div>
 </div>
@@ -60,7 +64,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
         $("#profilePicture").attr("src", roverDetails.profilePictureUrl);
         $("#fullName").html(roverDetails.fullName);
         $("#bio").html(roverDetails.bio);
-        $("#instagramUrl").html("Instagram: " + roverDetails.socialMediaUrl);
+        $("#instagramUrl").html('Instagram: <a href="' + roverDetails.socialMediaUrl + '" target="_blank">' + roverDetails.socialMediaUrl + '</a>');
         console.log(roverDetails.adventureDetailsArray);
         console.log(typeof(roverDetails.adventureDetailsArray));
         
@@ -70,7 +74,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
           $("#adventures").html(currentValue + '<span class="adventure">' + adventure.activityName + "-" + adventure.preferencesString + '</span> ');
         }
 
-        $("#mileRangePreference").html("Match Range: " + roverDetails.mileRangePreferenceInMiles + " miles");
+        $("#mileRangePreference").html("Match Range " + roverDetails.mileRangePreferenceInMiles + " miles");
         // Set value of swipe buttons to be the user key of the current rover displayed. This will be used in SwipeLeft and SwipeRight functions
         $("#swipeLeftButton").val(rover[0]);
         $("#swipeRightButton").val(rover[0]);
