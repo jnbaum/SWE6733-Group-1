@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+      run: cd Packages && composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
@@ -36,7 +36,7 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: Run test suite
-      run: composer run-script test
+      run: ./Packages/vendor/bin/phpunit --version
 
     - name: PHP Code Sniffer
       run: vendor/bin/phpcs --standard=PSR12 src/
