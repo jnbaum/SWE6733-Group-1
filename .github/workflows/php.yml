@@ -33,7 +33,7 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: Run test suite
-      run: ./Packages/vendor/bin/phpunit --version
+      run: ./Packages/vendor/bin/phpunit
 
     - name: PHP Code Sniffer
       run: vendor/bin/phpcs --standard=PSR12 src/
