@@ -37,3 +37,7 @@ jobs:
 
     - name: Run test suite
       run: composer run-script test
+
+    - name: PHP Code Sniffer
+      run: vendor/bin/phpcs --standard=PSR12 src/
+
