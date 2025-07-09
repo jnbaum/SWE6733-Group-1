@@ -212,7 +212,7 @@ class ProfileService{
             //delete profile picture
             $profileService->DeleteUserProfilePicture($userKey);
             
-            // delete mile range prefernce
+            //delete mile range prefernce
             $profileService->DeleteUserMileRangePreference($userKey);
            
             //delete social media link
