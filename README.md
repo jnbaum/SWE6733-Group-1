@@ -72,7 +72,7 @@ This far vision can only be achieved by creating a polished, scalable version of
 
 ## Continuous Integration: 
 
-Our team is utilizing GitHub Actions for Continuous Integration for this project. 
+Our team is utilizing GitHub Actions for Continuous Integration for this project. We chose to use GitHub Actions because of its seamless integration with our GitHub repository. 
 
 ---
 
