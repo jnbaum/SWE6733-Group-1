@@ -157,18 +157,20 @@ class ProfileService{
 
     */
 
-    // Delete ProfilePicture
+    // Delete from adventure
+
+    // Delete from profilephoto
     public function DeleteUserProfilePicture($userKey){
         $this->da->ExecuteQuery("DELETE FROM profilephoto WHERE profilephoto.UserKey =" . $userKey, QueryType::DELETE);
         //also delete picture from DB???
     }
 
-    // Delete SocialMedia Link
+    // Delete from socialmedialink
      public function DeleteUserSocialMediaLinkUrl($userKey){
         $this->da->ExecuteQuery("DELETE FROM socialmedialink WHERE socialmedialink.UserKey =" . $userKey, QueryType::DELETE);
     }
 
-    // Delete MileRangePrefernce Link
+    // Delete milerange Link
      public function DeleteUserMileRangePreference($userKey){
         $this->da->ExecuteQuery("DELETE FROM milerange WHERE milerange.UserKey =" . $userKey, QueryType::DELETE);
     }
@@ -207,11 +209,18 @@ class ProfileService{
     function DeleteUser($userKey){
         try {
             //delete from tables outside of `user` table
-            //delete messages
-            //delete chatroom
             //delete profile picture
-            $profileService->DeleteProfilePitcure($userKey);
-            //delete profile
+            $profileService->DeleteUserProfilePicture($userKey);
+            
+            // delete mile range prefernce
+            $profileService->DeleteUserMileRangePreference($userKey);
+           
+            //delete social media link
+            $profileService->DeleteUserSocialMediaLinkUrl($userKey);
+           
+            //delete messages
+           
+            //delete chatroom
 
             //delete on `user` table
 
