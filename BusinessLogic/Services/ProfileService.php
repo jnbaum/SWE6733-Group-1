@@ -152,6 +152,26 @@ class ProfileService{
         return $mileRangePreference;
     }
 
+    /*
+    DELETE USER PROFILE CONTENT
+
+    */
+
+    // Delete ProfilePicture
+    public function DeleteUserProfilePicture($userKey){
+        $this->da->ExecuteQuery("DELETE FROM profilephoto WHERE profilephoto.UserKey =" . $userKey, QueryType::DELETE);
+        //also delete picture from DB???
+    }
+
+    // Delete SocialMedia Link
+     public function DeleteUserSocialMediaLinkUrl($userKey){
+        $this->da->ExecuteQuery("DELETE FROM socialmedialink WHERE socialmedialink.UserKey =" . $userKey, QueryType::DELETE);
+    }
+
+    // Delete SocialMedia Link
+     public function DeleteUserMileRangePreference($userKey){
+        $this->da->ExecuteQuery("DELETE FROM milerange WHERE milerange.UserKey =" . $userKey, QueryType::DELETE);
+    }
 
     // this function populates profile details for an existing user.
     // accepts the userKey obtained from UserService.php after user is created.
@@ -180,6 +200,24 @@ class ProfileService{
         } catch (Exception $e) {
             // handle errors during profile population
             error_log("Error populating user profile for UserKey $userKey: " . $e->getMessage());
+            return 0; // failure
+        }
+    }
+
+    function DeleteUser($userKey){
+        try {
+            //delete from tables outside of `user` table
+            //delete messages
+            //delete chatroom
+            //delete profile picture
+            $profileService->DeleteProfilePitcure($userKey);
+            //delete profile
+
+            //delete on `user` table
+
+        } catch (Exception $e) {
+            // handle errors during profile population
+            error_log("Error deleting user profile for UserKey $userKey: " . $e->getMessage());
             return 0; // failure
         }
     }
