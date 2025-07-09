@@ -168,7 +168,7 @@ class ProfileService{
         $this->da->ExecuteQuery("DELETE FROM socialmedialink WHERE socialmedialink.UserKey =" . $userKey, QueryType::DELETE);
     }
 
-    // Delete SocialMedia Link
+    // Delete MileRangePrefernce Link
      public function DeleteUserMileRangePreference($userKey){
         $this->da->ExecuteQuery("DELETE FROM milerange WHERE milerange.UserKey =" . $userKey, QueryType::DELETE);
     }
