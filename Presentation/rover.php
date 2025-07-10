@@ -138,17 +138,21 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   }
 
   function SwipeLeft() {
-    Swipe();
-    console.log("Swipe Left button value: " + $("#swipeLeftButton").val());
     // TODO: Make an ajax call to insert an interaction record with IsLiked = 1. OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
     // Insert code here
-  }
-  function SwipeRight() {
-    Swipe();
-    console.log("Swipe Right button value: " + $("#swipeRightButton").val());
+    var otherUserKey = $("#swipeLeftButton").val();
+    $.post('./AjaxResponses/Swipe.php', {otherUserKey: otherUserKey, isLiked: true});
+    console.log("Swipe Left button value: " + otherUserKey);
 
-    // TODO: Make an ajax call to insert an interaction record with IsLiked = 0 OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
-    // Insert code here
+    Swipe();
+  }
+
+  function SwipeRight() {
+    var otherUserKey = $("#swipeRightButton").val();
+    $.post('./AjaxResponses/Swipe.php', {otherUserKey: otherUserKey, isLiked: false});
+    console.log("Swipe Right button value: " + otherUserKey);
+
+    Swipe();
   }
 
 
