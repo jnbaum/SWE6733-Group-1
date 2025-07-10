@@ -151,9 +151,7 @@ Sprint 2:
 
 ## Unit Tests
 
-See our Confluence page with results and notes under the PHPUnit section.
-
-* [Sprint 1](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/41713665/Unit+Test+Results+-+Sprint+1+7+3+2025)
+All of our unit tests are located inside the \tests\Unit folder of our GitHub repository. 
 
 ## TDD
 
@@ -163,7 +161,7 @@ Sprint 1:
 
 Sprint 2: 
 
-TDD can be found in our GitHub Actions workflow in the main branch of our repository. All of our unit tests are located inside the \tests\Unit folder. 
+
 
 ---
 
