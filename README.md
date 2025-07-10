@@ -136,11 +136,16 @@ Sprint 1 - The team showed a great overall performance in completing all the pla
 
 ---
 
-#Pair Programming
+## Pair Programming
+
+Sprint 1: 
 
 * [Teams Meeting between Jessica, Joo, and Tarik](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/Ea6kDxeRc1NMvSxsUUzRDegBYta0TGfuJFZzxu4NKPDOIw?e=unq1fw&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 * [Teams Meeting Between Megan and Jerry](https://kennesawedu-my.sharepoint.com/:v:/g/personal/mdollar8_students_kennesaw_edu/EfNC1A5nfqtDkZil589AB_QBfyn8kmRmQs941EzfIgMKDQ?e=wYSmnv&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
+Sprint 2: 
+
+* [Jessica, Joo, and Jerry](https://kennesawedu-my.sharepoint.com/:v:/r/personal/jbaum1_students_kennesaw_edu/Documents/Recordings/Team%20meeting%206673-20250709_163840-Meeting%20Recording.mp4?csf=1&web=1&e=qZy7N8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 ---
 
 ## Unit Tests
