@@ -155,7 +155,14 @@ See our Confluence page with results and notes under the PHPUnit section.
 * [Sprint 1](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/41713665/Unit+Test+Results+-+Sprint+1+7+3+2025)
 
 ## TDD
-Proof of our TDD is found here: [TDD - Get Potential Matches](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/42270743/TDD+-+GetPotentialMatches)
+
+Sprint 1: 
+
+[TDD - Get Potential Matches](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/42270743/TDD+-+GetPotentialMatches)
+
+Sprint 2: 
+
+TDD can be found in our Github Actions workflow in the main branch of our repository. 
 
 ---
 
