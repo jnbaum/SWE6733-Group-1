@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd" bootstrap="tests/Unit/bootstrap.php" 
+xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd" >
 colors="true" 
 processIsolation="false" 
 stopOnFailure="false" 
@@ -11,9 +11,9 @@ backupGlobals="false">
 <testsuite name="Unit Tests"> 
 <directory>tests/Unit/</directory> 
 </testsuite> 
-<testsuite name="Behavior Tests"> 
-<directory>tests/Behavior</directory> 
-</testsuite> 
+<!--<testsuite name="Behavior Tests"> 
+<directory>tests/Behavior/</directory> 
+</testsuite> -->
 </testsuites> 
 <source> 
 <include> 

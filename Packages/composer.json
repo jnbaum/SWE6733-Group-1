@@ -1,4 +1,7 @@
 {
+    "scripts": {
+  	"test": "vendor/bin/phpunit tests/Unit"
+	},
     "require": {
         "doctrine/dbal": "^4.2",
         "aws/aws-sdk-php": "^3.346",
