@@ -54,6 +54,18 @@ class PhotoServiceTest extends TestCase
         // validate that returned string is not default url
         $this->assertNotEquals($photoService->GetPresignedPhotoUrl($key), 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png');
     }
+
+    public function testGetDefaultPictureUrl(){
+        $da = new DataAccess();
+        $photoService = new PhotoService($da);
+
+        //defining photokey
+        $key = "16";
+
+        // validate that the returned string is the default url
+        $this->assertEquals($photoService->GetPresignedPhotoUrl($key), 'https://rovaly-assets.s3.us-east-2.amazonaws.com/UserDefault.png');
+    }
+
 }
 
 ?>
