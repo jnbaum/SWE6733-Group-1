@@ -146,6 +146,7 @@ Sprint 1:
 Sprint 2: 
 
 * [Jessica, Joo, and Jerry](https://kennesawedu-my.sharepoint.com/:v:/r/personal/jbaum1_students_kennesaw_edu/Documents/Recordings/Team%20meeting%206673-20250709_163840-Meeting%20Recording.mp4?csf=1&web=1&e=qZy7N8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+* [Megan and Jessica](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/EV5MOlAKdulMq2tFCqhUC_kBlh3wx25uV9_3ZL72Gq6zyQ?e=ZbirG9&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 ---
 
 ## Unit Tests
@@ -162,7 +163,7 @@ Sprint 1:
 
 Sprint 2: 
 
-TDD can be found in our Github Actions workflow in the main branch of our repository. 
+TDD can be found in our GitHub Actions workflow in the main branch of our repository. All of our unit tests are located inside the \tests\Unit folder. 
 
 ---
 
