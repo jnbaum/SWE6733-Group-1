@@ -11,6 +11,26 @@ $profileService = $allServices->GetProfileService();
 $adventureService = $allServices->GetAdventureService();
 ?>
 
+<head>
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@9.0.0/css/mdb.min.css"
+    rel="stylesheet"
+    />
+
+   <link rel="stylesheet" href="../Presentation/Assets/styles/matches.css?v14">
+</head>
+
 <main>
     <h1>Matches</h1>
     <?php
