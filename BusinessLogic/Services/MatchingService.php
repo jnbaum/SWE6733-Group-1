@@ -43,6 +43,7 @@ class MatchingService {
      // 0-50% Interactions are LIKE scenario
     private function GetPotentialMatchesStrictQuery(int $userKey, int $mileRangePreferenceInMiles, int $countOfMatchedPreferencesForAdventure): string {
             // TODO: filter out users that have already been matched with in this algorithm.
+            // Matches people who are within 5 miles of each other 
             return "WITH CurrUserPrefs AS ( 
             SELECT PreferenceKey, AdventureTypeKey, adventure.AdventureKey 
             FROM adventurepreference 
@@ -56,7 +57,8 @@ class MatchingService {
                 INNER JOIN MileRangeType mrt ON mr.MileRangeTypeKey = mrt.MileRangeTypeKey 
                 WHERE ap.PreferenceKey IN (SELECT PreferenceKey FROM CurrUserPrefs) 
                 AND a.AdventureTypeKey IN (SELECT AdventureTypeKey FROM CurrUserPrefs) 
-                AND mrt.DistanceMiles <= " . $mileRangePreferenceInMiles . " AND a.UserKey != " . $userKey . "
+                AND ABS(mrt.DistanceMiles - " . $mileRangePreferenceInMiles . ") <= 5
+                AND a.UserKey NOT IN (" . $userKey . $this->GetMatchesCommaSeparated($userKey) . ")
             ) 
             SELECT op.UserKey, op.PreferenceKey, op.AdventureTypeKey 
             FROM OtherUserPrefs op 
@@ -69,10 +71,52 @@ class MatchingService {
         // TODO: create a new method to not account for preferences at all
         
         
+        public function GetMatchesCommaSeparated(int $userKey): string {
+            $matchedUserKeys = $this->GetMatches($userKey);
+            if(empty($matchedUserKeys)) {
+                return "";
+            }
+            $returnStr = ",";
+            foreach($matchedUserKeys as $matchedUserKey) {
+                $returnStr = $returnStr . $matchedUserKey;
+
+                if($matchedUserKey !== end($matchedUserKeys)) {
+                    $returnStr = $returnStr . ",";
+                }
+            }
+            return $returnStr;
+        }
         
+        // Return list of user keys
+        public function GetMatches(int $userKey): array {
+           $otherUserKeys = [];
+           $stmt = $this->da->ExecuteQuery("SELECT A.OtherUserKey FROM interaction A
+                INNER JOIN interaction B 
+                ON A.ActingUserKey = B.OtherUserKey
+                AND A.OtherUserKey = B.ActingUserKey
+                AND A.ActingUserKey = " . $userKey . "
+                AND A.IsLiked = B.IsLiked
+                AND A.IsLiked = 1", QueryType::SELECT);
+
+             while($row = $stmt->fetchAssociative()) {
+                $otherUserKeys[] = $row['OtherUserKey'];
+            }
+            return $otherUserKeys;
+        }
+
         public function RecordInteraction(int $actingUserKey, int $otherUserKey, bool $isLiked): bool {
             // Convert the PHP boolean value to an integer (1 for true, 0 for false)
             $isLikedDbValue = $isLiked ? 1 : 0;
+            
+            // Don't record another interaction if the same one already exists (to save space in database)
+                $likeExistsQuery = "SELECT * FROM interaction WHERE ActingUserKey = " . $actingUserKey . " AND OtherUserKey = " . $otherUserKey . " AND IsLiked = " . $isLikedDbValue;
+                $stmt = $this->da->ExecuteQuery($likeExistsQuery, QueryType::SELECT);
+                $likeRecord = $stmt->fetchAssociative();
+                if($likeRecord) {
+                    return false;
+                }
+            
+            
             // Construct the SQL INSERT query to add a new interaction record.
             // User keys and the converted 'IsLiked' value are directly inserted as integers,
             $query = "INSERT INTO interaction (ActingUserKey, OtherUserKey, IsLiked) VALUES ("
