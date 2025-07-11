@@ -21,7 +21,10 @@ class MatchingService {
         // Go through each scenario and modify the query accordingly
         // 0-50% likes scenario
         if($percentLikes >= 0 && $percentLikes <= 50) {
-            $query = $this->GetPotentialMatchesStrictQuery($userKey, $mileRangePreferenceInMiles);
+            $query = $this->GetPotentialMatchesStrictQuery($userKey, $mileRangePreferenceInMiles, 2); // Require 2 matched preferences with an adventure
+        }
+        else if ($percentLikes >= 50 && $percentLikes <= 75) {
+            $query = $this->GetPotentialMatchesStrictQuery($userKey, $mileRangePreferenceInMiles, 1); // Require only 1 matched preference with an adventure
         }
         // TODO: 50-75%
         // TODO: >75%
@@ -38,35 +41,33 @@ class MatchingService {
     }
 
      // 0-50% Interactions are LIKE scenario
-    private function GetPotentialMatchesStrictQuery(int $userKey, int $mileRangePreferenceInMiles): string {
+    private function GetPotentialMatchesStrictQuery(int $userKey, int $mileRangePreferenceInMiles, int $countOfMatchedPreferencesForAdventure): string {
             // TODO: filter out users that have already been matched with in this algorithm.
-            return "WITH
-            CurrentUserAdventureTypeKeys AS (
-            SELECT AdventureTypeKey FROM adventure
-            WHERE UserKey = $userKey
-            ),
-            CurrentUserPreferenceKeys AS (
-            SELECT ap.PreferenceKey FROM adventurepreference ap
-            INNER JOIN adventure WHERE adventure.UserKey = " . $userKey . "
-            )
-            SELECT u.UserKey
-            FROM user u
-            INNER JOIN adventure a ON a.UserKey = u.UserKey
-            INNER JOIN adventurepreference ap ON ap.AdventureKey = a.AdventureKey
-            INNER JOIN milerange mr ON mr.UserKey = u.UserKey
-            INNER JOIN milerangetype mrt ON mr.MileRangeTypeKey = mrt.MileRangeTypeKey
-            WHERE ap.PreferenceKey IN (
-            SELECT PreferenceKey FROM CurrentUserPreferenceKeys
-            )
-            AND a.AdventureTypeKey  IN (
-            SELECT AdventureTypeKey FROM CurrentUserAdventureTypeKeys
+            return "WITH CurrUserPrefs AS ( 
+            SELECT PreferenceKey, AdventureTypeKey, adventure.AdventureKey 
+            FROM adventurepreference 
+            INNER JOIN adventure ON adventurepreference.AdventureKey = adventure.AdventureKey 
+            WHERE UserKey = " . $userKey . "), 
+            OtherUserPrefs AS (
+                select ap.PreferenceKey, a.AdventureTypeKey, a.UserKey, a.AdventureKey 
+                from adventurepreference ap 
+                INNER JOIN adventure a ON a.AdventureKey = ap.AdventureKey 
+                INNER JOIN MileRange mr ON mr.UserKey = a.UserKey 
+                INNER JOIN MileRangeType mrt ON mr.MileRangeTypeKey = mrt.MileRangeTypeKey 
+                WHERE ap.PreferenceKey IN (SELECT PreferenceKey FROM CurrUserPrefs) 
+                AND a.AdventureTypeKey IN (SELECT AdventureTypeKey FROM CurrUserPrefs) 
+                AND mrt.DistanceMiles <= " . $mileRangePreferenceInMiles . " AND a.UserKey != " . $userKey . "
             ) 
-            AND u.UserKey != " . $userKey . " 
-            AND mrt.DistanceMiles <= " . $mileRangePreferenceInMiles . "
-            GROUP BY u.UserKey
-            HAVING COUNT(*) >= 2
-            LIMIT 10";
-        }
+            SELECT op.UserKey, op.PreferenceKey, op.AdventureTypeKey 
+            FROM OtherUserPrefs op 
+            INNER JOIN CurrUserPrefs 
+            ON op.PreferenceKey = CurrUserPrefs.PreferenceKey AND op.AdventureTypeKey = CurrUserPrefs.AdventureTypeKey
+            GROUP BY op.AdventureKey
+            HAVING COUNT(*) >= " . $countOfMatchedPreferencesForAdventure . ";";
+        }     
+
+        // TODO: create a new method to not account for preferences at all
+        
         
         
         public function RecordInteraction(int $actingUserKey, int $otherUserKey, bool $isLiked): bool {
