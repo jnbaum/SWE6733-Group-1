@@ -37,14 +37,17 @@ $profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
 ?>
 
 <main class="profile-container">
-  <h2 class="profile-section-heading">PROFILE</h2>
+  <h2 class="profile-section-heading">Profile</h2>
   <div class="profile-view-row">
     <div class="profile-left-column">
       <div class="profile-photo">
-        <div class="polaroid">
+        <div class="polaroid mx-auto">
           <img  src="<?php echo htmlspecialchars($profilePhotoUrl ?? 'default.jpg'); ?>" alt="Profile Photo" />
         </div>
       </div>
+      <div class="text-center">
+      <buttton class="btn btn-brand mt-5" name="delete">Delete Profile</button>
+</div>
     </div>
     <div class="profile-right-column">
       <div class="profile-text">
@@ -65,3 +68,4 @@ $profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
     </div>
   </div>
 </main>
+<?php include("footer.php"); ?>
