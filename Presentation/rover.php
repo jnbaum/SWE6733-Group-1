@@ -1,5 +1,6 @@
 <?php
 session_start();
+$userKey = $_SESSION['user_id'];
 $bodyClass = 'rover';
 include("head.php");
 include("header.php");
@@ -13,12 +14,14 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 
-$userKey = $_SESSION['user_id'];
 $adventureService = $allServices->GetAdventureService();
 $profileService = $allServices->GetProfileService();
 $matchingService = $allServices->GetMatchingService();
 $matchingManager = new MatchesManager($adventureService, $profileService, $matchingService);
 
+ // Uncomment for testing ... display percentage of times that the user has swiped left 
+ // (this reloads when the potential matches pool is swiped through ... AKA after 10 users, or less if GetRovers in MatchingManager.php returns less than 10 users)
+//  echo $matchingService->GetPercentageLikes($userKey);
 ?>
 
 <main class="profile-container">
