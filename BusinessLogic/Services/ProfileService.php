@@ -175,6 +175,16 @@ class ProfileService{
         $this->da->ExecuteQuery("DELETE FROM milerange WHERE milerange.UserKey =" . $userKey, QueryType::DELETE);
     }
 
+    // Delete messages
+     public function DeleteUserMessages($userKey){
+        $this->da->ExecuteQuery("DELETE FROM message WHERE message.SendingUserKey =" . $userKey . " OR message.RecipientUserKey =" . $userKey, QueryType::DELETE);
+    }
+
+    // Delete chatroom
+     public function DeleteUserChatrooms($userKey){
+        $this->da->ExecuteQuery("DELETE FROM chatroon WHERE chatroom.FirstUserKey =" . $userKey . " OR chatroom.SecondUserKey =" . $userKey, QueryType::DELETE);
+    }
+
     // this function populates profile details for an existing user.
     // accepts the userKey obtained from UserService.php after user is created.
     function createNewUserProfile(
