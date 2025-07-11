@@ -1,6 +1,6 @@
 # SWE6733 Group 1 Repo
 
-## [Click here to access Rovaly (EC2 instance)](http://ec2-18-222-1-62.us-east-2.compute.amazonaws.com:8080/Presentation/index.php) 
+## [Click here to access Rovaly](http://ec2-18-222-1-62.us-east-2.compute.amazonaws.com:8080/Presentation/index.php) 
 
 ## Group Members
 
@@ -61,12 +61,18 @@ This far vision can only be achieved by creating a polished, scalable version of
 
 ---
 
-Stakeholders:
+## Stakeholders:
 
 * <ins>Outdoor Lovers & Adventurers</ins> - These are the individuals who are searching for partners who share a common interest in adventuring. As the primary user demographic and beneficiaries, their satisfaction will be the key factor in determining the application's success.
-* <ins>Outdoor Organization & Guides</ins> - A third party may be interested in using Rovaly application to find and connect with potential participants. This can include local community groups, organization operators, and professional guides.
+* <ins>Outdoor Organization & Guides</ins> - A third party may be interested in using Rovaly to find and connect with potential participants. This can include local community groups, organization operators, and professional guides.
 * <ins>Investors</ins> - This party provides the funding and resources for the Rovaly team to carry out the application's development. The profit and growth to be gained will be contingent upon this product's success.
 * <ins>Team Members</ins> - This includes us, the project managers and developers who are responsible for the development of the application. We want the project to succeed so that others can enjoy the benefits of our work.
+
+---
+
+## Continuous Integration: 
+
+Our team is utilizing GitHub Actions for Continuous Integration for this project. We chose to use GitHub Actions because of its seamless integration with our GitHub repository. 
 
 ---
 
@@ -89,8 +95,6 @@ Our team ordered the project backlog with a focus on logical workflow progressio
 
 ---
 
----
-
 ## Story Point Forecasting
 
 Story point estimation criteria: 
@@ -106,11 +110,13 @@ Story point estimation criteria:
 
 For Sprint 1, we forecast that our team can complete 18 story points. The completion of these story points will take an estimated 21 days, which fits within our 23-day timeframe. 
 
-For Sprint 2, the current estimation prior to the start of Sprint 2 is 19.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3.
+For Sprint 2, the current estimation prior to the start of Sprint 2 is 21.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3. 
 
-For Sprint 3, the current estimation prior to the start of Sprint 3 is 4 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint.
+According to Yesterday's Weather, this sprint's estimated user story point completion is 18 points. That means that this sprint is a high-risk sprint, and our team will have to stretch to complete the workload. This was a known issue going into Sprint 2, and our team has adjusted by starting a few work items for Sprint 2 earlier than the sprint's start date, as our team had completed Sprint 1 items prior to the end of Sprint 1. As it stands at the Sprint 2 start date, we now have 14.5 story points to complete for this sprint. Due to foresight, meeting the sprint goal is now within normal capabilities. 
 
-Rationale: We used our experience from work and past school projects to estimate the points for each story. For example, login was given 2 story points because we are mostly familiar with the concept (i.e. fetching an existing user from the database with the entered username, and then comparing its password to the entered password). For stories that we have less past experience with, such as the matching feature, in-app messaging, and S3 photo uploads, we gave more generous story point estimates to allow for extra time to research and explore new concepts.
+For Sprint 3, the current estimation prior to the start of Sprint 3 is 13 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint.
+
+Rationale: We used our experience from work and past school projects to estimate the points for each story. For example, login was given 2 story points because we are mostly familiar with the concept (i.e., fetching an existing user from the database with the entered username, and then comparing its password to the entered password). For stories that we have less past experience with, such as the matching feature, in-app messaging, and S3 photo uploads, we gave more generous story point estimates to allow for extra time to research and explore new concepts.
 
 ---
 
@@ -130,26 +136,37 @@ Sprint 1 - The team showed a great overall performance in completing all the pla
 
 ---
 
-#Pair Programming
+## Pair Programming
+
+Sprint 1: 
 
 * [Teams Meeting between Jessica, Joo, and Tarik](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/Ea6kDxeRc1NMvSxsUUzRDegBYta0TGfuJFZzxu4NKPDOIw?e=unq1fw&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 * [Teams Meeting Between Megan and Jerry](https://kennesawedu-my.sharepoint.com/:v:/g/personal/mdollar8_students_kennesaw_edu/EfNC1A5nfqtDkZil589AB_QBfyn8kmRmQs941EzfIgMKDQ?e=wYSmnv&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
+Sprint 2: 
+
+* [Jessica, Joo, and Jerry](https://kennesawedu-my.sharepoint.com/:v:/r/personal/jbaum1_students_kennesaw_edu/Documents/Recordings/Team%20meeting%206673-20250709_163840-Meeting%20Recording.mp4?csf=1&web=1&e=qZy7N8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+* [Megan and Jessica](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/EV5MOlAKdulMq2tFCqhUC_kBlh3wx25uV9_3ZL72Gq6zyQ?e=ZbirG9&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+* [Jake and Tarik](https://kennesawedu-my.sharepoint.com/personal/tdavi192_students_kennesaw_edu/_layouts/15/stream.aspx?id=%2Fpersonal%2Ftdavi192%5Fstudents%5Fkennesaw%5Fedu%2FDocuments%2FRecordings%2FTeams%20Meeting%2D20250710%5F183601%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E2eb1fc07%2Db78e%2D47a8%2D8d1f%2Da7326af8ac7e)
 ---
 
 ## Unit Tests
 
-Confluence page with results and notes under PHPUnit section.
-
-* [Sprint 1](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/41713665/Unit+Test+Results+-+Sprint+1+7+3+2025)
+All of our unit tests are located inside the \tests\Unit folder of our GitHub repository. 
 
 ## TDD
-This section alone - TDD only - was implemented after the deadline for Sprint 1. We finished it on 7/6/2025 at 11:05 PM. Everything else for sprint 1 was finished on time.
-For TDD, we wrote a unit test for the GetPotentialMethods function, which is basically our matching algorithm. We will continue writing our tests and implementing the rest of the algorithm next sprint, but we were able to test one scenario: when the user has swiped left 0-50% of the time. Proof of our TDD is found here: [TDD - Get Potential Matches](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/42270743/TDD+-+GetPotentialMatches)
+
+Sprint 1: 
+
+[TDD - Get Potential Matches](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/42270743/TDD+-+GetPotentialMatches)
+
+Sprint 2: 
+
+
 
 ---
 
 ## Sprint Review
 
 * [Sprint One Review](https://swe6673.atlassian.net/wiki/x/AoCDAg)
-* [Sprint One Review Video (recorded after our meeting)](https://www.loom.com/share/57b74680baa145feaae35517580db5d0)
+* [Sprint One Review Video](https://www.loom.com/share/57b74680baa145feaae35517580db5d0)

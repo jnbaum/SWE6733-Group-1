@@ -67,5 +67,29 @@ class MatchingService {
         }     
 
         // TODO: create a new method to not account for preferences at all
+        
+        
+        
+        public function RecordInteraction(int $actingUserKey, int $otherUserKey, bool $isLiked): bool {
+            // Convert the PHP boolean value to an integer (1 for true, 0 for false)
+            $isLikedDbValue = $isLiked ? 1 : 0;
+            // Construct the SQL INSERT query to add a new interaction record.
+            // User keys and the converted 'IsLiked' value are directly inserted as integers,
+            $query = "INSERT INTO interaction (ActingUserKey, OtherUserKey, IsLiked) VALUES ("
+                    . $actingUserKey . ", "
+                    . $otherUserKey . ", "
+                    . $isLikedDbValue . ")";
+            try {
+                // Execute the INSERT query using the DataAccess object.
+                $this->da->ExecuteQuery($query, QueryType::INSERT);
+                // If the query executes successfully without throwing an exception, return true.
+                return true;
+            } catch (Exception $e) {
+                // Log any errors that occur during the database operation.
+                error_log("Error recording interaction for UserKey " . $actingUserKey . " with OtherUserKey " . $otherUserKey . ": " . $e->getMessage());
+                // Return false to indicate that the interaction recording failed.
+                return false;
+            }
+        }
 }
 ?>

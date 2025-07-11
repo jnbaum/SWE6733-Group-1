@@ -26,11 +26,14 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
     <!-- LEFT COLUMN -->
     <div class="dashboard-left">
       <h2 class="profile-section-heading">Find A Rover</h2>
+      <div class="swipe-card" id="swipeCard">
+      <div id="likeLabel" class="swipe-label like-label"><i class="fas fa-heart"></i></div>
+        <div id="skipLabel" class="swipe-label skip-label"><i class="fas fa-xmark"></i></div>
       <div id="roverContents" class="profile-view-row">
         <div class="profile-left-column">
           <div class="profile-photo">
-            <div class="polaroid-frame">
-              <img id="profilePicture" class="rover-photo" src="" alt="Profile Photo"/>
+            <div class="polaroid">
+              <img id="profilePicture" src="" alt="Profile Photo"/>
             </div>
           </div>
         </div>
@@ -41,11 +44,12 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
           <p id="adventures">Adventures </p> 
           <p id="mileRangePreference" class="match-range-value"></p>
           <div class="profile-buttons">
-            <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">+ Add to Matches</button> 
+            <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">+ Like</button> 
             <button class="btn btn-success" id="swipeRightButton" value="" onclick="SwipeRight()">Skip →</button>
           </div>
         </div>
       </div> <!-- id roverContents -->
+</div>
     </div>
 </div>
 </main>
@@ -54,11 +58,21 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   var rovers = [];
   var index = 0; // current index within rovers array
   var currentRover = null;
+  let startX = 0;
+  let currentX = 0;
+  let offsetX = 0;
+  let isDragging = false;
+  const swipeCard = document.getElementById("swipeCard");
+  const likeLabel = document.getElementById("likeLabel");
+  const skipLabel = document.getElementById("skipLabel");
 
   ResetCardDeck(); // fetch rovers and display first rover on page load
 
   function DisplayRoverDetails(rover) {
     // console.log(rover);
+    likeLabel.style.opacity = 0;
+    skipLabel.style.opacity = 0;
+
     if(rover !== undefined) {
         var roverDetails = rover[1];
         $("#profilePicture").attr("src", roverDetails.profilePictureUrl);
@@ -85,6 +99,8 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   function ResetCardDeck() {
     index = 0;
     rovers = [];
+    likeLabel.style.opacity = 0;
+    skipLabel.style.opacity = 0;
 
     $.ajax({
      url:'./AjaxResponses/GetRovers.php',
@@ -118,20 +134,80 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
     else {
       DisplayRoverDetails(rovers[index]);
     }
+    
   }
 
   function SwipeLeft() {
-    Swipe();
-    console.log("Swipe Left button value: " + $("#swipeLeftButton").val());
     // TODO: Make an ajax call to insert an interaction record with IsLiked = 1. OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
     // Insert code here
-  }
-  function SwipeRight() {
-    Swipe();
-    console.log("Swipe Right button value: " + $("#swipeRightButton").val());
+    var otherUserKey = $("#swipeLeftButton").val();
+    $.post('./AjaxResponses/Swipe.php', {otherUserKey: otherUserKey, isLiked: true});
+    console.log("Swipe Left button value: " + otherUserKey);
 
-    // TODO: Make an ajax call to insert an interaction record with IsLiked = 0 OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
-    // Insert code here
+    Swipe();
+  }
+
+  function SwipeRight() {
+    var otherUserKey = $("#swipeRightButton").val();
+    $.post('./AjaxResponses/Swipe.php', {otherUserKey: otherUserKey, isLiked: false});
+    console.log("Swipe Right button value: " + otherUserKey);
+
+    Swipe();
+  }
+
+
+
+  swipeCard.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+    swipeCard.classList.add("dragging");
+  });
+
+  swipeCard.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+    offsetX = currentX - startX;
+    swipeCard.style.transform = `translateX(${offsetX}px) rotate(${offsetX * 0.05}deg)`;
+    if (offsetX > 30) {
+      skipLabel.style.opacity = Math.min(offsetX / 100, 1);
+      likeLabel.style.opacity = 0;
+    } else if (offsetX < -30) {
+      likeLabel.style.opacity = Math.min(-offsetX / 100, 1);
+      skipLabel.style.opacity = 0;
+    } else {
+      likeLabel.style.opacity = 0;
+      skipLabel.style.opacity = 0;
+    }
+  });
+
+  swipeCard.addEventListener("touchend", () => {
+    isDragging = false;
+    swipeCard.classList.remove("dragging");
+    if (offsetX > 100) {
+      swipeCard.classList.add("animate");
+      swipeCard.style.transform = "translateX(100vw) rotate(10deg)";
+      setTimeout(() => {
+        SwipeRight();
+        resetCardPosition();
+      }, 400);
+    } else if (offsetX < -100) {
+      swipeCard.classList.add("animate");
+      swipeCard.style.transform = "translateX(-100vw) rotate(-10deg)";
+      setTimeout(() => {
+        SwipeLeft();
+        resetCardPosition();
+      }, 400);
+    } else {
+      swipeCard.classList.add("animate");
+      swipeCard.style.transform = "translateX(0) rotate(0)";
+      setTimeout(() => swipeCard.classList.remove("animate"), 400);
+    }
+    offsetX = 0;
+  });
+
+  function resetCardPosition() {
+    swipeCard.classList.remove("animate");
+    swipeCard.style.transform = "translateX(0) rotate(0)";
   }
 
 
