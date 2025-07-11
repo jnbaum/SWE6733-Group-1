@@ -48,8 +48,7 @@
             chatRoomKey: chatRoomKey
         };
 
-        $.post("../BusinessLogic/Actions/SendMessage.php", { messageData: JSON.stringify(data) }, function(test) {
-            alert(test);
+        $.post("../BusinessLogic/Actions/SendMessage.php", { messageData: JSON.stringify(data) }, function() {
             reloadMessagesSection();
         });
 
