@@ -22,7 +22,8 @@ class MatchesManager {
 
     public function GetRovers(int $userKey): array {
         $mileRangePreference = $this->profileService->GetMileRangePreference($userKey);
-        $rovers = $this->matchingService->GetPotentialMatches($userKey, $mileRangePreference, 0); // TODO: Replace 0 with actual % likes for the user (from interactions table where ActingUserKey = $currentUserKey)
+        $percentLikes = $this->matchingService->GetPercentageLikes($userKey);
+        $rovers = $this->matchingService->GetPotentialMatches($userKey, $mileRangePreference, $percentLikes); // TODO: Replace 0 with actual % likes for the user (from interactions table where ActingUserKey = $currentUserKey)
         return $rovers;
     }
 }
