@@ -93,7 +93,7 @@ class ProfileServiceTest extends TestCase{
         $profileService->DeleteUserMessages($userKey1);
         $profileService->DeleteUserChatrooms($userKey1);
         $profileService->DeleteUserInteractions($userKey1);
-        //$profileService->DeleteAdventures($userKey1);
+        $profileService->DeleteAdventures($userKey1);
         $this->assertTrue($profileService->DeleteUser($userKey1));
         
 
@@ -105,7 +105,7 @@ class ProfileServiceTest extends TestCase{
         $profileService->DeleteUserMessages($userKey2);
         $profileService->DeleteUserChatrooms($userKey2);
         $profileService->DeleteUserInteractions($userKey2);
-        //$profileService->DeleteAdventures($userKey2);
+        $profileService->DeleteAdventures($userKey2);
         $this->assertTrue($profileService->DeleteUser($userKey2));
     
 
