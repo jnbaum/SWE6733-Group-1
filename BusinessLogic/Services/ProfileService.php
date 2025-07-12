@@ -152,12 +152,6 @@ class ProfileService{
         return $mileRangePreference;
     }
 
-    /*
-    DELETE USER PROFILE CONTENT
-
-    */
-
-    // Delete from adventure
     public function DeleteAdventures(int $userKey) {
         $stmt = $this->da->ExecuteQuery("SELECT * FROM adventure WHERE UserKey = " . $userKey, QueryType::SELECT);
         $adventureKeys = [];
@@ -363,40 +357,48 @@ class ProfileService{
             return 0; // failure
         }
     }
+    function DeleteUserProfile(
+        int $userKey, // added userKey as parameter
+        string $fullName,
+        string $bio,
+        string $socialMediaUrl,
+        int $mileRangeTypeKey
+    ): int {
 
-    function DeleteUserProfile($userKey): bool{
         global $allServices;
         $profileService = $allServices->GetProfileService();
 
         try {
-            //delete from tables outside of `user` table
-            //delete profile picture
-            $profileService->DeleteUserProfilePicture($userKey);
+            // delete profile photo
+            $profileService->DeleteUserProfilePicture($userKey1);
+
+            // delete mile range preference
+            $profileService->DeleteUserMileRangePreference($userKey1);
             
-            //delete mile range prefernce
-            $profileService->DeleteUserMileRangePreference($userKey);
-           
-            //delete social media link
-            $profileService->DeleteUserSocialMediaLinkUrl($userKey);
-           
-            //delete messages
-            $profileService->DeleteUserMessages($userKey);
+            // delete social media link
+            $profileService->DeleteUserSocialMediaLinkUrl($userKey1);
+            
+            // delete messages
+            $profileService->DeleteUserMessages($userKey1);
+            
+            // delete chatrooms
+            $profileService->DeleteUserChatrooms($userKey1);
 
-            //delete chatroom
-            $profileService->DeleteUserChatrooms($userKey);
+            //delete interatcions
+            $profileService->DeleteUserInteractions($userKey1);
 
-            //delete interactions
-            $profileService->DeleteUserInteractions($userKey);
+            //delete advenutres
+            $profileService->DeleteAdventures($userKey1);
 
-            //delete on `user` table
-            $profileService->DeleteUser($userKey);
-        
+            //delete user
+            $profileService->DeleteUser($userKey1);
+
+            return $userKey; // return userKey of the profile that was just updated
         } catch (Exception $e) {
             // handle errors during profile population
             error_log("Error deleting user profile for UserKey $userKey: " . $e->getMessage());
-            return false; // failure
+            return 0; // failure
         }
-        return true;
     }
 
 }
