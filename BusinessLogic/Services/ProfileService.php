@@ -152,6 +152,25 @@ class ProfileService{
         return $mileRangePreference;
     }
 
+    public function DeleteAdventures(int $userKey) {
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM adventure WHERE UserKey = " . $userKey, QueryType::SELECT);
+        $adventureKeys = [];
+        $adventureKeysString = "";
+        while($row = $stmt->fetchAssociative()) {
+            $adventureKeys[] = $row["AdventureKey"];
+        }
+        
+        // Build comma-separated string containing adventure keys to delete for query
+        foreach($adventureKeys as $adventureKey) {
+            $adventureKeysString = $adventureKeysString . (string)$adventureKey;
+            if($adventureKey != end($adventureKeys)) {
+                $adventureKeysString = $adventureKeysString + ",";
+            }
+        }
+
+        $this->da->ExecuteQuery("DELETE FROM adventurepreference WHERE AdventureKey IN (" . $adventureKeysString . ")", QueryType::DELETE);
+        $this->da->ExecuteQuery("DELETE FROM adventure WHERE AdventureKey IN (" . $adventureKeysString . ")", QueryType::DELETE);
+    }
 
     // this function populates profile details for an existing user.
     // accepts the userKey obtained from UserService.php after user is created.

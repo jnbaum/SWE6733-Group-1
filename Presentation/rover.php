@@ -1,5 +1,6 @@
 <?php
 session_start();
+$userKey = $_SESSION['user_id'];
 $bodyClass = 'rover';
 include("head.php");
 include("header.php");
@@ -13,35 +14,45 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 
-$userKey = $_SESSION['user_id'];
 $adventureService = $allServices->GetAdventureService();
 $profileService = $allServices->GetProfileService();
 $matchingService = $allServices->GetMatchingService();
 $matchingManager = new MatchesManager($adventureService, $profileService, $matchingService);
 
+ // Uncomment for testing ... display percentage of times that the user has swiped left 
+ // (this reloads when the potential matches pool is swiped through ... AKA after 10 users, or less if GetRovers in MatchingManager.php returns less than 10 users)
+//  echo $matchingService->GetPercentageLikes($userKey);
 ?>
 
 <main class="profile-container">
 <div class="dashboard-container">
     <!-- LEFT COLUMN -->
     <div class="dashboard-left">
-      <h2 class="section-heading">Find A Rover</h2>
-      <div id="roverContents">
-      <div class="profile-photo">
+      <h2 class="profile-section-heading">Find A Rover</h2>
+      <div class="swipe-card" id="swipeCard">
+      <div id="likeLabel" class="swipe-label like-label"><i class="fas fa-heart"></i></div>
+        <div id="skipLabel" class="swipe-label skip-label"><i class="fas fa-xmark"></i></div>
+      <div id="roverContents" class="profile-view-row">
+        <div class="profile-left-column">
+          <div class="profile-photo mx-auto">
             <div class="polaroid">
               <img id="profilePicture" src="" alt="Profile Photo"/>
             </div>
-      </div>
-        <h3 id="fullName"></h3>
-        <div id="instagramUrl"></div>
-        <div id="bio"></div>
-        <!-- Note to front-end: I've added a class "adventure" to each adventure <span> element in DisplayRoverDetails below ... to adjust styling, simply add a .adventure CSS class and adjust spacing -->
-        <div id="adventures">Adventures: </div> 
-        <div id="mileRangePreference"></div>
-        <!-- IMPORTANT: DO NOT PUT THESE BUTTONS IN A FORM OR MAKE THEM SUBMIT BUTTONS! We do not want to reload page on button click because then the GetRovers function will be called every time -->
-        <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">Swipe Left</button> 
-        <button class="btn btn-danger" id="swipeRightButton" value="" onclick="SwipeRight()">Swipe Right</button>
+          </div>
+        </div>
+        <div class="profile-right-column profile-text">
+          <h3 id="fullName"></h3>
+          <p id="instagramUrl"></p>
+          <p id="bio"></p>
+          <p id="adventures">Adventures </p> 
+          <p id="mileRangePreference" class="match-range-value"></p>
+          <div class="profile-buttons">
+            <button class="btn btn-brand" id="swipeLeftButton" value="" onclick="SwipeLeft()">+ Like</button> 
+            <button class="btn btn-brand" id="swipeRightButton" value="" onclick="SwipeRight()">Skip →</button>
+          </div>
+        </div>
       </div> <!-- id roverContents -->
+</div>
     </div>
 </div>
 </main>
@@ -50,17 +61,27 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   var rovers = [];
   var index = 0; // current index within rovers array
   var currentRover = null;
+  let startX = 0;
+  let currentX = 0;
+  let offsetX = 0;
+  let isDragging = false;
+  const swipeCard = document.getElementById("swipeCard");
+  const likeLabel = document.getElementById("likeLabel");
+  const skipLabel = document.getElementById("skipLabel");
 
   ResetCardDeck(); // fetch rovers and display first rover on page load
 
   function DisplayRoverDetails(rover) {
     // console.log(rover);
+    likeLabel.style.opacity = 0;
+    skipLabel.style.opacity = 0;
+
     if(rover !== undefined) {
         var roverDetails = rover[1];
         $("#profilePicture").attr("src", roverDetails.profilePictureUrl);
         $("#fullName").html(roverDetails.fullName);
         $("#bio").html(roverDetails.bio);
-        $("#instagramUrl").html("Instagram: " + roverDetails.socialMediaUrl);
+        $("#instagramUrl").html('Instagram: <a href="' + roverDetails.socialMediaUrl + '" target="_blank">' + roverDetails.socialMediaUrl + '</a>');
         console.log(roverDetails.adventureDetailsArray);
         console.log(typeof(roverDetails.adventureDetailsArray));
         
@@ -70,7 +91,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
           $("#adventures").html(currentValue + '<span class="adventure">' + adventure.activityName + "-" + adventure.preferencesString + '</span> ');
         }
 
-        $("#mileRangePreference").html("Match Range: " + roverDetails.mileRangePreferenceInMiles + " miles");
+        $("#mileRangePreference").html("Match Range " + roverDetails.mileRangePreferenceInMiles + " miles");
         // Set value of swipe buttons to be the user key of the current rover displayed. This will be used in SwipeLeft and SwipeRight functions
         $("#swipeLeftButton").val(rover[0]);
         $("#swipeRightButton").val(rover[0]);
@@ -81,6 +102,8 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   function ResetCardDeck() {
     index = 0;
     rovers = [];
+    likeLabel.style.opacity = 0;
+    skipLabel.style.opacity = 0;
 
     $.ajax({
      url:'./AjaxResponses/GetRovers.php',
@@ -107,29 +130,89 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   function Swipe() {
     // Increment index and show the next card. If at the end of fetched rovers, fetch rovers again. 
     index++;
+    $("#adventures").html("Adventures "); // Reset adventures element to prepare it for next rover
     if(index == rovers.length) {
       ResetCardDeck();
     }
     else {
       DisplayRoverDetails(rovers[index]);
     }
+    
   }
 
   function SwipeLeft() {
-    Swipe();
-    console.log("Swipe Left button value: " + $("#swipeLeftButton").val());
     // TODO: Make an ajax call to insert an interaction record with IsLiked = 1. OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
     // Insert code here
-  }
-  function SwipeRight() {
-    Swipe();
-    console.log("Swipe Right button value: " + $("#swipeRightButton").val());
+    var otherUserKey = $("#swipeLeftButton").val();
+    $.post('./AjaxResponses/Swipe.php', {otherUserKey: otherUserKey, isLiked: true});
+    console.log("Swipe Left button value: " + otherUserKey);
 
-    // TODO: Make an ajax call to insert an interaction record with IsLiked = 0 OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
-    // Insert code here
+    Swipe();
+  }
+
+  function SwipeRight() {
+    var otherUserKey = $("#swipeRightButton").val();
+    $.post('./AjaxResponses/Swipe.php', {otherUserKey: otherUserKey, isLiked: false});
+    console.log("Swipe Right button value: " + otherUserKey);
+
+    Swipe();
+  }
+
+
+
+  swipeCard.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+    swipeCard.classList.add("dragging");
+  });
+
+  swipeCard.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+    offsetX = currentX - startX;
+    swipeCard.style.transform = `translateX(${offsetX}px) rotate(${offsetX * 0.05}deg)`;
+    if (offsetX > 30) {
+      skipLabel.style.opacity = Math.min(offsetX / 100, 1);
+      likeLabel.style.opacity = 0;
+    } else if (offsetX < -30) {
+      likeLabel.style.opacity = Math.min(-offsetX / 100, 1);
+      skipLabel.style.opacity = 0;
+    } else {
+      likeLabel.style.opacity = 0;
+      skipLabel.style.opacity = 0;
+    }
+  });
+
+  swipeCard.addEventListener("touchend", () => {
+    isDragging = false;
+    swipeCard.classList.remove("dragging");
+    if (offsetX > 100) {
+      swipeCard.classList.add("animate");
+      swipeCard.style.transform = "translateX(100vw) rotate(10deg)";
+      setTimeout(() => {
+        SwipeRight();
+        resetCardPosition();
+      }, 400);
+    } else if (offsetX < -100) {
+      swipeCard.classList.add("animate");
+      swipeCard.style.transform = "translateX(-100vw) rotate(-10deg)";
+      setTimeout(() => {
+        SwipeLeft();
+        resetCardPosition();
+      }, 400);
+    } else {
+      swipeCard.classList.add("animate");
+      swipeCard.style.transform = "translateX(0) rotate(0)";
+      setTimeout(() => swipeCard.classList.remove("animate"), 400);
+    }
+    offsetX = 0;
+  });
+
+  function resetCardPosition() {
+    swipeCard.classList.remove("animate");
+    swipeCard.style.transform = "translateX(0) rotate(0)";
   }
 
 
 </script>
-</body>
-</html>
+<?php include("footer.php"); ?>
