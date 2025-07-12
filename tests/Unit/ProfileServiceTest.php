@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../../BusinessLogic/AllServices.php';
+require_once __DIR__ . '/../../BusinessLogic/Services/ProfileService.php';
+require_once __DIR__ . '/../../BusinessLogic/Services/AdventureService.php';
+require_once __DIR__ . '/../../BusinessLogic/Services/ProfileService.php';
 use PHPUnit\Framework\TestCase;
 class ProfileServiceTest extends TestCase{
 
@@ -18,7 +20,7 @@ class ProfileServiceTest extends TestCase{
         [assertFalse($userService->IsValidUser($userKey))]
     */
     public function verifyUserIsDeleted(){
-        $allServices = new AllServices();
+        $profileService = new ProfileService();
 
         // 1. create a user record across X tables (X is TBD)
         $profileService = $allServices->GetProfileService();
@@ -31,10 +33,6 @@ class ProfileServiceTest extends TestCase{
 
         // create test user record.
         $profileService->createNewUserProfile($userKey, $fullName, $bio, $socialMediaUrl, $mileRangeTypeKey);
-        
-        // NeedToTest: add user profilephoto
-        $s3ImageName = "test_user.jpg";
-        $profileService->UpdateProfilePictureUrl($userKey,$s3ImageName);
 
         //NeedToTest: add user adventure(s)
         $advenutreService = $allServices->GetAdventureService();
@@ -59,7 +57,7 @@ class ProfileServiceTest extends TestCase{
         $profileService->DeleteUser($userKey);
 
         // WIP 4. Verify that the user record(s) do not exits anymore 
-        assertFalse($userService->UserExists($userKey));
+        $this->assertFalse($userService->UserExists($userKey));
 
     }
 }
