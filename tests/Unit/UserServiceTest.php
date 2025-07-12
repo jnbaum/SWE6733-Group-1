@@ -13,7 +13,7 @@ class UserServiceTest extends TestCase
     /**
      * Test user validation method
      */
-    public function testCurrentValidUser()
+    public function testCurrentValidUser() //can a user be created and then log in successfully?
     {
         $da = new DataAccess();
         $userService = new UserService($da);
@@ -42,6 +42,30 @@ class UserServiceTest extends TestCase
         // any failure means a user is not recorded in the database
         $this->assertIsInt($userService->IsValidUser($username, $password));
     }
+
+    public function testCurrentInvalidUser() //can a current user log in with invalid credentials?
+    {
+        $da = new DataAccess();
+        $userService = new UserService($da);
+
+        $this->assertNull($userService->IsValidUser("fake@example.com", "wrongPassword"));
+    }
+
+    public function testNewInvalidUser() // duplicate new user creation triggers error
+    {
+        $da = new DataAccess();
+        $userService = new UserService($da);
+
+        $username = "faketestuser@email.com";
+        $password = "fakepassword";
+
+        $userService->CreateNewUser($username, $password);
+
+        $result = $userService->CreateNewUser($username, $password);
+
+        $this->assertNull($result);
+    }
+
 }
 
 ?>
