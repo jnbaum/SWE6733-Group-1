@@ -14,8 +14,32 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: rovalydb
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        
     steps:
     - uses: actions/checkout@v4
+    - name: Wait for MySQL
+      run: |
+          while ! mysqladmin ping -h 127.0.0.1 --silent; do
+            sleep 1
+          done
+      
+    - name: Import SQL file
+      run: |
+          mysql -h 127.0.0.1 -u root -proot rovalydb < rovalydb.sql
 
     - name: Cache Composer packages
       id: composer-cache
@@ -36,5 +60,5 @@ jobs:
       run: ./Packages/vendor/bin/phpunit
 
     - name: PHP Code Sniffer
-      run: vendor/bin/phpcs --standard=PSR12 src/
-
+    # verify files do/dont need to be sniffed
+      run: ./Packages/vendor/bin/phpcs --standard=PSR12 BusinessLogic/
