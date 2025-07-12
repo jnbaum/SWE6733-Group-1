@@ -43,7 +43,7 @@ $userDetails = $profileService->GetUserDetails($userKey);
             <img src="https://rovaly-assets.s3.us-east-2.amazonaws.com/Rovaly+Icons/Hiker.png" alt="Find a Rover" />
             <span>Find a Rover</span>
             </a>
-            <a href="matches" class="dash-btn wide">
+            <a href="matches.php" class="dash-btn wide">
             <img src="https://rovaly-assets.s3.us-east-2.amazonaws.com/Rovaly+Icons/Match.png" alt="Matches" />
             <span>View Your Matches</span>
             </a>

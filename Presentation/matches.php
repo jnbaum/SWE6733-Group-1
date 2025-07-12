@@ -9,16 +9,44 @@ include "matchComponent.php";
 
 $profileService = $allServices->GetProfileService();
 $adventureService = $allServices->GetAdventureService();
+$matchingService = $allServices->GetMatchingService();
 ?>
+
+<head>
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@9.0.0/css/mdb.min.css"
+    rel="stylesheet"
+    />
+
+   <link rel="stylesheet" href="../Presentation/Assets/styles/matches.css?v14">
+</head>
 
 <main>
     <h1>Matches</h1>
     <?php
-    $matchedUserKeys = [1, 2, 3, 4]; // TODO: Replace this with a call to MatchingService->GetMatches, which will return a list of user keys that the current user has matched with 
-    
+    $matchedUserKeys = $matchingService->GetMatches($currentUserKey); // TODO: Replace this with a call to MatchingService->GetMatches, which will return a list of user keys that the current user has matched with 
+
     $matchManager = new MatchesManager($adventureService, $profileService);
     // The GetMatchDetails method makes a database call each time it is called, i.e. each time the loop iterates.
     // Ideally, we would call bulk fetch queries (i.e. fetch info from all user keys in one query) in a real production app to avoid making multiple database calls inside a loop
+
+    $hideAttribution = false;
+    if(empty($matchedUserKeys)) {
+        echo "You haven't matched with any users yet! Both of you must swipe left on each other.";
+        $hideAttribution = true;
+    }
+
     foreach($matchedUserKeys as $matchedUserKey) {
         $matchDetails = $matchManager->GetMatchDetails($matchedUserKey);
         $profilePictureUrl = $matchDetails->GetProfilePictureUrl();
@@ -35,7 +63,7 @@ $adventureService = $allServices->GetAdventureService();
 </main>
 <footer>
     <!-- Do not remove this; it's legally required if we choose to use the animated icons -->
-    <a href="https://www.flaticon.com/free-animated-icons/conversation" title="conversation animated icons">Conversation animated icons created by Freepik - Flaticon</a>
+    <a id="attribution" href="https://www.flaticon.com/free-animated-icons/conversation" title="conversation animated icons">Conversation animated icons created by Freepik - Flaticon</a>
 </footer>
 <script>
     $(".chatBubble").on("click", function() {
@@ -55,5 +83,10 @@ $adventureService = $allServices->GetAdventureService();
            window.location.href = "./ChatRoom.php?chatRoomKey=" + chatRoomKey + "&otherUserKey=" + otherUserKey;
         });
     });
-        
+    
+    var hideAttribution = "<?php Print($hideAttribution); ?>"
+    if (hideAttribution) {
+        $("#attribution").hide();
+    }
+
 </script>

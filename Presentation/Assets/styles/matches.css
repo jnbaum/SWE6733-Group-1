@@ -1,0 +1,78 @@
+/* matches.css */
+
+h1 {
+    font-family: 'Norwester', sans-serif; 
+    font-size: 2.5rem; 
+    font-weight: bold; 
+    color: #333; 
+    margin: 5px; 
+    text-decoration: underline; 
+}
+
+.profile-photo {
+    width: 250px; 
+    height: 350px; 
+    overflow: hidden; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+}
+
+.polaroid {
+    background-color: #fff; 
+    padding: 5px; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.polaroid img {
+    width: 100%; 
+    height: 100%; 
+    display: block; 
+}
+
+.match-container {
+    display: flex; 
+    align-items: flex-start; 
+    margin-bottom: 20px; 
+}
+
+.match-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.match-details p {
+    margin: 5px 0; 
+    font-size: 1rem; 
+ 
+}
+
+.match-details p.match-name { 
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 1.5rem; 
+}
+
+.detail-label {
+    font-weight: bold;
+}
+
+.chatBubble {
+    width: 70px;
+    height: 70px;
+    margin-top: 10px;
+}
+
+.chatBubble:hover {
+    cursor: pointer;
+}
+
+.adventure-type {
+    margin-right: 20px; 
+    white-space: nowrap;
+}
