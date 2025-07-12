@@ -177,40 +177,160 @@ class ProfileService{
         $this->da->ExecuteQuery("DELETE FROM adventurepreference WHERE AdventureKey IN (" . $adventureKeysString . ")", QueryType::DELETE);
         $this->da->ExecuteQuery("DELETE FROM adventure WHERE AdventureKey IN (" . $adventureKeysString . ")", QueryType::DELETE);
     }
+
     // Delete from profilephoto
-    public function DeleteUserProfilePicture($userKey){
-        $this->da->ExecuteQuery("DELETE FROM profilephoto WHERE profilephoto.UserKey =" . $userKey, QueryType::DELETE);
-        //also delete picture from DB???
+    public function DeleteUserProfilePicture($userKey): bool{
+        try {
+            // Check if the userKey exists
+            $checkQuery = "SELECT COUNT(*) AS count FROM profilephoto WHERE UserKey = " . $userKey;
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+
+            if ($result[0]["count"] > 0) {
+                // If it exists, delete the user
+                $deleteQuery = "DELETE FROM profilephoto WHERE profilephoto.UserKey =" . $userKey;
+                $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
+
+                return true; // Indicate success
+            } else {
+                return false; // UserKey not found
+            }
+        } catch (Exception $e) {
+            error_log("Error deleting user profilephoto with UserKey $userKey: " . $e->getMessage());
+            return false; // Indicate failure
+        }
+        //also delete picture from s3???
     }
 
     // Delete from socialmedialink
-     public function DeleteUserSocialMediaLinkUrl($userKey){
-        $this->da->ExecuteQuery("DELETE FROM socialmedialink WHERE socialmedialink.UserKey =" . $userKey, QueryType::DELETE);
+     public function DeleteUserSocialMediaLinkUrl($userKey): bool{
+        try {
+            // Check if the userKey exists
+            $checkQuery = "SELECT COUNT(*) AS count FROM socialmedialink WHERE UserKey = " . $userKey;
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+
+            if ($result[0]["count"] > 0) {
+                // If it exists, delete the user
+                $deleteQuery = "DELETE FROM socialmedialink WHERE socialmedialink.UserKey =" . $userKey;
+                $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
+
+                return true; // Indicate success
+            } else {
+                return false; // UserKey not found
+            }
+        } catch (Exception $e) {
+            error_log("Error deleting user socialmedialink with UserKey $userKey: " . $e->getMessage());
+            return false; // Indicate failure
+        }
     }
 
     // Delete milerange Link
-     public function DeleteUserMileRangePreference($userKey){
-        $this->da->ExecuteQuery("DELETE FROM milerange WHERE milerange.UserKey =" . $userKey, QueryType::DELETE);
+     public function DeleteUserMileRangePreference($userKey): bool{
+        try {
+            // Check if the userKey exists
+            $checkQuery = "SELECT COUNT(*) AS count FROM milerange WHERE UserKey = " . $userKey;
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+
+            if ($result[0]["count"] > 0) {
+                // If it exists, delete the user
+                $deleteQuery = "DELETE FROM milerange WHERE milerange.UserKey =" . $userKey;
+                $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
+
+                return true; // Indicate success
+            } else {
+                return false; // UserKey not found
+            }
+        } catch (Exception $e) {
+            error_log("Error deleting user milerange with UserKey $userKey: " . $e->getMessage());
+            return false; // Indicate failure
+        }
     }
 
     // Delete messages
-     public function DeleteUserMessages($userKey){
-        $this->da->ExecuteQuery("DELETE FROM message WHERE message.SendingUserKey =" . $userKey . " OR message.RecipientUserKey =" . $userKey, QueryType::DELETE);
+     public function DeleteUserMessages($userKey): bool{
+        try {
+            // Check if the userKey exists
+            $checkQuery = "SELECT COUNT(*) AS count FROM message WHERE message.SendingUserKey = " . $userKey . " OR message.RecipientUserKey= ". $userKey;
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+
+            if ($result[0]["count"] > 0) {
+                // If it exists, delete the user
+                $deleteQuery = "DELETE FROM message WHERE message.SendingUserKey =" . $userKey . " OR message.RecipientUserKey =" . $userKey;
+                $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
+
+                return true; // Indicate success
+            } else {
+                return false; // UserKey not found
+            }
+        } catch (Exception $e) {
+            error_log("Error deleting user message(s) with UserKey $userKey: " . $e->getMessage());
+            return false; // Indicate failure
+        }
     }
 
     // Delete chatroom
-     public function DeleteUserChatrooms($userKey){
-        $this->da->ExecuteQuery("DELETE FROM chatroon WHERE chatroom.FirstUserKey =" . $userKey . " OR chatroom.SecondUserKey =" . $userKey, QueryType::DELETE);
+     public function DeleteUserChatrooms($userKey): bool{
+        try {
+            // Check if the userKey exists
+            $checkQuery = "SELECT COUNT(*) AS count FROM chatroom WHERE chatroom.FirstUserKey = " . $userKey . " OR chatroom.SecondUserKey= ". $userKey;
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+
+            if ($result[0]["count"] > 0) {
+                // If it exists, delete the user
+                $deleteQuery = "DELETE FROM chatroom WHERE chatroom.FirstUserKey =" . $userKey . " OR chatroom.SecondUserKey =" . $userKey;
+                $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
+
+                return true; // Indicate success
+            } else {
+                return false; // UserKey not found
+            }
+        } catch (Exception $e) {
+            error_log("Error deleting user chatroom(s) with UserKey $userKey: " . $e->getMessage());
+            return false; // Indicate failure
+        }
      }
     
      // Delete interaction
-     public function DeleteUserInteractions($userKey){
-        $this->da->ExecuteQuery("DELETE FROM interaction WHERE interaction.ActingUserKey =" . $userKey . " OR interaction.OtherUserKey =" . $userKey, QueryType::DELETE);
+     public function DeleteUserInteractions($userKey): bool{
+        try {
+            // Check if the userKey exists
+            $checkQuery = "SELECT COUNT(*) AS count FROM interaction WHERE interaction.ActingUserKey = " . $userKey . " OR interaction.OtherUserKey= ". $userKey;
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+
+            if ($result[0]["count"] > 0) {
+                // If it exists, delete the user
+                $deleteQuery = "DELETE FROM interaction WHERE interaction.ActingUserKey = " . $userKey . " OR interaction.OtherUserKey= ". $userKey;
+                $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
+
+                return true; // Indicate success
+            } else {
+                return false; // UserKey not found
+            }
+        } catch (Exception $e) {
+            error_log("Error deleting user interaction(s) with UserKey $userKey: " . $e->getMessage());
+            return false; // Indicate failure
+        }
      }
 
      // Delete interaction
-     public function DeleteUser($userKey){
-        $this->da->ExecuteQuery("DELETE FROM user WHERE user.UserKey =" . $userKey , QueryType::DELETE);
+     public function DeleteUser($userKey): bool{
+        try {
+            // Check if the userKey exists
+            $checkQuery = "SELECT COUNT(*) AS count FROM user WHERE user.UserKey =" . $userKey;
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+
+            if ($result[0]["count"] > 0) {
+                // If it exists, delete the user
+                $deleteQuery = "DELETE FROM user WHERE user.UserKey =" . $userKey;
+                $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
+
+                return true; // Indicate success
+            } else {
+                return false; // UserKey not found
+            }
+        } catch (Exception $e) {
+            error_log("Error deleting user with UserKey $userKey: " . $e->getMessage());
+            return false; // Indicate failure
+        }
      }
 
     // this function populates profile details for an existing user.
