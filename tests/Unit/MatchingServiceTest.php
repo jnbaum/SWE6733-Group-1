@@ -50,5 +50,19 @@ class MatchingServiceTest extends TestCase
         $this->assertEmpty($roverUserKeys);
     }
     
+/************************************************* TESTING *********************************************************************/
+    public function testGetPotentialMatchesInvalidUser()
+    {
+        $da = new DataAccess();
+        $matchingService = new MatchingService($da);
+
+        $invalidUserKey = -1; // a user key that does not exist
+        $roverUserKeys = $matchingService->GetPotentialMatches($invalidUserKey, 5, 0);
+
+        $this->assertIsArray($roverUserKeys);
+        $this->assertEmpty($roverUserKeys);
+    }// testGetPotentialMatchesInvalidUser
+/************************************************* TESTING *********************************************************************/
+
 }
 ?>

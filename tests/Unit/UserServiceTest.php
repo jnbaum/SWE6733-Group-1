@@ -42,6 +42,38 @@ class UserServiceTest extends TestCase
         // any failure means a user is not recorded in the database
         $this->assertIsInt($userService->IsValidUser($username, $password));
     }
+
+/************************************************* TESTING *********************************************************************/
+    public function testInvalidCredentials()
+    {
+        $da = new DataAccess();
+        $userService = new UserService($da);
+
+        $invalidUsername = "nonexistent@example.com";
+        $invalidPassword = "wrongpassword";
+
+        // IsValidUser should return null or false if the user does not exist or credentials are wrong.
+        $result = $userService->IsValidUser($invalidUsername, $invalidPassword);
+
+        $this->assertNull($result, "IsValidUser should return null for invalid credentials.");
+    }
+
+
+    public function testNonExistentUser()
+    {
+        $da = new DataAccess();
+        $userService = new UserService($da);
+
+        // password no matter if the user doesn't exist
+        $nonExistentUsername = "definitely_not_a_user@example.com";
+        $anyPassword = "anypassword";
+
+        $result = $userService->IsValidUser($nonExistentUsername, $anyPassword);
+
+        // null because the user does not exist in the DB
+        $this->assertNull($result, "IsValidUser should return null for a non-existent user.");
+    }
+/*************************************************** TESTING ******************************************************************/
 }
 
 ?>
