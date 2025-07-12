@@ -39,7 +39,7 @@ jobs:
       
     - name: Import SQL file
       run: |
-          mysql -h 127.0.0.1 -u root -proot rovalydb < rovalydb.sql
+          mysql -h 127.0.0.1 -u root -proot rovalydb < rovalydbAutoIncrement.sql
 
     - name: Cache Composer packages
       id: composer-cache
