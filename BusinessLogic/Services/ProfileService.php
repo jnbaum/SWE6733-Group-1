@@ -203,6 +203,15 @@ class ProfileService{
         $this->da->ExecuteQuery("DELETE FROM chatroon WHERE chatroom.FirstUserKey =" . $userKey . " OR chatroom.SecondUserKey =" . $userKey, QueryType::DELETE);
      }
     
+     // Delete interaction
+     public function DeleteUserInteractions($userKey){
+        $this->da->ExecuteQuery("DELETE FROM interaction WHERE interaction.ActingUserKey =" . $userKey . " OR interaction.OtherUserKey =" . $userKey, QueryType::DELETE);
+     }
+
+     // Delete interaction
+     public function DeleteUser($userKey){
+        $this->da->ExecuteQuery("DELETE FROM user WHERE user.UserKey =" . $userKey , QueryType::DELETE);
+     }
 
     // this function populates profile details for an existing user.
     // accepts the userKey obtained from UserService.php after user is created.
@@ -235,7 +244,10 @@ class ProfileService{
         }
     }
 
-    function DeleteUser($userKey){
+    function DeleteUserProfile($userKey): bool{
+        global $allServices;
+        $profileService = $allServices->GetProfileService();
+
         try {
             //delete from tables outside of `user` table
             //delete profile picture
@@ -248,16 +260,23 @@ class ProfileService{
             $profileService->DeleteUserSocialMediaLinkUrl($userKey);
            
             //delete messages
-           
+            $profileService->DeleteUserMessages($userKey);
+
             //delete chatroom
+            $profileService->DeleteUserChatrooms($userKey);
+
+            //delete interactions
+            $profileService->DeleteUserInteractions($userKey);
 
             //delete on `user` table
-
+            $profileService->DeleteUser($userKey);
+        
         } catch (Exception $e) {
             // handle errors during profile population
             error_log("Error deleting user profile for UserKey $userKey: " . $e->getMessage());
-            return 0; // failure
+            return false; // failure
         }
+        return true;
     }
 
 }
