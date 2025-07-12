@@ -2,7 +2,10 @@
 
 require_once __DIR__ . '/../../BusinessLogic/Services/ProfileService.php';
 require_once __DIR__ . '/../../BusinessLogic/Services/AdventureService.php';
-require_once __DIR__ . '/../../BusinessLogic/Services/ProfileService.php';
+require_once __DIR__ . '/../../BusinessLogic/Services/UserService.php';
+require_once(__DIR__ . "/../../DataAccess/DataAccess.php"); 
+require_once(__DIR__ . "/../../Models/QueryType.php"); 
+require_once(__DIR__ . "/../QueryHelper.php"); 
 use PHPUnit\Framework\TestCase;
 class ProfileServiceTest extends TestCase{
 
@@ -21,10 +24,10 @@ class ProfileServiceTest extends TestCase{
     */
     public function verifyUserIsDeleted(){
         $profileService = new ProfileService();
+        $advenutreService = new AdventureService();
+        $userService = new UserService();
 
         // 1. create a user record across X tables (X is TBD)
-        $profileService = $allServices->GetProfileService();
-
         $userKey = 999;
         $fullName = "Test User";
         $bio = "This is my test user bio.";
@@ -34,30 +37,25 @@ class ProfileServiceTest extends TestCase{
         // create test user record.
         $profileService->createNewUserProfile($userKey, $fullName, $bio, $socialMediaUrl, $mileRangeTypeKey);
 
-        //NeedToTest: add user adventure(s)
-        $advenutreService = $allServices->GetAdventureService();
+        // create adventure, chatroom, messages, interactions for user
 
-        $adventureTypeKey = 2;
-        // get adventure name
-        $adventure = new Adventure($adventureTypeKey, $userKey);
+        // WIP 2. Verify that the user record exists based on userKey; select record from DB to return FullName for the given userKey
+        $query = "SELECT FullName FROM user WHERE UserKey=" . QueryHelper::SurroundWithQuotes($userKey);
+        $this->assertEquals($query, $fullName); // should return true
 
-        // add adventure to databse
-        $adventureKey = $advenutreService->CreateAdventure($adventure);
-        
-        //add preferences to new adventure
-        $preferenceKeys = [2 => 2]; // not sure if this is the write varaiable assignment
-        
-        // add preferences to Adventure for User
-        $advenutreService->AddPreferencestoAdventure($adventureKey, $preferenceKeys);
-
-        // WIP 2. Verify that the user record exists
-        $userService = $allServices->GetUserService();
 
         // WIP 3. Perform deletion function call(s)
-        $profileService->DeleteUser($userKey);
+        $profileService->DeleteUserProfile($userKey);
 
+        
         // WIP 4. Verify that the user record(s) do not exits anymore 
-        $this->assertFalse($userService->UserExists($userKey));
+        
+        // assert AdventureDetailsArray 
+        $this->assertEmpty($advenutreService->GetAdventureDetailsArray($userKey));
+
+        // assert User
+        $query = "SELECT FullName FROM user WHERE UserKey=" . QueryHelper::SurroundWithQuotes($userKey);
+        $this->assertNotEquals($query, $fullName);
 
     }
 }
