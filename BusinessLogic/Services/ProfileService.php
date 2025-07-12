@@ -183,9 +183,9 @@ class ProfileService{
         try {
             // Check if the userKey exists
             $checkQuery = "SELECT COUNT(*) AS count FROM profilephoto WHERE UserKey = " . $userKey;
-            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT)->fetchAssociative();
 
-            if ($result[0]["count"] > 0) {
+            if ($result && $result["count"] > 0) {
                 // If it exists, delete the user
                 $deleteQuery = "DELETE FROM profilephoto WHERE profilephoto.UserKey =" . $userKey;
                 $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
@@ -206,9 +206,9 @@ class ProfileService{
         try {
             // Check if the userKey exists
             $checkQuery = "SELECT COUNT(*) AS count FROM socialmedialink WHERE UserKey = " . $userKey;
-            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT)->fetchAssociative();
 
-            if ($result[0]["count"] > 0) {
+            if ($result && $result["count"] > 0) {
                 // If it exists, delete the user
                 $deleteQuery = "DELETE FROM socialmedialink WHERE socialmedialink.UserKey =" . $userKey;
                 $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
@@ -228,9 +228,9 @@ class ProfileService{
         try {
             // Check if the userKey exists
             $checkQuery = "SELECT COUNT(*) AS count FROM milerange WHERE UserKey = " . $userKey;
-            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT)->fetchAssociative();
 
-            if ($result[0]["count"] > 0) {
+            if ($result && $result["count"] > 0) {
                 // If it exists, delete the user
                 $deleteQuery = "DELETE FROM milerange WHERE milerange.UserKey =" . $userKey;
                 $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
@@ -250,9 +250,9 @@ class ProfileService{
         try {
             // Check if the userKey exists
             $checkQuery = "SELECT COUNT(*) AS count FROM message WHERE message.SendingUserKey = " . $userKey . " OR message.RecipientUserKey= ". $userKey;
-            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT)->fetchAssociative();
 
-            if ($result[0]["count"] > 0) {
+            if ($result && $result["count"] > 0) {
                 // If it exists, delete the user
                 $deleteQuery = "DELETE FROM message WHERE message.SendingUserKey =" . $userKey . " OR message.RecipientUserKey =" . $userKey;
                 $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
@@ -272,9 +272,9 @@ class ProfileService{
         try {
             // Check if the userKey exists
             $checkQuery = "SELECT COUNT(*) AS count FROM chatroom WHERE chatroom.FirstUserKey = " . $userKey . " OR chatroom.SecondUserKey= ". $userKey;
-            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT)->fetchAssociative();
 
-            if ($result[0]["count"] > 0) {
+            if ($result && $result["count"] > 0) {
                 // If it exists, delete the user
                 $deleteQuery = "DELETE FROM chatroom WHERE chatroom.FirstUserKey =" . $userKey . " OR chatroom.SecondUserKey =" . $userKey;
                 $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
@@ -294,9 +294,9 @@ class ProfileService{
         try {
             // Check if the userKey exists
             $checkQuery = "SELECT COUNT(*) AS count FROM interaction WHERE interaction.ActingUserKey = " . $userKey . " OR interaction.OtherUserKey= ". $userKey;
-            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT)->fetchAssociative();
 
-            if ($result[0]["count"] > 0) {
+            if ($result && $result["count"] > 0) {
                 // If it exists, delete the user
                 $deleteQuery = "DELETE FROM interaction WHERE interaction.ActingUserKey = " . $userKey . " OR interaction.OtherUserKey= ". $userKey;
                 $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
@@ -316,9 +316,9 @@ class ProfileService{
         try {
             // Check if the userKey exists
             $checkQuery = "SELECT COUNT(*) AS count FROM user WHERE user.UserKey =" . $userKey;
-            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT);
+            $result = $this->da->ExecuteQuery($checkQuery, QueryType::SELECT)->fetchAssociative();
 
-            if ($result[0]["count"] > 0) {
+            if ($result && $result["count"] > 0) {
                 // If it exists, delete the user
                 $deleteQuery = "DELETE FROM user WHERE user.UserKey =" . $userKey;
                 $this->da->ExecuteQuery($deleteQuery, QueryType::DELETE);
