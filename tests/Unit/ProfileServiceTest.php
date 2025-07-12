@@ -41,6 +41,12 @@ class ProfileServiceTest extends TestCase{
         $profileService->createNewUserProfile($userKey, $fullName, $bio, $socialMediaUrl, $mileRangeTypeKey);
 
         // create adventure for user
+        $adventureTypeKey = 2;
+        $adventure = new Adventure( $adventureTypeKey, $userKey);
+        $adventureKey = $adventureService->CreateAdventure($adventure);
+
+        $preferenceKeys = [2,2];
+        $adventureService->AddPreferencesToAdventure($adventureKey, $preferenceKeys);
 
         // create chatroom and messages for user
         $content = "Hello";
