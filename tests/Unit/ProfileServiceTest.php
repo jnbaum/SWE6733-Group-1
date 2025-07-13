@@ -83,9 +83,7 @@ class ProfileServiceTest extends TestCase{
         $isLIked = true;
         $matchingService->RecordInteraction($userKey1, $userKey2, $isLIked);
 
-        
-        // WIP 2. Verify that the user data do not exits anymore 
-    
+        // 2. Verify that the user data do not exits anymore     
         $adventureDetailsArray = [];
 
         // delete user 1
@@ -100,8 +98,6 @@ class ProfileServiceTest extends TestCase{
         $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey1);
         $this->assertEmpty($adventureDetailsArray);
         $this->assertTrue($profileService->DeleteUser($userKey1));
-        
-
 
         // delete user 2
         $profileService->DeleteUserProfilePicture($userKey2);
@@ -115,5 +111,27 @@ class ProfileServiceTest extends TestCase{
         $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey2);
         $this->assertEmpty($adventureDetailsArray);
         $this->assertTrue($profileService->DeleteUser($userKey2));
+    }
+
+    public function testDeletionOfUserFails(){
+        // create new user
+        $da = new DataAccess();
+        $profileService = new ProfileService($da);
+        $userService = new UserService($da);
+
+
+        $userName = "test@test.com";
+        $password = "test";
+        $userKey = $userService->CreateUser($userName, $password);
+        $fullName = "Test User";
+        $bio = "This is my test user bio.";
+        $socialMediaUrl = "www.thisisaurl.com";
+
+        $profileService->UpdateUserInfo($userKey, $fullName, $bio);
+        $profileService->AddSocialMediaLink($userKey, $socialMediaUrl);
+        
+        $this->assertFalse($profileService->DeleteUser($userKey));
+        $this->assertTrue($profileService->DeleteUserSocialMediaLinkUrl($userKey));
+        
     }
 }
