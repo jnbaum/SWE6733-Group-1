@@ -115,11 +115,5 @@ class ProfileServiceTest extends TestCase{
         $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey2);
         $this->assertEmpty($adventureDetailsArray);
         $this->assertTrue($profileService->DeleteUser($userKey2));
-    
-
-        
-        
-        
-
     }
 }
