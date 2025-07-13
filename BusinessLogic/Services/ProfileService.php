@@ -357,47 +357,43 @@ class ProfileService{
             return 0; // failure
         }
     }
-    function DeleteUserProfile(
+     function DeleteUserProfile(
         int $userKey, // added userKey as parameter
-        string $fullName,
-        string $bio,
-        string $socialMediaUrl,
-        int $mileRangeTypeKey
-    ): int {
+    ): bool {
 
         global $allServices;
         $profileService = $allServices->GetProfileService();
 
         try {
             // delete profile photo
-            $profileService->DeleteUserProfilePicture($userKey1);
+            $profileService->DeleteUserProfilePicture($userKey);
 
             // delete mile range preference
-            $profileService->DeleteUserMileRangePreference($userKey1);
+            $profileService->DeleteUserMileRangePreference($userKey);
             
             // delete social media link
-            $profileService->DeleteUserSocialMediaLinkUrl($userKey1);
+            $profileService->DeleteUserSocialMediaLinkUrl($userKey);
             
             // delete messages
-            $profileService->DeleteUserMessages($userKey1);
+            $profileService->DeleteUserMessages($userKey);
             
             // delete chatrooms
-            $profileService->DeleteUserChatrooms($userKey1);
+            $profileService->DeleteUserChatrooms($userKey);
 
             //delete interatcions
-            $profileService->DeleteUserInteractions($userKey1);
+            $profileService->DeleteUserInteractions($userKey);
 
             //delete advenutres
-            $profileService->DeleteAdventures($userKey1);
+            $profileService->DeleteAdventures($userKey);
 
             //delete user
-            $profileService->DeleteUser($userKey1);
+            $profileService->DeleteUser($userKey);
 
-            return $userKey; // return userKey of the profile that was just updated
+            return true; // return true that the profile that was just deleted
         } catch (Exception $e) {
-            // handle errors during profile population
+            // handle errors during profile deletion
             error_log("Error deleting user profile for UserKey $userKey: " . $e->getMessage());
-            return 0; // failure
+            return false; // failure
         }
     }
 
