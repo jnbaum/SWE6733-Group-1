@@ -95,10 +95,10 @@ class ProfileServiceTest extends TestCase{
         $profileService->DeleteUserMessages($userKey1);
         $profileService->DeleteUserChatrooms($userKey1);
         $profileService->DeleteUserInteractions($userKey1);
-        // // assert AdventureDetailsArray  is empty
+        $profileService->DeleteAdventures($userKey1);
+        // assert AdventureDetailsArray  is empty
         $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey1);
         $this->assertEmpty($adventureDetailsArray);
-        //$profileService->DeleteAdventures($userKey1);
         $this->assertTrue($profileService->DeleteUser($userKey1));
         
 
@@ -110,10 +110,10 @@ class ProfileServiceTest extends TestCase{
         $profileService->DeleteUserMessages($userKey2);
         $profileService->DeleteUserChatrooms($userKey2);
         $profileService->DeleteUserInteractions($userKey2);
+        $profileService->DeleteAdventures($userKey2);
         // // assert AdventureDetailsArray  is empty
         $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey2);
         $this->assertEmpty($adventureDetailsArray);
-        //$profileService->DeleteAdventures($userKey2);
         $this->assertTrue($profileService->DeleteUser($userKey2));
     
 
