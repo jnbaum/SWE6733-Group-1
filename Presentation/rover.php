@@ -34,7 +34,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
         <div id="skipLabel" class="swipe-label skip-label"><i class="fas fa-xmark"></i></div>
       <div id="roverContents" class="profile-view-row">
         <div class="profile-left-column">
-          <div class="profile-photo">
+          <div class="profile-photo mx-auto">
             <div class="polaroid">
               <img id="profilePicture" src="" alt="Profile Photo"/>
             </div>
@@ -47,8 +47,8 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
           <p id="adventures">Adventures </p> 
           <p id="mileRangePreference" class="match-range-value"></p>
           <div class="profile-buttons">
-            <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">+ Like</button> 
-            <button class="btn btn-success" id="swipeRightButton" value="" onclick="SwipeRight()">Skip →</button>
+            <button class="btn btn-brand" id="swipeLeftButton" value="" onclick="SwipeLeft()">+ Like</button> 
+            <button class="btn btn-brand" id="swipeRightButton" value="" onclick="SwipeRight()">Skip →</button>
           </div>
         </div>
       </div> <!-- id roverContents -->
@@ -215,5 +215,4 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
 
 
 </script>
-</body>
-</html>
+<?php include("footer.php"); ?>

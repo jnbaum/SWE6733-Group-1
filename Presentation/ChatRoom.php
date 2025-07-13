@@ -1,28 +1,11 @@
 <?php 
     session_start();
     $currentUserKey = $_SESSION["user_id"];
-?>
-<html>
-<head>
-    <!-- Font Awesome -->
-    <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-    rel="stylesheet"
-    />
-    <!-- MDB -->
-    <link
-    href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@9.0.0/css/mdb.min.css"
-    rel="stylesheet"
-    />
-
-   <link rel="stylesheet" href="../Presentation/Assets/styles/ChatRoom.css?v14">
-</head>
-<?php
+    $bodyClass = 'chatroom';
+    $pageStyles = '
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@9.0.0/css/mdb.min.css">
+    <link rel="stylesheet" href="Assets/styles/ChatRoom.css?v14">
+    ';
     include("head.php");
     include("header.php");
     require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
@@ -30,73 +13,80 @@
     $chatRoomKey = $_GET["chatRoomKey"]; // Replace with $_GET["chatRoomKey"] when each link to chat room in chat room selection list has ?chatRoomKey=... appended to it 
     $otherUserKey = $_GET["otherUserKey"];
     $otherUserDetails = $profileService->GetUserDetails($otherUserKey);
-?>
-<body class="main">
-    <h1>Chat with <?php echo $otherUserDetails->GetFullName()?></h1>
-    <div class="chatContainer">
-        <div class="messagesSectionWrapper">
-        <div id="messagesSection" class="messagesSection">
-        </div>
-        </div>
-        <?php $actionUrl = "../BusinessLogic/Actions/SendMessage.php?chatRoomKey=" . $chatRoomKey ?>
-        <form action=<?php echo $actionUrl?> class="sendMessageForm">
-            <input id="sendMessageInput" class="sendMessageInput" type="text">
-            <button class="btn btn-info sendMessageButton" onclick="sendMessage()" type="button">Send</button> 
-        </form>
-    </div>
-    
-<!-- MDB -->
-<script
-  type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@9.0.0/js/mdb.umd.min.js"
-></script>
+    $profilePhotoUrl = $profileService->GetProfilePictureUrl($otherUserKey);
 
-<script>
-    var messagesSection = document.getElementById("messagesSection");
-    function scrollToBottom() {
+  
+    $pageScripts = '
+    <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@9.0.0/js/mdb.umd.min.js"></script>
+    <script>
+        const messagesSection = document.getElementById("messagesSection");
+        const currentUserKey = ' . json_encode($currentUserKey) . ';
+        const otherUserKey = ' . json_encode($otherUserKey) . ';
+        const chatRoomKey = ' . json_encode($chatRoomKey) . ';
+
+        function scrollToBottom() {
         messagesSection.scrollTop = messagesSection.scrollHeight;
-    }
-
-    // Load the content inside MessagesSection.php into the messagesSection element.
-    // Putting this in its own method will allow us to reload this element's content every 5 seconds (see below)
-    function loadMessages() {
-        $("#messagesSection").load("../Presentation/AjaxResponses/MessagesSection.php?chatRoomKey=" + <?php echo $chatRoomKey ?>);  
-    }
-
-    function reloadMessagesSection() {
-        loadMessages();
-        scrollToBottom();
-    }
-
-    function sendMessage() {
-        var content = $("#sendMessageInput").val();
-        var data = {
-            content: content,
-            sendingUserKey: <?php echo $currentUserKey?>, // TODO: Replace with php echo currentUserKey
-            recipientUserKey: <?php echo $otherUserKey?>, // TODO: Replace with php echo user key of person in chat room that isn't current user
-            chatRoomKey: <?php echo $chatRoomKey ?>
         }
 
-        var json = JSON.stringify(data); // Akhan's answer on https://stackoverflow.com/questions/10955017/sending-json-to-php-using-ajax
+        function loadMessages() {
+        $("#messagesSection").load("AjaxResponses/MessagesSection.php?chatRoomKey=" + chatRoomKey);
+        }
 
-        // Execute the code inside SendMessage.php, sending message data to it. On success, reload the page's messages (which will include the newly inserted message)
-        $.post("../BusinessLogic/Actions/SendMessage.php", {messageData: json}, function() {
+        function reloadMessagesSection() {
+        loadMessages();
+        scrollToBottom();
+        }
+
+        function sendMessage() {
+        const content = $("#sendMessageInput").val();
+        if (content.trim() === "") return;
+
+        const data = {
+            content: content,
+            sendingUserKey: currentUserKey,
+            recipientUserKey: otherUserKey,
+            chatRoomKey: chatRoomKey
+        };
+
+        $.post("../BusinessLogic/Actions/SendMessage.php", { messageData: JSON.stringify(data) }, function() {
             reloadMessagesSection();
-        })
+        });
 
-        // Clear message input box
         $("#sendMessageInput").val("");
-    }
-    
-    // Start by loading messsages on page load, and then continue reloading them every 5 seconds to detect incoming messages from other user
-    loadMessages();
-    setInterval(function(){
-        loadMessages() // this will run after every 5 seconds
-    }, 5000);
-    
-    
-</script>
-</body>
+        }
+
+        loadMessages();
+        setInterval(loadMessages, 5000);
+    </script>
+    ';
+?>
 
 
-</html>
+<main class="profile-container">
+    <h2 class="profile-section-heading">Chat with <?= htmlspecialchars($otherUserDetails->GetFullName()) ?></h2>
+    <div class="profile-view-row">
+    <div class="profile-left-column">
+        <div class="profile-photo mt-5 mx-auto">
+            <div class="polaroid">
+            <img src="<?= htmlspecialchars($profilePhotoUrl ?? '/SWE6733-Group-1/Presentation/Assets/images/default.jpg') ?>" alt="Profile photo of <?= htmlspecialchars($otherUserDetails->GetFullName()) ?>">
+            </div>
+        </div>
+    </div>
+  <div class="profile-right-column">
+    <div class="chatContainer">
+      <div class="messagesSectionWrapper">
+        <div id="messagesSection" class="messagesSection"></div>
+      </div>
+        <?php $actionUrl = "../BusinessLogic/Actions/SendMessage.php?chatRoomKey=" . $chatRoomKey ?>
+        <form action="<?php echo $actionUrl?>" class="sendMessageForm">
+            <input id="sendMessageInput" class="sendMessageInput" type="text">
+            <button class="btn btn-primary sendMessageButton" onclick="sendMessage()" type="button">Send</button> 
+        </form>
+    </div>
+    </div>
+    </div>
+</main>
+
+
+<?php include("footer.php"); ?>
+

@@ -1,33 +1,17 @@
 <?php
 session_start();
 $currentUserKey = $_SESSION["user_id"];
+$bodyClass = 'chats';
 include("head.php");
 include("header.php");
 require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
+
 ?>
 
-<head>
-    <!-- Font Awesome -->
-    <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-    rel="stylesheet"
-    />
-    <!-- MDB -->
-    <link
-    href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@9.0.0/css/mdb.min.css"
-    rel="stylesheet"
-    />
 
-   <link rel="stylesheet" href="../Presentation/Assets/styles/chats.css?v14">
-</head>
 
-<main>
-    <h1>Chats</h1>
+<main class="profile-container">
+<h2 class="profile-section-heading">Chats</h2>
     <?php
     $messageService = $allServices->GetMessageService();
     $profileService = $allServices->GetProfileService();
@@ -64,7 +48,7 @@ require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
                 echo '</div>'; // end message-time-row
                 
                 // open chat link
-                echo '<a href="ChatRoom.php?chatRoomKey=' . $chatRoomKey . '&otherUserKey=' . $otherUserKey .'" class="open-chat-link">Open Chat</a>';
+                echo '<a href="ChatRoom.php?chatRoomKey=' . $chatRoomKey . '&otherUserKey=' . $otherUserKey .'" class="btn-brand w-auto align-self-start">Open Chat</a>';
             echo '</div>'; // end chat-details
 
         echo '</div>'; // end chat-entry-container
@@ -73,3 +57,4 @@ require_once(__DIR__ . "/../BusinessLogic/AllServices.php");
     ?>
         
 </main>
+<?php include("footer.php"); ?>
