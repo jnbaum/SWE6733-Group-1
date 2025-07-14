@@ -32,20 +32,37 @@ $mileRange = $profileService->GetMileRangePreference($userKey);
 $adventureDetailsArray = $adventureService->GetAdventureDetailsArray($userKey);
 $profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+
+  if ($profileService->DeleteUserProfile($userKey)) {
+      // Destroy session and redirect to homepage or goodbye page
+      session_destroy();
+      header("Location: index.php"); 
+      exit();
+  } else {
+      echo "<p style='color:red;'>Error deleting your profile. Please try again.</p>";
+  }
+}
 
 
 ?>
 
 <main class="profile-container">
-  <h2 class="profile-section-heading">PROFILE</h2>
+  <h2 class="profile-section-heading">Profile</h2>
   <div class="profile-view-row">
     <div class="profile-left-column">
       <div class="profile-photo">
-        <div class="polaroid">
+        <div class="polaroid mx-auto">
           <img  src="<?php echo htmlspecialchars($profilePhotoUrl ?? 'default.jpg'); ?>" alt="Profile Photo" />
         </div>
       </div>
+      <div class="text-center">
+        <form method="POST" onsubmit="return confirm('Are you sure you want to delete your profile? This action cannot be undone.');">
+          <button type="submit" name="delete" class="btn btn-brand mt-5">Delete Profile</button>
+        </form>
+      </div>
     </div>
+    
     <div class="profile-right-column">
       <div class="profile-text">
         <h3><?php echo htmlspecialchars($userDetails?->GetFullName() ?? 'User'); ?></h3>
@@ -65,3 +82,4 @@ $profilePhotoUrl = $profileService->GetProfilePictureUrl($userKey);
     </div>
   </div>
 </main>
+<?php include("footer.php"); ?>

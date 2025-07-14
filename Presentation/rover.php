@@ -1,5 +1,6 @@
 <?php
 session_start();
+$userKey = $_SESSION['user_id'];
 $bodyClass = 'rover';
 include("head.php");
 include("header.php");
@@ -13,12 +14,14 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 
-$userKey = $_SESSION['user_id'];
 $adventureService = $allServices->GetAdventureService();
 $profileService = $allServices->GetProfileService();
 $matchingService = $allServices->GetMatchingService();
 $matchingManager = new MatchesManager($adventureService, $profileService, $matchingService);
 
+ // Uncomment for testing ... display percentage of times that the user has swiped left 
+ // (this reloads when the potential matches pool is swiped through ... AKA after 10 users, or less if GetRovers in MatchingManager.php returns less than 10 users)
+//  echo $matchingService->GetPercentageLikes($userKey);
 ?>
 
 <main class="profile-container">
@@ -31,7 +34,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
         <div id="skipLabel" class="swipe-label skip-label"><i class="fas fa-xmark"></i></div>
       <div id="roverContents" class="profile-view-row">
         <div class="profile-left-column">
-          <div class="profile-photo">
+          <div class="profile-photo mx-auto">
             <div class="polaroid">
               <img id="profilePicture" src="" alt="Profile Photo"/>
             </div>
@@ -44,8 +47,8 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
           <p id="adventures">Adventures </p> 
           <p id="mileRangePreference" class="match-range-value"></p>
           <div class="profile-buttons">
-            <button class="btn btn-success" id="swipeLeftButton" value="" onclick="SwipeLeft()">+ Like</button> 
-            <button class="btn btn-success" id="swipeRightButton" value="" onclick="SwipeRight()">Skip →</button>
+            <button class="btn btn-brand" id="swipeLeftButton" value="" onclick="SwipeLeft()">+ Like</button> 
+            <button class="btn btn-brand" id="swipeRightButton" value="" onclick="SwipeRight()">Skip →</button>
           </div>
         </div>
       </div> <!-- id roverContents -->
@@ -53,6 +56,10 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
     </div>
 </div>
 </main>
+<div id="toast" class="toast-notification" style="display:none;">
+  Loading new rovers...
+</div>
+
 
 <script>
   var rovers = [];
@@ -127,6 +134,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   function Swipe() {
     // Increment index and show the next card. If at the end of fetched rovers, fetch rovers again. 
     index++;
+    showToast("Loading new rovers...");
     $("#adventures").html("Adventures "); // Reset adventures element to prepare it for next rover
     if(index == rovers.length) {
       ResetCardDeck();
@@ -138,18 +146,32 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   }
 
   function SwipeLeft() {
-    Swipe();
-    console.log("Swipe Left button value: " + $("#swipeLeftButton").val());
     // TODO: Make an ajax call to insert an interaction record with IsLiked = 1. OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
     // Insert code here
-  }
-  function SwipeRight() {
-    Swipe();
-    console.log("Swipe Right button value: " + $("#swipeRightButton").val());
+    var otherUserKey = $("#swipeLeftButton").val();
+    $.post('./AjaxResponses/Swipe.php', {otherUserKey: otherUserKey, isLiked: true});
+    console.log("Swipe Left button value: " + otherUserKey);
 
-    // TODO: Make an ajax call to insert an interaction record with IsLiked = 0 OtherUserKey should be the value attribute of either swipe button (set in DisplayRoverDetails)
-    // Insert code here
+    Swipe();
   }
+
+  function SwipeRight() {
+    var otherUserKey = $("#swipeRightButton").val();
+    $.post('./AjaxResponses/Swipe.php', {otherUserKey: otherUserKey, isLiked: false});
+    console.log("Swipe Right button value: " + otherUserKey);
+
+    Swipe();
+  }
+  function showToast(message = "Loading new rovers...") {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+    console.log("Loading rovers");
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
+}
+
 
 
 
@@ -208,5 +230,4 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
 
 
 </script>
-</body>
-</html>
+<?php include("footer.php"); ?>

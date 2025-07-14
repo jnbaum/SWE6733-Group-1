@@ -136,21 +136,33 @@ Sprint 1 - The team showed a great overall performance in completing all the pla
 
 ---
 
-#Pair Programming
+## Pair Programming
+
+Sprint 1: 
 
 * [Teams Meeting between Jessica, Joo, and Tarik](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/Ea6kDxeRc1NMvSxsUUzRDegBYta0TGfuJFZzxu4NKPDOIw?e=unq1fw&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 * [Teams Meeting Between Megan and Jerry](https://kennesawedu-my.sharepoint.com/:v:/g/personal/mdollar8_students_kennesaw_edu/EfNC1A5nfqtDkZil589AB_QBfyn8kmRmQs941EzfIgMKDQ?e=wYSmnv&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
+Sprint 2: 
+
+* [Jessica, Joo, and Jerry](https://kennesawedu-my.sharepoint.com/:v:/r/personal/jbaum1_students_kennesaw_edu/Documents/Recordings/Team%20meeting%206673-20250709_163840-Meeting%20Recording.mp4?csf=1&web=1&e=qZy7N8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+* [Megan and Jessica](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/EV5MOlAKdulMq2tFCqhUC_kBlh3wx25uV9_3ZL72Gq6zyQ?e=ZbirG9&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+* [Jake and Tarik](https://kennesawedu-my.sharepoint.com/personal/tdavi192_students_kennesaw_edu/_layouts/15/stream.aspx?id=%2Fpersonal%2Ftdavi192%5Fstudents%5Fkennesaw%5Fedu%2FDocuments%2FRecordings%2FTeams%20Meeting%2D20250710%5F183601%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E2eb1fc07%2Db78e%2D47a8%2D8d1f%2Da7326af8ac7e)
 ---
 
 ## Unit Tests
 
-See our Confluence page with results and notes under the PHPUnit section.
-
-* [Sprint 1](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/41713665/Unit+Test+Results+-+Sprint+1+7+3+2025)
+All of our unit tests are located inside the \tests\Unit folder of our GitHub repository. 
 
 ## TDD
-Proof of our TDD is found here: [TDD - Get Potential Matches](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/42270743/TDD+-+GetPotentialMatches)
+
+Sprint 1: 
+
+[TDD - Get Potential Matches](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/42270743/TDD+-+GetPotentialMatches)
+
+Sprint 2: 
+
+
 
 ---
 

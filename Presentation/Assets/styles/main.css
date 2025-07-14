@@ -568,7 +568,71 @@
     right: 50px;
     color: #d33;
   }
-  
+
+
+  .chat-entry-container {
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    margin-bottom: 25px; 
+    padding: 10px 0;
+}
+
+.chat-details {
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.chat-name {
+    font-size: 2rem; 
+    font-weight: bold;
+    margin-bottom: 15px; 
+    color: #333;
+}
+
+.message-time-row {
+    display: flex; 
+    align-items: baseline; 
+    margin-bottom: 5px; 
+}
+
+.chat-last-message {
+    font-size: 1rem;
+    color: #222;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.chat-time {
+    font-size: 1rem;
+    color: #222;
+    white-space: nowrap;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.open-chat-link {
+    background-color: #ADD8E6;
+    color: black;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 1rem;
+    font-weight: 400;
+    font-size: 0.9em;
+    display: inline-block;
+    text-align: center;
+    align-self: flex-start; 
+}
+
+.open-chat-link:hover {
+    background-color: #94BFCD;
+}
+
   
 
   /* Responsive adjustments */
@@ -1023,3 +1087,18 @@ select {
   
 }
 /************************************ profile.php ************************************/
+
+.toast-notification {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  display: none;
+  z-index: 1000;
+}
+
