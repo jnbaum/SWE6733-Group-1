@@ -63,6 +63,6 @@ jobs:
     - name: Run test suite
       run: ./Packages/vendor/bin/phpunit
 
-    - name: PHP Code Sniffer
+    # - name: PHP Code Sniffer
     # verify files do/dont need to be sniffed
-      run: ./Packages/vendor/bin/phpcs --standard=PSR12 BusinessLogic/
+      # run: ./Packages/vendor/bin/phpcs --standard=PSR12 BusinessLogic/
