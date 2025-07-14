@@ -56,6 +56,10 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
     </div>
 </div>
 </main>
+<div id="toast" class="toast-notification" style="display:none;">
+  Loading new rovers...
+</div>
+
 
 <script>
   var rovers = [];
@@ -130,6 +134,7 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   function Swipe() {
     // Increment index and show the next card. If at the end of fetched rovers, fetch rovers again. 
     index++;
+    showToast("Loading new rovers...");
     $("#adventures").html("Adventures "); // Reset adventures element to prepare it for next rover
     if(index == rovers.length) {
       ResetCardDeck();
@@ -157,6 +162,16 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
 
     Swipe();
   }
+  function showToast(message = "Loading new rovers...") {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+    console.log("Loading rovers");
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
+}
+
 
 
 

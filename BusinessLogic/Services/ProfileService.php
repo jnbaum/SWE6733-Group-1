@@ -357,7 +357,7 @@ class ProfileService{
             return 0; // failure
         }
     }
-    function DeleteUserProfile(
+     function DeleteUserProfile(
         int $userKey, // added userKey as parameter
     ): bool {
 
