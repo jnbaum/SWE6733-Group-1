@@ -36,7 +36,11 @@ jobs:
           while ! mysqladmin ping -h 127.0.0.1 --silent; do
             sleep 1
           done
-      
+     
+    - name: Configure MySQL
+      run: |
+          mysql -h 127.0.0.1 -u root -proot -e "SET GLOBAL sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));"
+    
     - name: Import SQL file
       run: |
           mysql -h 127.0.0.1 -u root -proot rovalydb < rovalydbAutoIncrement.sql
