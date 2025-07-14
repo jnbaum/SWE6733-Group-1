@@ -1087,3 +1087,18 @@ select {
   
 }
 /************************************ profile.php ************************************/
+
+.toast-notification {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  display: none;
+  z-index: 1000;
+}
+
