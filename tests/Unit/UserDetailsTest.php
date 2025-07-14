@@ -62,6 +62,61 @@ class UserDetailsTest extends TestCase
         $userDetails = new UserDetails("Full Name", "");
         $this->assertEquals("", $userDetails->GetBio());
     }
+
+
+/************************************** TESTING ******************************************/
+    public function testGetFullNameReturnsCorrectValue()
+    {
+        $userDetails = new UserDetails("Alice Smith", "Bio text.");
+        $this->assertEquals("Alice Smith", $userDetails->GetFullName());
+    }
+    
+    public function testLongFullName()
+    {
+        $longName = str_repeat("A", 255);
+        $userDetails = new UserDetails($longName, "Bio");
+        $this->assertEquals($longName, $userDetails->GetFullName());
+    }
+
+    public function testLongBio()
+    {
+        $longBio = str_repeat("B", 1000);
+        $userDetails = new UserDetails("Name", $longBio);
+        $this->assertEquals($longBio, $userDetails->GetBio());
+    }
+
+    public function testSetBioUpdatesValue()
+    {
+        $userDetails = new UserDetails("Name", "Initial Bio.");
+        $userDetails->SetBio("Updated Bio.");
+        $this->assertEquals("Updated Bio.", $userDetails->GetBio());
+    }
+
+    public function testEmptyConstructorValues()
+    {
+        $userDetails = new UserDetails("", "");
+        $this->assertEquals("", $userDetails->GetFullName());
+        $this->assertEquals("", $userDetails->GetBio());
+    }
+
+    public function testSettersUpdateValuesCorrectly()
+    {
+        $userDetails = new UserDetails("Initial Name", "Initial Bio");
+
+        // First update
+        $userDetails->SetFullName("First Updated Name");
+        $userDetails->SetBio("First Updated Bio");
+        $this->assertEquals("First Updated Name", $userDetails->GetFullName());
+        $this->assertEquals("First Updated Bio", $userDetails->GetBio());
+
+        // Second update
+        $userDetails->SetFullName("Second Updated Name");
+        $userDetails->SetBio("Second Updated Bio");
+        $this->assertEquals("Second Updated Name", $userDetails->GetFullName());
+        $this->assertEquals("Second Updated Bio", $userDetails->GetBio());
+    }
+/************************************** TESTING ******************************************/
+
 }
 
 ?>

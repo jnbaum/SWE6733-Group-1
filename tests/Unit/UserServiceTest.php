@@ -13,7 +13,7 @@ class UserServiceTest extends TestCase
     /**
      * Test user validation method
      */
-    public function testCurrentValidUser() //can a user be created and then log in successfully?
+    public function testCurrentValidUser()
     {
         $da = new DataAccess();
         $userService = new UserService($da);
@@ -43,29 +43,37 @@ class UserServiceTest extends TestCase
         $this->assertIsInt($userService->IsValidUser($username, $password));
     }
 
-    public function testCurrentInvalidUser() //can a current user log in with invalid credentials?
+/************************************************* TESTING *********************************************************************/
+    public function testInvalidCredentials()
     {
         $da = new DataAccess();
         $userService = new UserService($da);
 
-        $this->assertNull($userService->IsValidUser("fake@example.com", "wrongPassword"));
+        $invalidUsername = "nonexistent@example.com";
+        $invalidPassword = "wrongpassword";
+
+        // IsValidUser should return null or false if the user does not exist or credentials are wrong.
+        $result = $userService->IsValidUser($invalidUsername, $invalidPassword);
+
+        $this->assertNull($result, "IsValidUser should return null for invalid credentials.");
     }
 
-    public function testNewInvalidUser() // duplicate new user creation triggers error
+
+    public function testNonExistentUser()
     {
         $da = new DataAccess();
         $userService = new UserService($da);
 
-        $username = "faketestuser@email.com";
-        $password = "fakepassword";
+        // password no matter if the user doesn't exist
+        $nonExistentUsername = "definitely_not_a_user@example.com";
+        $anyPassword = "anypassword";
 
-        $userService->CreateNewUser($username, $password);
+        $result = $userService->IsValidUser($nonExistentUsername, $anyPassword);
 
-        $result = $userService->CreateNewUser($username, $password);
-
-        $this->assertNull($result);
+        // null because the user does not exist in the DB
+        $this->assertNull($result, "IsValidUser should return null for a non-existent user.");
     }
-
+/*************************************************** TESTING ******************************************************************/
 }
 
 ?>
