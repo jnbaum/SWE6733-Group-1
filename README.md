@@ -122,10 +122,15 @@ Rationale: We used our experience from work and past school projects to estimate
 
 ## Daily Scrum
 
+Sprint 1:
 * [Daily Scrum from 6/12](https://swe6673.atlassian.net/wiki/x/BAA9)
 * [Daily Scrum from 6/17](https://swe6673.atlassian.net/wiki/x/AYAxAQ)
 * [Daily Scrum from 6/20](https://swe6673.atlassian.net/wiki/x/AYBpAQ)
 
+Sprint 2:
+* [Daily Scrum from 7/7](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/43614209/Daily+Scrum+7+7)
+* [Daily Scrum from 7/9](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/45383682/Daily+Scrum+7+9)
+* [Daily Scrum from 7/11](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/47153153/Daily+Scrum+7+11)
 ---
 
 ## Sprint Burndown Chart
