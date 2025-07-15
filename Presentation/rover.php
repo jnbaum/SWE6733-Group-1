@@ -134,9 +134,9 @@ $matchingManager = new MatchesManager($adventureService, $profileService, $match
   function Swipe() {
     // Increment index and show the next card. If at the end of fetched rovers, fetch rovers again. 
     index++;
-    showToast("Loading new rovers...");
     $("#adventures").html("Adventures "); // Reset adventures element to prepare it for next rover
     if(index == rovers.length) {
+      showToast("Loading new rovers...");
       ResetCardDeck();
     }
     else {
