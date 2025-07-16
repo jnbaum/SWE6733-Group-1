@@ -72,7 +72,10 @@ This far vision can only be achieved by creating a polished, scalable version of
 
 ## Continuous Integration: 
 
-Our team is utilizing GitHub Actions for Continuous Integration for this project. We chose to use GitHub Actions because of its seamless integration with our GitHub repository. 
+Our team is utilizing GitHub Actions for Continuous Integration for this project. 
+We chose GitHub Actions for our CI/CD tool. It seemed to be the most natural fit because it integrates well with Git; we can simply create a pull request and have all of our unit tests execute to catch errors before merging rather than after. We considered Azure DevOps, but that seems more suitable for projects that are stored in an Azure or Microsoft environment. GitHub Actions also provides faster execution time:  [GitHub Actions vs. Azure DevOps](https://dev.to/hamzakhan/azure-devops-vs-github-actions-a-comprehensive-guide-with-examples-performance-metrics-46oc), which is convenient for a project with many pull requests. It also seemed easiest to setup compared to other options like CircleCI, and there are many tutorials, especially with adding a MySQL database to use in unit tests - and although incorporating a database into unit tests isn't ideal, it met our needs for this project. Finally, it allowed us to write our actions like code, which gives our GitHub Actions the opportunity to be version controlled and included directly in our git repo code, keeping everything organized. 
+
+Proof of our GitHub Actions can be found in .github > workflows > php.yml, and there are multiple successful executions in our Pull Requests > Completed section on this git repo.
 
 ---
 
