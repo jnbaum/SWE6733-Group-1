@@ -169,14 +169,10 @@ Sprint 2:
 
 [TDD - Improving Scalability with a Bulk Fetch Method](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/50626561/TDD+Sprint+2+-+GetBulkAdventureDetailsArray)
 
-## Sprint 2 Review
-
-[Demo](https://www.loom.com/share/36ef0f4e4f4a40698583bfcdb6e04d16?sid=7a3f5087-7fd6-447b-b1bf-5b4057ef0709)
-
-
 ---
 
 ## Sprint Review
 
 * [Sprint One Review](https://swe6673.atlassian.net/wiki/x/AoCDAg)
 * [Sprint One Review Video](https://www.loom.com/share/57b74680baa145feaae35517580db5d0)
+* [Sprint Two Review - Demo Video](https://www.loom.com/share/36ef0f4e4f4a40698583bfcdb6e04d16?sid=7a3f5087-7fd6-447b-b1bf-5b4057ef0709)
