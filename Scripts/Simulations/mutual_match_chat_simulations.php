@@ -108,7 +108,7 @@ if ($successB_likes_A) {
     echo "User " . $userKeyB . " **LIKED** User " . $userKeyA . ". Success: false (might already exist)." . PHP_EOL;
 }
 
-// --- Step 4: Verify Mutual Match ---
+//  Verify Mutual Match ---
 echo PHP_EOL . "---------------------------------" . PHP_EOL;
 echo "Verifying mutual match..." . PHP_EOL;
 echo "---------------------------------" . PHP_EOL;
@@ -128,7 +128,7 @@ if (in_array($userKeyB, $matchesForUserA) && in_array($userKeyA, $matchesForUser
     echo "STATUS: **FAILURE!** Mutual match not detected." . PHP_EOL;
 }
 
-// Establish a Chat Room ---
+// Establish a Chat Room 
 echo PHP_EOL . "---------------------------------------------" . PHP_EOL;
 echo "5. Establishing a chat room between the matched users..." . PHP_EOL;
 echo "---------------------------------------------" . PHP_EOL;
@@ -167,7 +167,7 @@ if (!empty($messages)) {
 
 echo PHP_EOL . "--- Simulation Complete ---" . PHP_EOL;
 
-// --- Cleanup: Delete Test Data (Highly Recommended) ---
+// Cleanup: Delete Test Data 
 echo PHP_EOL . "---------------------------------------" . PHP_EOL;
 echo "Cleaning up all data created for test users..." . PHP_EOL;
 echo "---------------------------------------" . PHP_EOL;
