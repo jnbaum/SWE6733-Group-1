@@ -84,9 +84,40 @@ class AdventureService {
         return $adventureDetailsArray;
     }
 
+    public function BuildUserKeysString(array $userKeys) {
+        $returnString = "";
+        foreach($userKeys as $userKey) {
+            $returnString = $returnString . $userKey;
+            if($userKey != end($userKeys)) {
+                $returnString = $returnString . ",";
+            }
+        }
+        return $returnString;
+    }
+
     public function GetBulkAdventureDetailsArray(array $userKeys): array {
-        return [$userKeys[0] => "Hiking-SkillBuilder-Expert",
-                $userKeys[1] => "Hiking-SkillBuilder-Novice"];
+           $stmt = $this->da->ExecuteQuery("SELECT adventure.AdventureKey AS AdventureKey, adventure.UserKey AS UserKey, adventuretype.Name AS ActivityName, GROUP_CONCAT(preference.Name SEPARATOR '-') AS Preferences FROM adventurepreference
+                INNER JOIN adventure ON adventurepreference.AdventureKey = adventure.AdventureKey
+                INNER JOIN adventuretype ON adventure.AdventureTypeKey = adventuretype.AdventureTypeKey
+                INNER JOIN preference ON adventurepreference.PreferenceKey = preference.PreferenceKey
+                INNER JOIN preferencetype ON preferencetype.PreferenceTypeKey = preference.PreferenceTypeKey
+                WHERE adventure.UserKey IN(" . $this->BuildUserKeysString($userKeys) .
+                ") GROUP BY adventure.AdventureKey", QueryType::SELECT);
+
+        $adventureDetailsArray = [];
+        while($row = $stmt->fetchAssociative()) {
+            $adventureDetails = new AdventureDetails($row["ActivityName"], $row["Preferences"]);
+            $adventureDetails->SetAdventureKey($row["AdventureKey"]);
+            $adventureDetailsArray[(string)$row["UserKey"]] = $this->GetAdventureWithPreferencesString($adventureDetails);
+        }
+        return $adventureDetailsArray;
+
+        // return [$userKeys[0] => "Hiking-SkillBuilder-Expert",
+        //         $userKeys[1] => "Hiking-SkillBuilder-Novice"];
+    }
+
+    private function GetAdventureWithPreferencesString(AdventureDetails $adventureDetails) {
+        return $adventureDetails->GetActivityName() . '-' . $adventureDetails->GetPreferencesString();
     }
 }
 ?>
