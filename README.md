@@ -142,7 +142,8 @@ Sprint 2:
 
 Sprint 1 - The team showed a great overall performance in completing all the planned tasks ahead of schedule. The high productivity and effective execution provided a buffer period for the final two weeks of the sprint. Although the team encountered issues related to web service hosting, the team was able to resolve some of the problems and accelerate their work to complete the scope early. An important note: there is a discrepancy with the sprint burndown chart's visual representation. The graph shows a flat start during the initial week, followed by an acceleration during the midpoint. This does not truly reflect the team's consistent progress, as there were some delays in updating the stories on a continuous basis. Therefore, the acutal trajectory of work completion should have shown a consistent burndown instead a rapid acceleration midway through the sprint. The team discussed this issue during the Sprint Review, and corrections have been made for the next sprint. 
 
-[Jira Sprint 2 Burndownn](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1/reports/burndown?source=overview)
+[Jira Sprint 2 Burndown](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1/reports/burndown?source=overview)
+
 ---
 
 ## Pair Programming
