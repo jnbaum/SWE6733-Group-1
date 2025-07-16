@@ -83,5 +83,10 @@ class AdventureService {
         }
         return $adventureDetailsArray;
     }
+
+    public function GetBulkAdventureDetailsArray(array $userKeys): array {
+        return [$userKeys[0] => "Hiking-SkillBuilder-Expert",
+                $userKeys[1] => "Hiking-SkillBuilder-Novice"];
+    }
 }
 ?>
