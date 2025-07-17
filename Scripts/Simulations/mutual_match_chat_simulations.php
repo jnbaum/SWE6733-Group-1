@@ -70,7 +70,7 @@ echo "User " . $userKeyA . " (Alice) profile updated with bio, social link, and 
 // Add an adventure for User A
 $adventureA = new Adventure(1, $userKeyA); 
 $adventureKeyA = $adventureService->CreateAdventure($adventureA); 
-$preferencesA = [126, 127]; 
+$preferencesA = [1, 2]; 
 $adventureService->AddPreferencesToAdventure($adventureKeyA, $preferencesA);
 echo "User " . $userKeyA . " created an adventure: Hiking (Intermediate, Casual)." . PHP_EOL;
 
@@ -83,13 +83,13 @@ echo "User " . $userKeyB . " (Bob) profile updated with bio, social link, and 15
 // Add a matching adventure for User B
 $adventureB = new Adventure(1, $userKeyB); // Hiking 
 $adventureKeyB = $adventureService->CreateAdventure($adventureB);
-$preferencesB = [126, 127]; // Intermediate, Casual
+$preferencesB = [1, 2]; // Intermediate, Casual
 $adventureService->AddPreferencesToAdventure($adventureKeyB, $preferencesB);
 echo "User " . $userKeyB . " created a matching adventure: Hiking (Intermediate, Casual)." . PHP_EOL;
 
 // Simulate Mutual Likes ---
 echo PHP_EOL . "---------------------------------" . PHP_EOL;
-echo "3. Simulating mutual 'Like' interactions..." . PHP_EOL;
+echo "Simulating mutual 'Like' interactions..." . PHP_EOL;
 echo "---------------------------------" . PHP_EOL;
 
 // User A likes User B
