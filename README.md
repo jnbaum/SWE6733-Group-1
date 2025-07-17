@@ -144,6 +144,8 @@ Sprint 1 - The team showed a great overall performance in completing all the pla
 
 [Jira Sprint 2 Burndown](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1/reports/burndown?source=overview)
 
+Sprint 2 - Building upon the previous sprint, the team once again delivered an excellent performance in completing the user story tasks well ahead of schedule. With the web service hosting issue resolved, the team was able to sustain a high level of productivity which led to another buffer period for the final two weeks. A critical improvement this sprint was the accurate reflection and consistency of task execution shown on the burndown chart. Unlike the previous sprint where the trajectory did not fully align with the team's performance, this time the team effectively tracked and updated the user stories upon their completion. As a result, the burndown chart displays an accurate reading where the initial week starts flat and is followed by a steady consistent progression towards the end of the sprint.
+
 ---
 
 ## Pair Programming
