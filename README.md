@@ -115,9 +115,11 @@ For Sprint 1, we forecast that our team can complete 18 story points. The comple
 
 For Sprint 2, the current estimation prior to the start of Sprint 2 is 21.5 story points. Sprint 2 is shorter than Sprint 1, at 11 days. Sprint 2 will be a stretch, but our team has a plan to modify the backlog during the pre-sprint backlog grooming to move some story points to Sprint 3. 
 
-According to Yesterday's Weather, this sprint's estimated user story point completion is 18 points. That means that this sprint is a high-risk sprint, and our team will have to stretch to complete the workload. This was a known issue going into Sprint 2, and our team has adjusted by starting a few work items for Sprint 2 earlier than the sprint's start date, as our team had completed Sprint 1 items prior to the end of Sprint 1. As it stands at the Sprint 2 start date, we now have 14.5 story points to complete for this sprint. Due to foresight, meeting the sprint goal is now within normal capabilities. 
+According to Yesterday's Weather, Sprint 2's estimated user story point completion is 18 points. That means that Sprint 2 is a high-risk sprint, and our team will have to stretch to complete the workload. This was a known issue going into Sprint 2, and our team has adjusted by starting a few work items for Sprint 2 earlier than the sprint's start date, as our team had completed Sprint 1 items prior to the end of Sprint 1. As it stands at the Sprint 2 start date, we now have 14.5 story points to complete for this sprint. Due to foresight, meeting the sprint goal is now within normal capabilities. 
 
-For Sprint 3, the current estimation prior to the start of Sprint 3 is 13 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint.
+For Sprint 3, the current estimation prior to the start of Sprint 3 is 14 story points. Sprint 3 is the shortest sprint, at 4 days. Most of this sprint's items have to do with documentation and presentation, and as such, will be the least technical sprint.
+
+According to Yesterday's Weather, Sprint 3's estimated user story point completion is 21.5 points. Since we completed sprint 2 at 21.5 story points, Sprint 3's forecast is attainable. However, since Sprint 3 is not a technical sprint, and all of our user story points have to do with documentation, the actual story point count is only 14. This sprint will not be a stretch to complete, and as such, the team is expected to complete it without issue. 
 
 Rationale: We used our experience from work and past school projects to estimate the points for each story. For example, login was given 2 story points because we are mostly familiar with the concept (i.e., fetching an existing user from the database with the entered username, and then comparing its password to the entered password). For stories that we have less past experience with, such as the matching feature, in-app messaging, and S3 photo uploads, we gave more generous story point estimates to allow for extra time to research and explore new concepts.
 
@@ -134,6 +136,10 @@ Sprint 2:
 * [Daily Scrum from 7/7](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/43614209/Daily+Scrum+7+7)
 * [Daily Scrum from 7/9](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/45383682/Daily+Scrum+7+9)
 * [Daily Scrum from 7/11](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/47153153/Daily+Scrum+7+11)
+
+Sprint 3: 
+* [Daily Scrum for 7/21](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/54132737/Daily+Scrum+7+21?atlOrigin=eyJpIjoiNzc1OTM3MzE4ZjcyNDhjNDk1YzYzYmFiMTM0YTZkMTkiLCJwIjoiYyJ9)
+* [Daily Scrum for 7/22](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/54231041/Daily+Scrum+7+22?atlOrigin=eyJpIjoiMWE4ZmMzOTE3YWQ4NDk1MDk5MTQzZjYwMmZkMjNlNDMiLCJwIjoiYyJ9)
 ---
 
 ## Sprint Burndown Chart
@@ -160,6 +166,10 @@ Sprint 2:
 * [Jessica, Joo, and Jerry](https://kennesawedu-my.sharepoint.com/:v:/r/personal/jbaum1_students_kennesaw_edu/Documents/Recordings/Team%20meeting%206673-20250709_163840-Meeting%20Recording.mp4?csf=1&web=1&e=qZy7N8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 * [Megan and Jessica](https://kennesawedu-my.sharepoint.com/:v:/g/personal/jbaum1_students_kennesaw_edu/EV5MOlAKdulMq2tFCqhUC_kBlh3wx25uV9_3ZL72Gq6zyQ?e=ZbirG9&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 * [Jake and Tarik](https://kennesawedu-my.sharepoint.com/personal/tdavi192_students_kennesaw_edu/_layouts/15/stream.aspx?id=%2Fpersonal%2Ftdavi192%5Fstudents%5Fkennesaw%5Fedu%2FDocuments%2FRecordings%2FTeams%20Meeting%2D20250710%5F183601%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E2eb1fc07%2Db78e%2D47a8%2D8d1f%2Da7326af8ac7e)
+
+Sprint 3: 
+
+* [Team work on Final Presentation:](insert link here after meeting)
 ---
 
 ## Unit Tests
