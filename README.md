@@ -169,7 +169,7 @@ Sprint 2:
 
 Sprint 3: 
 
-* [Last paired coding session:](https://kennesawedu-my.sharepoint.com/:v:/g/personal/mdollar8_students_kennesaw_edu/EavRoqHuOP1IoXeKXktrnd0BOGbdKbbOx4EQ8Y_n3EN7VQ)
+* [Last paired coding session](https://kennesawedu-my.sharepoint.com/:v:/g/personal/mdollar8_students_kennesaw_edu/EavRoqHuOP1IoXeKXktrnd0BOGbdKbbOx4EQ8Y_n3EN7VQ)
 
 ## Unit Tests
 
