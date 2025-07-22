@@ -150,7 +150,7 @@ Sprint 1 - The team showed a great overall performance in completing all the pla
 
 [Jira Sprint 2 Burndown](https://swe6673.atlassian.net/jira/software/projects/SCRUM/boards/1/reports/burndown?source=overview)
 
-Sprint 2 - Building upon the previous sprint, the team once again delivered an excellent performance in completing the user story tasks well ahead of schedule. With the web service hosting issue resolved, the team was able to sustain a high level of productivity which led to another buffer period for the final two weeks. A critical improvement this sprint was the accurate reflection and consistency of task execution shown on the burndown chart. Unlike the previous sprint where the trajectory did not fully align with the team's performance, this time the team effectively tracked and updated the user stories upon their completion. As a result, the burndown chart displays an accurate reading where the initial week starts flat and is followed by a steady consistent progression towards the end of the sprint.
+Sprint 2 - Building upon the previous sprint, the team once again delivered an excellent performance in completing the user story tasks well ahead of schedule. With the web service hosting issue resolved, the team was able to sustain a high level of productivity, which led to another buffer period for the final two weeks. A critical improvement this sprint was the accurate reflection and consistency of task execution shown on the burndown chart. Unlike the previous sprint, where the trajectory did not fully align with the team's performance, this time the team effectively tracked and updated the user stories upon their completion. As a result, the burndown chart displays an accurate reading where the initial week starts flat and is followed by a stead,y consistent progression towards the end of the sprint.
 
 ---
 
@@ -169,8 +169,7 @@ Sprint 2:
 
 Sprint 3: 
 
-* [Team work on Final Presentation:](insert link here after meeting)
----
+* [Last paired coding session:](https://kennesawedu-my.sharepoint.com/:v:/g/personal/mdollar8_students_kennesaw_edu/EavRoqHuOP1IoXeKXktrnd0BOGbdKbbOx4EQ8Y_n3EN7VQ)
 
 ## Unit Tests
 
@@ -188,6 +187,9 @@ Sprint 2:
 
 [TDD - Improving Scalability with a Bulk Fetch Method](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/50626561/TDD+Sprint+2+-+GetBulkAdventureDetailsArray)
 
+Sprint 3:
+[TDD- NAME HERE](link here)
+
 ---
 
 ## Sprint Review
@@ -196,3 +198,5 @@ Sprint 2:
 * [Sprint One Review Video](https://www.loom.com/share/57b74680baa145feaae35517580db5d0)
 * [Sprint Two Review - Demo Video](https://www.loom.com/share/36ef0f4e4f4a40698583bfcdb6e04d16?sid=7a3f5087-7fd6-447b-b1bf-5b4057ef0709)
 * [Sprint Two Review and Retrospective Document](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/49217537/Sprint+2+Review+and+Retrospective)
+* [Sprint Three Review Video](https://kennesawedu-my.sharepoint.com/:v:/g/personal/mdollar8_students_kennesaw_edu/EavRoqHuOP1IoXeKXktrnd0BOGbdKbbOx4EQ8Y_n3EN7VQ?e=kB4r0k)
+* [Sprint Three Review Document](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/55148545/Sprint+3+Review+and+Retrospective?atlOrigin=eyJpIjoiY2QxYWFiN2M1NzJlNDdhMjgzYjA4OTBmMmEyMzZmOTkiLCJwIjoiYyJ9)
