@@ -164,7 +164,7 @@ class ProfileService{
         foreach($adventureKeys as $adventureKey) {
             $adventureKeysString = $adventureKeysString . (string)$adventureKey;
             if($adventureKey != end($adventureKeys)) {
-                $adventureKeysString = $adventureKeysString + ",";
+                $adventureKeysString = $adventureKeysString . ",";
             }
         }
 
