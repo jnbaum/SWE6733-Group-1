@@ -1,8 +1,8 @@
 <?php
 
-require_once(__DIR__ . '/../../../BusinessLogic/AllServices.php'); 
-require_once(__DIR__ . '/../../../DataAccess/DataAccess.php');     
-require_once(__DIR__ . '/../../../Models/QueryType.php');         
+require_once(__DIR__ . '/../../BusinessLogic/AllServices.php'); 
+require_once(__DIR__ . '/../../DataAccess/DataAccess.php');     
+require_once(__DIR__ . '/../../Models/QueryType.php');         
 
 use PHPUnit\Framework\TestCase;
 use Doctrine\DBAL\Connection; 
