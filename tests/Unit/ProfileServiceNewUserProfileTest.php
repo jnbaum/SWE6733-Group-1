@@ -1,7 +1,7 @@
 <?php
 
 // Include necessary files to set up the environment and services
-require_once(__DIR__ . '/../../../BusinessLogic/Services/AllServices.php'); 
+//require_once(__DIR__ . '/../../../BusinessLogic/Services/AllServices.php'); 
 require_once(__DIR__ . '/../../../DataAccess/DataAccess.php');
 require_once(__DIR__ . '/../../../Models/QueryType.php');
 require_once(__DIR__ . '/../../../BusinessLogic/Services/UserService.php'); 
