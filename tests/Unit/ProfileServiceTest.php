@@ -148,7 +148,9 @@ class ProfileServiceTest extends TestCase{
         $this->profileService = new ProfileService($this->da);
 
         // --- Setup for testUserKeySocialMedia ---
-        $usernameSocial = substr("socialuser_" . uniqid() . "@example.com", 0, 30);
+       // $usernameSocial = substr("socialuser_" . uniqid() . "@example.com", 0, 30);
+       $usernameSocial = "u_" . uniqid();
+        $usernameNoSocial = "n_" . uniqid();
         $password = "testpass";
         $this->testUserKeySocialMedia = $this->userService->CreateNewUser($usernameSocial, $password); 
         if ($this->testUserKeySocialMedia === null) {
