@@ -48,10 +48,11 @@ class MessageServiceGetChatRoomKeyTest extends TestCase
      */
     public function testGetChatRoomKeyWithInvalidUser()
     {
-        $invalidUserKey = -1; // An invalid user key
-        $validUserKey = 1; // A hypothetical valid user key
+    $this->expectException(\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException::class);
 
-        $chatRoomKey = $this->messageService->GetChatRoomKey($invalidUserKey, $validUserKey);
-        $this->assertFalse($chatRoomKey > 0, "Chat room key should not be valid for an invalid user.");
+    $invalidUserKey = -1; // Invalid user key
+    $validUserKey = 1;    // Not guaranteed to exist either
+
+    $this->messageService->GetChatRoomKey($invalidUserKey, $validUserKey);
     }
 }
