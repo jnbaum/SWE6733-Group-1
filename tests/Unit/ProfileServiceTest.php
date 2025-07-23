@@ -144,30 +144,31 @@ class ProfileServiceTest extends TestCase{
         parent::setUp(); // Call parent setUp if extending other TestCase that has it
 
         $this->da = new DataAccess();
-        $this->userService = new UserService($this->da);
-        $this->profileService = new ProfileService($this->da);
+$this->userService = new UserService($this->da);
+$this->profileService = new ProfileService($this->da);
 
-        // --- Setup for testUserKeySocialMedia ---
-       // $usernameSocial = substr("socialuser_" . uniqid() . "@example.com", 0, 30);
-        $usernameSocial = substr("u_" . uniqid(), 0, 100);
-        $usernameNoSocial = "n_" . uniqid();
-        $password = "testpass";
-        $this->testUserKeySocialMedia = $this->userService->CreateNewUser($usernameSocial, $password); 
-        if ($this->testUserKeySocialMedia === null) {
-            // If user somehow already exists (e.g., from a previous failed run not fully cleaned)
-            $this->testUserKeySocialMedia = $this->userService->IsValidUser($usernameSocial, $password); 
-            // Clean up any existing social media links for this user
-            $this->profileService->DeleteUserSocialMediaLinkUrl($this->testUserKeySocialMedia); 
-        }
+// Limit username length to max 30 chars (safe buffer below limit)
+$uniq = substr(uniqid(), 0, 10);
+$usernameSocial = "social_" . $uniq;  // Max length: ~17
+$usernameNoSocial = "nosocial_" . $uniq; // Max length: ~19
 
-        // --- Setup for testUserKeyNoSocialMedia ---
-        $usernameNoSocial = "nosocialuser_" . uniqid() . "@example.com";
-        $this->testUserKeyNoSocialMedia = $this->userService->CreateNewUser($usernameNoSocial, $password); 
-        if ($this->testUserKeyNoSocialMedia === null) {
-            $this->testUserKeyNoSocialMedia = $this->userService->IsValidUser($usernameNoSocial, $password); 
-            $this->profileService->DeleteUserSocialMediaLinkUrl($this->testUserKeyNoSocialMedia); 
+$password = "testpass";
+
+// --- Setup for testUserKeySocialMedia ---
+$this->testUserKeySocialMedia = $this->userService->CreateNewUser($usernameSocial, $password); 
+if ($this->testUserKeySocialMedia === null) {
+    $this->testUserKeySocialMedia = $this->userService->IsValidUser($usernameSocial, $password); 
+    $this->profileService->DeleteUserSocialMediaLinkUrl($this->testUserKeySocialMedia); 
+}
+
+// --- Setup for testUserKeyNoSocialMedia ---
+$this->testUserKeyNoSocialMedia = $this->userService->CreateNewUser($usernameNoSocial, $password); 
+if ($this->testUserKeyNoSocialMedia === null) {
+    $this->testUserKeyNoSocialMedia = $this->userService->IsValidUser($usernameNoSocial, $password); 
+    $this->profileService->DeleteUserSocialMediaLinkUrl($this->testUserKeyNoSocialMedia); 
+}
         }
-    }
+    
 
     protected function tearDown(): void
     {
