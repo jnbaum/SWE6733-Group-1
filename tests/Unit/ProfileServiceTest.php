@@ -134,4 +134,102 @@ class ProfileServiceTest extends TestCase{
         $this->assertTrue($profileService->DeleteUserSocialMediaLinkUrl($userKey));
         
     }
+
+     // Properties to store test user keys, ensuring they are unique for each test run
+    private $testUserKeySocialMedia;
+    private $testUserKeyNoSocialMedia;
+
+    protected function setUp(): void
+    {
+        parent::setUp(); // Call parent setUp if extending other TestCase that has it
+
+        $this->da = new DataAccess();
+        $this->userService = new UserService($this->da);
+        $this->profileService = new ProfileService($this->da);
+
+        // --- Setup for testUserKeySocialMedia ---
+        $usernameSocial = "socialuser_" . uniqid() . "@example.com"; // Use uniqid for unique usernames
+        $password = "testpass";
+        $this->testUserKeySocialMedia = $this->userService->CreateNewUser($usernameSocial, $password); 
+        if ($this->testUserKeySocialMedia === null) {
+            // If user somehow already exists (e.g., from a previous failed run not fully cleaned)
+            $this->testUserKeySocialMedia = $this->userService->IsValidUser($usernameSocial, $password); 
+            // Clean up any existing social media links for this user
+            $this->profileService->DeleteUserSocialMediaLinkUrl($this->testUserKeySocialMedia); 
+        }
+
+        // --- Setup for testUserKeyNoSocialMedia ---
+        $usernameNoSocial = "nosocialuser_" . uniqid() . "@example.com";
+        $this->testUserKeyNoSocialMedia = $this->userService->CreateNewUser($usernameNoSocial, $password); 
+        if ($this->testUserKeyNoSocialMedia === null) {
+            $this->testUserKeyNoSocialMedia = $this->userService->IsValidUser($usernameNoSocial, $password); 
+            $this->profileService->DeleteUserSocialMediaLinkUrl($this->testUserKeyNoSocialMedia); 
+        }
+    }
+
+    protected function tearDown(): void
+    {
+        // Cleanup: Delete all data associated with our test users to ensure isolation and repeatability.
+        // The order of deletion is important due to foreign key constraints.
+        // ProfileService includes a comprehensive DeleteUserProfile method [19-21] which handles foreign keys first.
+        
+        if ($this->testUserKeySocialMedia !== null) {
+            $this->profileService->DeleteUserProfile($this->testUserKeySocialMedia); 
+        }
+        if ($this->testUserKeyNoSocialMedia !== null) {
+            $this->profileService->DeleteUserProfile($this->testUserKeyNoSocialMedia); 
+        }
+
+        parent::tearDown(); // Call parent tearDown if extending other TestCase that has it
+    }
+
+    /**
+     * @test
+     * Behavior: When a user has multiple social media links, GetSocialMediaLinks should return all of them.
+     */
+    public function testGetSocialMediaLinksReturnsAllLinksForUser()
+    {
+        // Arrange
+        $userKey = $this->testUserKeySocialMedia;
+        $link1 = "https://instagram.com/johndoe";
+        $link2 = "https://twitter.com/johndoe";
+        $link3 = "https://facebook.com/johndoe";
+
+        // Add multiple links for the user using the existing AddSocialMediaLink method
+        $this->profileService->AddSocialMediaLink($userKey, $link1);
+        $this->profileService->AddSocialMediaLink($userKey, $link2);
+        $this->profileService->AddSocialMediaLink($userKey, $link3);
+
+        // This is the new method we are about to implement.
+        $actualLinks = $this->profileService->GetSocialMediaLinks($userKey);
+
+        // Assert
+        $this->assertIsArray($actualLinks, "Should return an array of social media links."); 
+        $this->assertCount(3, $actualLinks, "Should return all 3 added social media links.");
+        $this->assertContains($link1, $actualLinks, "The first link should be present."); 
+        $this->assertContains($link2, $actualLinks, "The second link should be present."); 
+        $this->assertContains($link3, $actualLinks, "The third link should be present."); 
+
+        // $this->assertEquals([$link1, $link2, $link3], $actualLinks);
+    }
+
+    /**
+     * @test
+     * Behavior: When a user has no social media links, GetSocialMediaLinks should return an empty array.
+     */
+    public function testGetSocialMediaLinksReturnsEmptyArrayForNoLinks()
+    {
+        // Arrange
+        $userKey = $this->testUserKeyNoSocialMedia; // This user is created in setUp with no links added to them
+
+        // Act
+        $actualLinks = $this->profileService->GetSocialMediaLinks($userKey);
+
+        // Assert
+        $this->assertIsArray($actualLinks, "Should return an array."); 
+        $this->assertEmpty($actualLinks, "Should return an empty array if no links exist."); 
+    }
+
+
+
 }

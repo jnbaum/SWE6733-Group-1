@@ -95,7 +95,30 @@ class ProfileService{
             . $userKey . "," . QueryHelper::SurroundWithQuotes($url) . ")", QueryType::INSERT);
     }
 
-       public function GetSocialMediaLink(int $userKey): string{
+      public function GetSocialMediaLinks(int $userKey): array
+    {
+        $links = [];
+        try {
+            // Execute a SELECT query to get all social media links for the given user 
+            $stmt = $this->da->ExecuteQuery(
+                "SELECT SocialMediaLinkUrl FROM socialmedialink WHERE UserKey = " . $userKey,
+                QueryType::SELECT 
+            );
+
+            // Fetch all associative rows and add the URLs to the array 
+            while ($row = $stmt->fetchAssociative()) { // 
+                $links[] = (string)$row['SocialMediaLinkUrl'];
+            }
+        } catch (Exception $e) {
+            // Log any errors that occur during the database operation.
+            error_log("Error retrieving social media links for UserKey " . $userKey . ": " . $e->getMessage());
+            return []; // Return empty array on error
+        }
+        return $links;
+    }
+
+ 
+     public function GetSocialMediaLink(int $userKey): string{
         //COMPLETE; SELECT
         $stmt = $this->da->ExecuteQuery("SELECT SocialMediaLinkUrl FROM socialmedialink  WHERE UserKey=" . $userKey, QueryType::SELECT);
         $url = '';
