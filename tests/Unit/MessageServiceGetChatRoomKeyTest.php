@@ -19,8 +19,8 @@ class MessageServiceGetChatRoomKeyTest extends TestCase
     }
     public function testGetChatRoomKeyConsistencyAndCreation()
     {
-        $userKeyA = 999991; // Hypothetical user key
-        $userKeyB = 999992; // Hypothetical user key
+        $userKeyA = 1; // Hypothetical user key
+        $userKeyB = 2; // Hypothetical user key
 
         
         $chatRoomKey1 = $this->messageService->GetChatRoomKey($userKeyA, $userKeyB);
@@ -49,7 +49,7 @@ class MessageServiceGetChatRoomKeyTest extends TestCase
     public function testGetChatRoomKeyWithInvalidUser()
     {
         $invalidUserKey = -1; // An invalid user key
-        $validUserKey = 999993; // A hypothetical valid user key
+        $validUserKey = 1; // A hypothetical valid user key
 
         $chatRoomKey = $this->messageService->GetChatRoomKey($invalidUserKey, $validUserKey);
         $this->assertFalse($chatRoomKey > 0, "Chat room key should not be valid for an invalid user.");
