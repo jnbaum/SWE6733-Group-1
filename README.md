@@ -193,7 +193,7 @@ Sprint 2:
 
 Sprint 3:
 
-[TDD- MessageServiceGetChatRoomKeyTest: Can be seen in ProfileServiceTest.php ]
+TDD- MessageServiceGetChatRoomKeyTest: Can be seen in ProfileServiceTest.php
 
 ---
 
