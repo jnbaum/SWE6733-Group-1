@@ -97,24 +97,7 @@ class ProfileService{
 
       public function GetSocialMediaLinks(int $userKey): array
     {
-        $links = [];
-        try {
-            // Execute a SELECT query to get all social media links for the given user 
-            $stmt = $this->da->ExecuteQuery(
-                "SELECT SocialMediaLinkUrl FROM socialmedialink WHERE UserKey = " . $userKey,
-                QueryType::SELECT 
-            );
-
-            // Fetch all associative rows and add the URLs to the array 
-            while ($row = $stmt->fetchAssociative()) { // 
-                $links[] = (string)$row['SocialMediaLinkUrl'];
-            }
-        } catch (Exception $e) {
-            // Log any errors that occur during the database operation.
-            error_log("Error retrieving social media links for UserKey " . $userKey . ": " . $e->getMessage());
-            return []; // Return empty array on error
-        }
-        return $links;
+        
     }
 
  
@@ -383,34 +366,30 @@ class ProfileService{
      function DeleteUserProfile(
         int $userKey, // added userKey as parameter
     ): bool {
-
-        global $allServices;
-        $profileService = $allServices->GetProfileService();
-
         try {
             // delete profile photo
-            $profileService->DeleteUserProfilePicture($userKey);
+            $this->DeleteUserProfilePicture($userKey);
 
             // delete mile range preference
-            $profileService->DeleteUserMileRangePreference($userKey);
+            $this->DeleteUserMileRangePreference($userKey);
             
             // delete social media link
-            $profileService->DeleteUserSocialMediaLinkUrl($userKey);
+            $this->DeleteUserSocialMediaLinkUrl($userKey);
             
             // delete messages
-            $profileService->DeleteUserMessages($userKey);
+            $this->DeleteUserMessages($userKey);
             
             // delete chatrooms
-            $profileService->DeleteUserChatrooms($userKey);
+            $this->DeleteUserChatrooms($userKey);
 
             //delete interatcions
-            $profileService->DeleteUserInteractions($userKey);
+            $this->DeleteUserInteractions($userKey);
 
             //delete advenutres
-            $profileService->DeleteAdventures($userKey);
+            $this->DeleteAdventures($userKey);
 
             //delete user
-            $profileService->DeleteUser($userKey);
+            $this->DeleteUser($userKey);
 
             return true; // return true that the profile that was just deleted
         } catch (Exception $e) {
