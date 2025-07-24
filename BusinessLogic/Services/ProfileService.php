@@ -97,7 +97,12 @@ class ProfileService{
 
       public function GetSocialMediaLinks(int $userKey): array
     {
-        
+        $stmt = $this->da->ExecuteQuery("SELECT * FROM socialmedialink WHERE UserKey = " . $userKey, QueryType::SELECT);
+        $links = [];
+        while($row = $stmt->fetchAssociative()){
+            $links[] = $row["SocialMediaLinkUrl"];
+        }
+        return $links;
     }
 
  
