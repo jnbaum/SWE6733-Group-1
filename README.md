@@ -192,7 +192,8 @@ Sprint 2:
 [TDD - Improving Scalability with a Bulk Fetch Method](https://swe6673.atlassian.net/wiki/spaces/~71202075d9ce1091214feabcdc57c93adc3785/pages/50626561/TDD+Sprint+2+-+GetBulkAdventureDetailsArray)
 
 Sprint 3:
-[TDD- MessageServiceGetChatRoomKeyTest ](link here)
+
+[TDD- MessageServiceGetChatRoomKeyTest: Can be seen in ProfileServiceTest.php ]
 
 ---
 
