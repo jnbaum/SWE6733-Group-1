@@ -134,4 +134,61 @@ class ProfileServiceTest extends TestCase{
         $this->assertTrue($profileService->DeleteUserSocialMediaLinkUrl($userKey));
         
     }
+
+    public function testGetSocialMediaLinksReturnsAllLinksForUser()
+    {
+     $testUserKeySocialMedia = null;
+     $testUserKeyNoSocialMedia = null;
+
+
+        $da = new DataAccess();
+    $userService = new UserService($da);
+$profileService = new ProfileService($da);
+
+$usernameSocial = "social";  
+$usernameNoSocial = "nosocial"; 
+$password = "testpass";
+
+// --- Setup for testUserKeySocialMedia ---
+$testUserKeySocialMedia = $userService->CreateNewUser($usernameSocial, $password); 
+if ($testUserKeySocialMedia === null) {
+    $testUserKeySocialMedia = $userService->IsValidUser($usernameSocial, $password); 
+    $profileService->DeleteUserSocialMediaLinkUrl($testUserKeySocialMedia); 
+}
+
+// --- Setup for testUserKeyNoSocialMedia ---
+$testUserKeyNoSocialMedia = $userService->CreateNewUser($usernameNoSocial, $password); 
+if ($testUserKeyNoSocialMedia === null) {
+    $testUserKeyNoSocialMedia = $userService->IsValidUser($usernameNoSocial, $password); 
+    $profileService->DeleteUserSocialMediaLinkUrl($testUserKeyNoSocialMedia); 
+}
+        // Arrange
+        $userKey = $testUserKeySocialMedia;
+        $link1 = "https://instagram.com/johndoe";
+        $link2 = "https://twitter.com/johndoe";
+        $link3 = "https://facebook.com/johndoe";
+
+        // Add multiple links for the user using the existing AddSocialMediaLink method
+        $profileService->AddSocialMediaLink($userKey, $link1);
+        $profileService->AddSocialMediaLink($userKey, $link2);
+        $profileService->AddSocialMediaLink($userKey, $link3);
+
+        // This is the new method we are about to implement.
+        $actualLinks = $profileService->GetSocialMediaLinks($userKey);
+
+        // Assert
+        $this->assertIsArray($actualLinks, "Should return an array of social media links."); 
+        $this->assertCount(3, $actualLinks, "Should return all 3 added social media links.");
+        $this->assertContains($link1, $actualLinks, "The first link should be present."); 
+        $this->assertContains($link2, $actualLinks, "The second link should be present."); 
+        $this->assertContains($link3, $actualLinks, "The third link should be present."); 
+
+        if ($testUserKeySocialMedia !== null) {
+            $profileService->DeleteUserProfile($testUserKeySocialMedia); 
+        }
+        if ($testUserKeyNoSocialMedia !== null) {
+            $profileService->DeleteUserProfile($testUserKeyNoSocialMedia); 
+        }
+        // $this->assertEquals([$link1, $link2, $link3], $actualLinks);
+    }
 }
